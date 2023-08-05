@@ -39,7 +39,6 @@
 
         p {
             font-size: 16px;
-            letter-spacing: 1px; !important
         }
 
         .outer-container {
@@ -65,7 +64,7 @@
             <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
         </div>
         <div class="text-center">
-            <h3>NOTICE TO PROCEED</h3>
+            <h3>NOTICE TO AWARD</h3>
         </div>
 
         <div class="" style="margin-top: 5%;">

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('request_detail_id')->constrained()->cascadeOnDelete();
             $table->string('c_number')->nullable();
-            $table->string('obr_no');
-            $table->string('invoice_no');
+            $table->string('obr_no')->nullable();
+            $table->string('invoice_no')->nullable();
             $table->timestamps();
         });
     }

@@ -43,7 +43,6 @@
 
     p {
         font-size: 14px;
-        letter-spacing: 1px;!important
     }
 
     .outer-container {
@@ -74,7 +73,7 @@
             P.R No.: <i style="text-decoration: underline">{{ $rfq->requestDetail->pr_no }}</i>
         </p>
         <p style="text-align: end">
-            Date: <i style="text-decoration: underline">{{ $rfq->date }}</i> <br> <br>
+            Date: <i style="text-decoration: underline">{{ date('F j , Y', strtotime($rfq->date)) }}</i> <br> <br>
             Quotation No. <i style="text-decoration: underline">{{ $rfq->quotation_no }}</i>
         </p>
     </div>
@@ -141,9 +140,9 @@
                 @foreach ($rfq->requestDetail->purchaseRequest as $pr)
                 <tr>
                     <td style="font-size: 12px; border: 1px solid black; padding: 10px">{{ $loop->index + 1 }}</td>
-                    <td colspan="6" style="font-size: 12px; border: 1px solid black">- {{ $pr->item->description }}</td>
+                    <td colspan="6" style="font-size: 12px; border: 1px solid black">- {{ $pr->description }}</td>
                     <td style="font-size: 12px; border: 1px solid black">{{ $pr->quantity }}</td>
-                    <td style="font-size: 12px; border: 1px solid black">{{ $pr->item->itemType->type }}</td>
+                    <td style="font-size: 12px; border: 1px solid black">{{ $pr->item->unit->description }}</td>
                     <td colspan="2" style="font-size: 12px; border: 1px solid black"></td>
                     <td colspan="2" style="font-size: 12px; border: 1px solid black"></td>
                 </tr>

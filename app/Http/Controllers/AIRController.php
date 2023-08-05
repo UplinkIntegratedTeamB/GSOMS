@@ -35,7 +35,8 @@ class AIRController extends Controller
     }
 
     public function index() {
-        $airs = RequestDetail::with('acceptanceInspection')->where('procurement_mode_id', 2 )->get();
+
+        $airs = RequestDetail::with('acceptanceInspection')->where('procurement_mode_id', 2)->has('acceptanceInspection')->get();
 
         return view('reports.air.index', compact('airs'));
     }

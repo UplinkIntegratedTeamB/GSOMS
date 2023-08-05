@@ -27,6 +27,16 @@
         pointer-events: none;
     }
 
+    #example th:nth-child(2) {
+    min-width: 250px; /* Adjust this value to your desired width */
+}
+    #example th:nth-child(3) {
+    min-width: 100px; /* Adjust this value to your desired width */
+}
+    #example th:nth-child(4) {
+    min-width: 100px; /* Adjust this value to your desired width */
+}
+
 </style>
 
 <div class="container-fluid">
@@ -62,7 +72,7 @@
                             <select disabled name="division" id="division" class="select2 form-control">
                                 @if($request_detail->user->department->divisions->first())
                                 <option value="" selected disabled>Select Division</option>
-                                <option value="{{ $request_detail->division_id }}" {{ old('division_id', $request_detail?->division_id) == $request_detail?->division_id ? 'selected' : '' }} >{{ $request_detail->division?->name }}</option>
+                                <option value="{{ $request_detail->division_id }}" {{ old('division_id', $request_detail?->division_id) == $request_detail?->division_id ? 'selected' : '' }}>{{ $request_detail->division?->name }}</option>
                                 @else
                                 <option value="">No Division</option>
                                 @endif
@@ -74,7 +84,7 @@
                         <div class="form-group mt-2">
                             <label for="">Section</label>
                             <select disabled name="section" id="section" class="select2 form-control">
-                                <option value="{{ $request_detail?->section_id }}" {{ old('division_id', $request_detail?->section_id) == $request_detail?->section_id ? 'selected' : '' }} >{{ $request_detail->section?->name }}</option>
+                                <option value="{{ $request_detail?->section_id }}" {{ old('division_id', $request_detail?->section_id) == $request_detail?->section_id ? 'selected' : '' }}>{{ $request_detail->section?->name }}</option>
                             </select>
                             @error('section')
                             <div class="text-danger">{{ $message }}</div>
@@ -95,36 +105,6 @@
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-
-                        <div class="col mt-2">
-                            @staff
-                            <div class="form-group">
-                                <label for="">Procurement Mode</label>
-                                <select disabled name="procurement_mode_id" id="procurement" class="select2 form-control">
-                                    <option selected disabled>Select an Option</option>
-                                    @foreach ($procurementModes as $procurementMode)
-                                    <option value="{{ $procurementMode->id }}" {{ old('procurement_mode_id', $request_detail->procurement_mode_id) == $procurementMode->id ? 'selected' : '' }}>
-                                        {{ $procurementMode->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('procurement_mode_id')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            @endstaff
-                            @user
-                            <div class="form-group">
-                                <label for="">Procurement Mode</label>
-                                <select name="procurement_mode_id" disabled id="procurement" class="select2 form-control">
-                                    <option selected disabled>Select an Option</option>
-                                    @foreach ($procurementModes as $procurementMode)
-                                    <option value="{{ $procurementMode->id }}" {{ old('procurement_mode_id', $request_detail->procurement_mode_id) == $procurementMode->id ? 'selected' : '' }}>
-                                        {{ $procurementMode->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @enduser
-                        </div>
                     </div>
                     <div class="col">
                         <div class="row">
@@ -144,10 +124,10 @@
                             </div>
                         </div>
 
-                            <div  class="row form-group mt-2">
-                                <label for="">PPMP No.</label>
-                                <input type="number" class="col form-control mx-2" readonly id="ppmp_no" name="ppmp_no" placeholder="PPMP NO." value="{{ $request_detail->ppmp_no }}">
-                            </div>
+                        <div class="row form-group mt-2">
+                            <label for="">PPMP No.</label>
+                            <input type="number" class="col form-control mx-2" readonly id="ppmp_no" name="ppmp_no" placeholder="PPMP NO." value="{{ $request_detail->ppmp_no }}">
+                        </div>
 
                         <div class="row form-group mt-2" style=" margin-left: 0.2px; margin-right: 0.3px">
                             <label for="">Purpose</label>
@@ -155,29 +135,22 @@
                             @error('purpose')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
-                    </div>
-                            <div class="row form-group mt-2">
-                                <label for="">Region</label>
-                                <input type="text" class="col form-control mx-2" id="region" name="region" readonly placeholder="Region" value="{{ $request_detail->region }}">
-                                @error('region')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-
+                        </div>
                         <div class="row form-group mt-2">
-                            <label for="">Source of Funds</label>
-                            <input type="text" readonly class="col form-control mx-2" id="sof" name="sof" placeholder="Source of Funds" value="{{ $request_detail->sof }}">
-                            @error('sof')
+                            <label for="">Region</label>
+                            <input type="text" class="col form-control mx-2" id="region" name="region" readonly placeholder="Region" value="{{ $request_detail->region }}">
+                            @error('region')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+
 
                         <div class="row form-group mt-2">
                             <label for="">End User Office</label>
                             <select disabled name="euo" id="euo" class="select2 form-control">
                                 <option value="" selected disabled>Select End User Office</option>
                                 @foreach ($departments as $department)
-                                    <option value="{{ $department->id }}" {{ old('euo', $request_detail->euo) == $department->id ? 'selected' : ''  }} >{{ $department->name }}</option>
+                                <option value="{{ $department->id }}" {{ old('euo', $request_detail->euo) == $department->id ? 'selected' : ''  }}>{{ $department->name }}</option>
                                 @endforeach
                             </select>
                             @error('euo')
@@ -189,9 +162,9 @@
 
                 </div>
 
-                <div class="container p-2 mt-5">
+                <div class="table-responsive p-2 mt-5">
                     <table id="example" class="table table-bordered">
-                        <thead class="">
+                        <thead>
                             <tr class="text-center">
                                 <th>Item No.</th>
                                 <th>Item Description</th>
@@ -201,19 +174,18 @@
                                 <th>Estimated Cost</th>
                             </tr>
                         </thead>
-                        <tbody class=" tableBody">
                             @php
                             $totalEstimatedCost = 0;
                             @endphp
+                        <tbody class=" tableBody">
                             @foreach ($request_detail->purchaseRequest as $purchaseRequest)
                             <tr class="text-center">
                                 <td><input type="text" class="border-0 bg-transparent form-control" name='items[{{ $loop->index }}][item_id]' id="item_id" readonly value="{{ $purchaseRequest->item_id }}"></td>
-                                <td><input type="text" class="border-0 bg-transparent form-control" name="" readonly value="{{ $purchaseRequest->item->description }}"></td>
-                                <td><input type="text" class="border-0 bg-transparent form-control" name="" readonly value="{{ $purchaseRequest->item->itemType->type }}"></td>
-                                <td><input type="number" class="border-0 bg-transparent form-control quantity-input" readonly data-unit-price="{{ $purchaseRequest->item->unit_price }}" name='items[{{ $loop->index }}][quantity]' value="{{ $purchaseRequest->quantity }}"></td>
-                                {{ $unit_price = $purchaseRequest->item->unit_price }}
-                                <td><input type="text" class="border-0 bg-transparent form-control" name="" readonly value="{{ number_format($unit_price, 2) }}"></td>
-                                <td><input type="text" class="border-0 bg-transparent form-control estimated-cost-input" name="items[{{ $loop->index }}][estimated_cost]" readonly value="{{ number_format($purchaseRequest->estimated_cost, 2) }}"></td>
+                                <td><input type="text" class="border-0 bg-transparent form-control" name="" readonly value="{{ $purchaseRequest->description }}"></td>
+                                <td><input type="text" class="border-0 bg-transparent form-control" name="" readonly value="{{ $purchaseRequest->item->unit->description }}"></td>
+                                <td><input type="number" class="border-0 bg-transparent form-control quantity-input" readonly value="{{ $purchaseRequest->quantity }}"></td>
+                                <td><input type="text" class="border-0 bg-transparent form-control" name="" readonly value="{{ number_format($purchaseRequest->unit_price, 2) }}"></td>
+                            <td><input type="text" class="border-0 bg-transparent form-control estimated-cost-input" readonly value="{{ number_format($purchaseRequest->estimated_cost, 2) }}"></td>
                             </tr>
                             @php
                             $totalEstimatedCost += $purchaseRequest->estimated_cost;
@@ -224,7 +196,7 @@
                                     <label class="mt-2">Grand Total:</label>
                                 </td>
                                 <td>
-                                    <input type="text" readonly id="grandTotal" name="grand_total" class="form-control border-0 bg-transparent fw-bold text-danger" value="{{ number_format($totalEstimatedCost, 2) }}">
+                                    <input type="text" readonly id="grandTotal" name="grand_total" class="form-control border-0 bg-transparent fw-bold text-danger" value="{{ number_format($request_detail->grand_total, 2) }}">
                                 </td>
                                 <td></td>
                                 <td></td>
@@ -241,82 +213,37 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content" style="">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-striped" id="dataTables">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Item No</th>
-                            <th>Item Description</th>
-                            <th>Unit Type</th>
-                            <th>Unit Price</th>
-                            <th>Inflation Rate</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($inventories as $inventory)
-                        <tr class="text-center inventory_item" data-id="{{ $inventory->id }}">
-                            <td><input type="checkbox" class="clickable"></td>
-                            <td>{{ $inventory->id }}</td>
-                            <td>{{ $inventory->description }}</td>
-                            <td>{{ $inventory->itemType->type }}</td>
-                            <td>{{ $inventory->unit_price }}</td>
-                            <td>0</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Done</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <script>
+    $('#division').trigger('change'); // trigger change on page load to populate sections based on default division
 
-$('#division').trigger('change'); // trigger change on page load to populate sections based on default division
+    $('#section').prop('disabled', true); // disable section select by default
 
-$('#section').prop('disabled', true); // disable section select by default
+    $('#division').on('change', function() {
+        const divisionId = $(this).val();
 
-$('#division').on('change', function() {
-    const divisionId = $(this).val();
+        $('#section').empty().prop('disabled', true);
 
-    $('#section').empty().prop('disabled', true);
-
-    if (divisionId) {
-        $.get('/divisions/' + divisionId + '/sections', function(data) {
-            if (data.length) {
-                $('#section').append('<option value="" selected disabled>Select Section</option>');
-                $.each(data, function(index, section) {
-                    $('#section').append('<option value="' + section.id + '">' + section.name + '</option>');
-                });
-                $('#section').prop('disabled', false); // enable section select if division has sections
-            } else {
-                $('#section').append('<option selected disabled>No Section</option>');
-            }
-        })
-    } else {
-        $('#section').append('<option value="" selected disabled>Select Division first</option>');
-    }
-});
+        if (divisionId) {
+            $.get('/divisions/' + divisionId + '/sections', function(data) {
+                if (data.length) {
+                    $('#section').append('<option value="" selected disabled>Select Section</option>');
+                    $.each(data, function(index, section) {
+                        $('#section').append('<option value="' + section.id + '">' + section.name + '</option>');
+                    });
+                    $('#section').prop('disabled', false); // enable section select if division has sections
+                } else {
+                    $('#section').append('<option selected disabled>No Section</option>');
+                }
+            })
+        } else {
+            $('#section').append('<option value="" selected disabled>Select Division first</option>');
+        }
+    });
 
     $(document).ready(function() {
         const baseUrl = '{{ url('') }}';
-        $('#example').DataTable({
-            // processing: true,
-            scrollX: true
-        , });
-        $('#dataTables').DataTable();
+        $('#example').DataTable();
     })
 
 </script>

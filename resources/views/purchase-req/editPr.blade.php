@@ -29,6 +29,11 @@
         opacity: 0.5;
     }
 
+    #selected_tr {
+        background: gray;
+        opacity: 0.5;
+    }
+
     textarea.is-invalid {
         border-color: red !important;
     }
@@ -53,14 +58,14 @@
         </div>
         <div class="card-body">
 
-            <form action="{{ route('purchase-request.store') }}" method="POST" id="formPr">
+            <form action="{{ route('purchase-request.update', $id) }}" method="POST" id="formPr">
                 @csrf
                 <div class="row ">
                     <div class="col">
                         <div class="form-group">
                             <label for="">Department</label>
-                            <input type="text" class="col form-control  " id="department" name="" placeholder="Department" readonly value="{{ $department->name }}">
-                            <input type="text" class="col form-control  " id="department" name="department_id" placeholder="Department" hidden value="{{ $department->id }}">
+                            <input type="text" class="col form-control  " id="department" name="" placeholder="Department" readonly value="{{ $requestDetail->department->name }}">
+                            <input type="text" class="col form-control  " id="department" hidden name="department_id" placeholder="Department" readonly value="{{ $requestDetail->department->id }}">
                             @error('department')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -70,7 +75,7 @@
                             <label for="">Division</label>
                             <select name="division_id" id="division" class="select2 form-control">
                                 @if($divisions->first() != null)
-                                <option value="">Select Division</option>
+                                <option value="" disabled>Select Division</option>
                                 @foreach ($divisions as $division)
                                 <option value="{{ $division->id }}" {{ old('division_id') == $division->id ? 'selected' : '' }}>
                                     {{ $division->name }}
@@ -97,7 +102,7 @@
 
                         <div class="form-group mt-2">
                             <label for="">Requested By</label>
-                            <input type="text" class="col form-control" id="req_by" name="requested_by" value="{{ auth()->user()->name }}" readonly placeholder="Requested By">
+                            <input type="text" class="col form-control" id="req_by" name="requested_by" value="{{ $requestDetail->requested_by }}" readonly placeholder="Requested By">
                             @error('requested_by')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -105,34 +110,27 @@
 
                         <div class="form-group mt-2">
                             <label for="">Evaluate By</label>
-                            <input type="text" class="col form-control" id="eva_by" name="evaluated_by" placeholder="Evaluated By" readonly value="{{ $headstaff->name }}">
+                            <input type="text" class="col form-control" id="eva_by" name="evaluated_by" placeholder="Evaluated By" readonly value="{{ $requestDetail->evaluated_by }}">
                             @error('evaluated_by')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <input type="number" hidden class="form-control" name="procurement_mode_id" id="procurement_value">
-                        @user
                         <div hidden class=" form-group mt-2">
                             <label for="">Procurement Mode</label>
                             <select name="" disabled id="procurement_user" class="select2 form-control" readonly>
                                 <option disabled selected>Select Procurement Mode</option>
-                                @foreach ($proc_modes as $modes)
-                                <option value="{{ $modes->id }}">{{ $modes->name }}
-                                </option>
-                                @endforeach
                             </select>
+                            <input type="number" hidden class="form-control" name="procurement_mode_id" id="procurement_value">
                             @error('procurement_mode_id')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        @enduser
-
                     </div>
                     <div class="col">
                         <div class="row">
                             <div class="col form-group">
                                 <label for="">PR No.</label>
-                                <input type="text" class="form-control" id="pr_no" name="" value="{{ $date }}" readonly>
+                                <input type="text" class="form-control" id="pr_no" name="" value="{{ $requestDetail->pr_no }}" readonly>
                                 @error('pr_no')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -158,7 +156,7 @@
 
                         <div class="row form-group mt-2" style="margin-left: 0.2px; margin-right: 0.3px">
                             <label for="purpose">Purpose <span for="" class="text-danger">*</span></label>
-                            <textarea name="purpose" class="pl-3 form-control @error('purpose') is-invalid @enderror" id="purpose" rows="1" style="width: 100%;" placeholder="Purpose" required>{{ old('purpose') }}</textarea>
+                            <textarea name="purpose" class="pl-3 form-control @error('purpose') is-invalid @enderror" id="purpose" rows="1" style="width: 100%;" placeholder="Purpose" required>{{ $requestDetail->purpose }}</textarea>
                             @error('purpose')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -186,7 +184,7 @@
                             <select name="euo" id="euo" class="select2 form-control">
                                 <option value="" selected disabled>Select End User Office</option>
                                 @foreach ($departments as $department)
-                                <option value="{{ $department->id }}" {{ old('euo') == $department->id || (auth()->user()->department_id == $department->id && old('euo') === null) ? 'selected' : '' }}>
+                                <option value="{{ $department->id }}" {{ old('euo', $requestDetail->department->id) == $department->id ? 'selected' : '' }}>
                                     {{ $department->name }}
                                 </option>
                                 @endforeach
@@ -205,27 +203,43 @@
 
                 </div>
 
-                <div class="container-fluid mt-5">
+                <div class="container-fluid p-2 mt-5 table-responsive">
                     <div class="table-responsive">
-                        <table id="example" class="table table-bordered ">
+                        <table id="example" class="table table-bordered">
                             <thead class="">
                                 <tr class="text-center">
                                     <th>Item No.</th>
                                     <th>Item Description</th>
-                                    <th>Unit Type</th>
-                                    <th>Item Quantity</th>
+                                    <th style="width: 100px">Unit Type</th>
+                                    <th style="width: 150px">Quantity</th>
                                     <th>Estimated Unit Cost</th>
                                     <th>Estimated Cost</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center tableBody">
+                                @foreach ($requestDetail->purchaseRequest as $request)
+                                <tr>
+                                    <td><input type="text" class="form-control bg-transparent border-0" readonly value="{{ $request->item->id }}" name="items[{{ $loop->index }}][item_id]"></td>
+                                    <td><input type="text" class="form-control" value="{{ $request->description }}" name="items[{{ $loop->index }}][description]"></td>
+                                    <td>{{ $request->item->itemType->type }}</td>
+                                    <td><input type="text" value="{{ $request->quantity }}" name="items[{{ $loop->index }}][quantity]" class="form-control quantity-input"></td>
+                                    <td style="text-align: end"><input type="text" value="{{ number_format($request->unit_price, 2) }}" readonly name="items[{{ $loop->index }}][unit_price]" class="form-control border-0 bg-transparent unit-price-input"></td>
+                                    <td style="text-align: end"><input type="text" name="items[{{ $loop->index }}][estimated_cost]" value="{{ number_format($request->estimated_cost, 2) }}" class="form-control estimated-cost-input"></td>
+                                    <td>
+                                        <a href="{{ route('purchaseRequest.remove', ['id' => $request->id, 'grand' => $id ]) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            <tbody style="">
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>Grand Total:</td>
-                                    <td><input type="text" class="border-0" readonly id="grandTotal" style="outline: 0" name="grand_total" value=""></td>
+                                    <td style="text-align: end">Grand Total:</td>
+                                    <td><input type="text" class="border-0" readonly id="grandTotal" style="outline: 0; text-align: end;" name="grand_total" value="{{ number_format($requestDetail->grand_total, 2) }}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -245,27 +259,18 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content" style="">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Inventory List</h1>
+                <h1 class="modal-title- fs-5" id="staticBackdropLabel">Inventory List</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalBody">
-                <div class="form-group" id="unitTypeVal">
-                    <label for="">Unit Type</label>
-                    <select name="" id="unitType" class="form-control select2">
-                        <option value="" selected disabled>Select Unit Type</option>
-                        @foreach ($unitType as $type)
-                        <option value="{{ $type->type }}">{{ $type->type }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="container-fluid mt-5" id="inventoryTable" hidden>
-                    <table class="data-table table table-bordered" style="width: 100%">
+                <div class="container-fluid" id="inventoryTable">
+                    <table id="category-table" class="data-table table table-bordered table-responsive" style="width: 100%">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th></th>
                                 <th>
-                                    <select hidden name="category" id="category_id" class="filter select2 form-control">
+                                    <select name="category" id="category_id" class="filter select2 form-control">
                                         <option value="" selected>Category</option>
                                         @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -274,7 +279,9 @@
                                 </th>
                                 <th></th>
                                 <th>
-                                    <input type="text" hidden class="form-control " id="unit">
+                                    @foreach ($requestDetail->purchaseRequest as $request->first)
+                                    <input type="text" hidden class="form-control " value="{{ $request->item->itemType->type }}" id="unit">
+                                    @endforeach
                                 </th>
                                 <th></th>
                             </tr>
@@ -317,7 +324,6 @@
         });
     }
 
-
     $('#division').trigger('change'); // trigger change on page load to populate sections based on default division
 
     $('#section').prop('disabled', true); // disable section select by default
@@ -326,7 +332,7 @@
         const divisionId = $(this).val();
 
         $('#section').empty().prop('disabled', true);
-
+        console.log(divisionId);
         if (divisionId) {
             $.get('/divisions/' + divisionId + '/sections', function(data) {
                 if (data.length) {
@@ -345,24 +351,62 @@
     });
 
 
-
     let selectedRows = [];
-    $(document).ready(function() {
-        $('#unitType').change(function() {
-            const unitType = $(this).val();
-            $('#unit').val(unitType); // Update the value of #unit
-            const unitVal = $('#unit').val();
-            if (unitVal != '') {
-                $('#inventoryTable').removeAttr('hidden')
-            } else {
-                $('#inventoryTable').attr('hidden', true);
-                // $('#unitType').removeAttr('hidden');
+    let disabledRows = [];
+    let gtotal = parseFloat({{ $requestDetail->grand_total }});
+    let reqId = {{ $id }}
+    $.ajax({
+        url: '/purchase-request/json/' + reqId, // Replace with your actual controller URL and ID
+        type: 'GET'
+        , dataType: 'json'
+        , success: function(response) {
+            // Assuming the response contains a "data" property with an array of objects
+            if (response.hasOwnProperty('data')) {
+                disabledRows = response.data.map(item => item.item_id);
+                console.log('disabledRows:', disabledRows);
             }
+        }
+        , error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+
+    $(document).ready(function() {
+
+        $('#example').on('input', '.quantity-input', function() {
+        calculateEstimatedCost($(this));
         });
 
-        $('#unitType').select2({
-            dropdownParent: $("#staticBackdrop")
-        });
+        function calculateEstimatedCost(quantityInput) {
+            const row = quantityInput.closest('tr');
+            const quantity = parseFloat(row.find('.quantity-input').val());
+            const unitPriceInput = row.find('.unit-price-input');  // Added this line
+            const unitPrice = parseFloat(unitPriceInput.val().replace(/[^0-9.-]/g, ''));
+            const estimatedCost = (quantity * unitPrice).toFixed(2);
+
+            row.find('.estimated-cost-input').val(estimatedCost);
+
+            let grandTotal = 0;
+            $('.estimated-cost-input').each(function() {
+                const cost = parseFloat($(this).val().replace(/[^0-9.-]/g, ''));
+                if (!isNaN(cost)) {
+                    grandTotal += cost;
+                }
+            });
+
+            const procurement = $('#procurement_value');
+            if (grandTotal > 200000.00) {
+                procurement.val(1);
+            } else {
+                procurement.val(2);
+            }
+
+            // Update the grand_total input field with the new value
+            $('#grandTotal').val(grandTotal.toFixed(2));
+        }
+
+        const tableX = $('#example').DataTable();
+
 
         const tableY = $('.data-table').DataTable({
             processing: true
@@ -376,9 +420,11 @@
 
             drawCallback: function(settings) {
                 applySelectedRowClass();
+                applySelectRowDisable();
 
                 $('.inventory_item').click(function(e) {
                     const checkbox = $(this).find('.clickable');
+                    const baseUrl = '{{ url('') }}';
                     const rowDataId = $(this).data('id');
                     $(this).toggleClass('selected_tr');
                     checkbox.prop('checked', !checkbox.prop('checked'));
@@ -388,14 +434,16 @@
                         // Remove the row from the table
                         $('#example tbody tr.appended-row[data-id="' + rowDataId + '"]').remove();
                         $(this).removeClass('selected_row');
+                        // console.log('removed ' + rowDataId);
 
                         const index = selectedRows.indexOf(rowDataId);
                         if (index !== -1) {
                             selectedRows.splice(index, 1);
                         }
+                        console.log(selectedRows);
                     } else {
                         $.ajax({
-                            url: 'item/' + rowDataId
+                            url: baseUrl + '/item/' + rowDataId
                             , success: function(response) {
 
                                 if (!selectedRows.includes(rowDataId)) {
@@ -403,19 +451,18 @@
                                 }
 
                                 function updateTotalPrice() {
-                                    let quantityInput = $(this); // Store the reference to the input element
+                                    let quantityInput = $(this);
                                     let quantity = quantityInput.val();
-
+                                    console.log(quantityInput);
                                     let unitPrice = response.unit_price;
                                     let totalCost = (quantity * unitPrice).toFixed(2);
-
-                                    // Adjust the selector to target the specific row
+                                    console.log(unitPrice);
                                     quantityInput.closest('tr.appended-row').find(`input[name="items[${tableLength}][estimated_cost]"]`).val(totalCost);
                                     updateGrandTotal();
                                 }
 
                                 function updateGrandTotal() {
-                                    let totalCost = 0;
+                                    let totalCost = gtotal;
                                     $('#example tbody tr.appended-row').each(function() {
                                         let estimatedCost = parseFloat($(this).find('input[name*=estimated_cost]').val()) || 0;
                                         totalCost += estimatedCost;
@@ -445,20 +492,15 @@
 
                                 $(document).on('input', 'input[name*=quantity]', updateTotalPrice);
 
-                                var newRowHtml = `
-                                    <tr class="appended-row" data-id="${response.id}">
-                                        <td><input class='form-control bg-transparent border-0' readonly value='${response.id}' name='items[${tableLength}][item_id]' /></td>
-                                        <td><input class='form-control' value="${response.description}" name='items[${tableLength}][description]'  /></td>
-                                        <td><label>${response.unit.description}</label></td>
-                                        <td><input class='form-control bg-transparent' type='number'  value='' id='qty' value="{{ old('quantity') }}" required placeholder="Quantity" name='items[${tableLength}][quantity]' min="1" /></td>
-                                        @staff
-                                        <td><input class='form-control bg-transparent border-0' value='${response.unit_price}' readonly id='unit_price' name='items[${tableLength}][unit_price]' /></td>
-                                        @endstaff
-                                        @user
-                                        <td><input class='form-control bg-transparent border-0' value='${response.unit_price}' id='unit_price' readonly name='items[${tableLength}][unit_price]' /></td>
-                                        @enduser
-                                        <td><input class='form-control bg-transparent border-0' id="estimatedCost" readonly value='' name='items[${tableLength}][estimated_cost]' /></td>
-                                    </tr>`;
+                                const newRowHtml = `
+                            <tr class="appended-row" data-id="${response.id}">
+                                <td><input class='form-control bg-transparent border-0' readonly value='${response.id}' name='items[${tableLength}][item_id]' /></td>
+                                <td><input class="form-control" value="${response.description}" name="items[${tableLength}][description]" /></td>
+                                <td><label>${response.unit.description}</label></td>
+                                <td><input class='form-control bg-transparent' type='number' id='qty' value="{{ old('quantity') }}" required placeholder="Quantity" name='items[${tableLength}][quantity]' /></td>
+                                <td><input class='form-control bg-transparent border-0' value='${response.unit_price}' readonly id='unit_price' style="text-align: end" name='items[${tableLength}][unit_price]' readonly /></td>
+                                <td><input class='form-control bg-transparent border-0' id="estimatedCost" readonly value='' readonly style="text-align: end" name='items[${tableLength}][estimated_cost]' /></td>
+                            </tr>`;
 
                                 // Append the new row at the top of the table
                                 $('.tableBody').prepend(newRowHtml);
@@ -466,7 +508,6 @@
                                 updateGrandTotal();
                                 toggleSubmitButton();
                                 console.log(selectedRows);
-                                // selectedRows = [];
 
                                 $('input[name*=quantity]').val($('input[name*=quantity]').val().replace(/[^0-9]/g, ''));
                             }
@@ -477,10 +518,9 @@
             , ajax: {
                 url: "{{ route('inventory.index') }}"
                 , data: function(d) {
-                    d.category_id = $('#category_id').val();
-                    d.search = $('input[aria-controls="DataTables_Table_0"]:first').val();
-                    d.unit = $('#unit').val();
-                    console.log(d.search);
+                    d.category_id = $('#category_id').val()
+                        , d.search = $('input[aria-controls="DataTables_Table_0"]:first').val()
+                        , d.unit = $('#unit').val();
                 }
             }
             , columns: [{
@@ -499,11 +539,6 @@
                 , {
                     data: 'description'
                     , name: 'description'
-                    , render: function(data, type, row) {
-                        // Limit description to 5 words
-                        var words = data.split(' ').slice(0, 3).join(' ');
-                        return words + (data.split(' ').length > 3 ? '...' : '');
-                    }
                 }
                 , {
                     data: 'item_type_id'
@@ -521,17 +556,8 @@
             , ]
         });
         $('#category_id').change(function() {
+            console.log('d.category_id');
             tableY.draw();
-        });
-        $('#unitType').change(function() {
-            tableY.draw();
-        })
-        const table = $('#example').DataTable({
-            pageLength: 50
-            , columnDefs: [{
-                orderable: false
-                , targets: [0, 1, 2, 3, 4, 5]
-            , }]
         });
 
         function applySelectedRowClass() {
@@ -539,11 +565,17 @@
                 const selectedElement = $(`.inventory_item[data-id="${value}"]`);
                 if (!selectedElement.hasClass('selected_tr')) {
                     selectedElement.addClass('selected_tr');
-                    $('#modalBody #unitType').attr('hidden', true);
                 }
             })
         }
-        $('#modalBody #unitType').attr('hidden', false);
+
+        function applySelectRowDisable() {
+            disabledRows.forEach(function(value) {
+                const selectedElement = $(`.inventory_item[data-id="${value}"]`);
+                selectedElement.removeClass('inventory_item')
+                selectedElement.attr('id', 'selected_tr')
+            })
+        }
         $('.select2-container--default').removeAttr("style");
     });
 

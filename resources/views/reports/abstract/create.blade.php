@@ -82,7 +82,7 @@
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $request->item->id }}</td>
-                        <td>{{ Str::words($request->item->description, 5, ' ...') }}</td>
+                        <td>{{ Str::words($request->description, 5, ' ...') }}</td>
                         <td>{{ $request->quantity }}</td>
                         <td>{{ $request->unit_price }}</td>
                         <td>{{ $request->estimated_cost }}</td>
@@ -125,8 +125,7 @@
                                     @foreach ($requests->purchaseRequest as $request)
                                     <tr>
                                         <td>
-                                            {{-- <input type="text" class="form-control" readonly value=""> --}}
-                                            {{ Str::words($request->item->description, 5, ' ...') }}
+                                            <input type="text" readonly class="form-control bg-transparent border-0" value="{{ Str::words($request->description, 5, ' ...') }}" name="inventory[{{ $loop->index }}][description]">
                                             <input type="hidden" name="inventory[{{ $loop->index }}][item_id]" value="{{ $request->item->id }}">
                                         </td>
                                         <td>
@@ -139,7 +138,7 @@
                                             @enderror
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control totalAmt" name="inventory[{{ $loop->index }}][total_amt]" value="" id="totalAmt{{ $loop->index }}">
+                                            <input type="text" class="form-control totalAmt" name="inventory[{{ $loop->index }}][total_amt]" value="" readonly id="totalAmt{{ $loop->index }}">
                                         </td>
                                     </tr>
                                     @endforeach

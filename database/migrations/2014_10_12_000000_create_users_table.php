@@ -43,13 +43,23 @@ return new class extends Migration
             ['name' => 'Susana A. Saulon', 'email' => 'ssaulon@gmail.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'department_id' => 7],
             ['name' => 'Eileen S. Talabis', 'email' => 'stalabis@gmail.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'department_id' => 9],
             ['name' => 'Caridad P. Lorenzo', 'email' => 'clorenzo@gmail.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'department_id' => 5],
-            ['name' => 'BMO', 'email' => 'bmo@gmail.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'department_id' => null],
         ];
         $role = Role::findByName('user');
 
         foreach($users as $userData) {
             $user = User::create($userData);
             $user->assignRole($role);
+        }
+
+        $bmos = [
+            ['name' => 'BMO', 'email' => 'bmo@gmail.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'department_id' => null],
+        ];
+
+        $roleBmo = Role::findByName('bmo');
+
+        foreach($bmos as $bmoUser) {
+            $bmo = User::create($bmoUser);
+            $bmo->assignRole($roleBmo);
         }
 
     }

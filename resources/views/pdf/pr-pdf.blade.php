@@ -12,7 +12,6 @@
 
 * {
     font-family: 'Poppins', sans-serif;
-    letter-spacing: 4px;
 }
 
 .text-center {
@@ -94,9 +93,9 @@ table th, table td {
             <tr style="text-align: center">
                 <td style="border: 1px solid black;">{{ $loop->index + 1 }}</td>
                 <td style="border: 1px solid black;">{{ $purchaseRequest->quantity }}</td>
-                <td style="border: 1px solid black;">{{ $purchaseRequest->item->itemType->type }}</td>
-                <td style="border: 1px solid black;" colspan="8"> {{ $purchaseRequest->item->description  }} </td>
-                <td style="border: 1px solid black;" colspan="1">{{ number_format($purchaseRequest->item->unit_price, 2) }}</td>
+                <td style="border: 1px solid black;">{{ $purchaseRequest->item->unit->description }}</td>
+                <td style="border: 1px solid black;" colspan="8"> {{ $purchaseRequest->description  }} </td>
+                <td style="border: 1px solid black;" colspan="1">{{ number_format($purchaseRequest->unit_price, 2) }}</td>
                 <td style="border: 1px solid black;">{{ number_format($purchaseRequest->estimated_cost, 2) }}</td>
             </tr>
             @endforeach

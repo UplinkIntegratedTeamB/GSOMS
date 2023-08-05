@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BiddingAIRController;
 use App\Http\Controllers\BiddingRISController;
+use App\Http\Controllers\ItemTypeController;
 use App\Models\Section;
 use App\Models\BiddingAbstract;
 use Illuminate\Support\Facades\Route;
@@ -63,9 +64,11 @@ Route::middleware('auth')->group(function () {
     Route::get('purchase-request/json/{id}', [PurchaseRequestController::class, 'pr'])->name('purchaseRequest.pr');
     Route::get('purchase-request/view/{id}', [PurchaseRequestController::class, 'preview'])->name('purchaseRequest.preview');
     Route::get('purchase-request/edit/{id}', [PurchaseRequestController::class, 'edit']);
+    Route::get('purchase-request/editPr/{id}', [PurchaseRequestController::class, 'editPr'])->name('purchaseRequest.editPr');
     Route::get('purchase-request/remove/{id}', [PurchaseRequestController::class, 'removePr'])->name('purchaseRequest.removePr');
     Route::get('purchase-request/delete/{id}/{grand}', [PurchaseRequestController::class, 'removeItem'])->name('purchaseRequest.remove');
     Route::get('purchase-request/completedPr', [PurchaseRequestController::class, 'completedPr'])->name('purchaseRequest.completedPr');
+    Route::get('purchase-request/completedPrUser', [PurchaseRequestController::class, 'completedPrUser'])->name('purchaseRequest.completedPrUser');
     Route::post('purchase-request/update/{id}', [PurchaseRequestController::class, 'update'])->name('purchase-request.update');
     Route::resource('purchase-request', PurchaseRequestController::class)
         ->only('index', 'show', 'store');
@@ -246,6 +249,10 @@ Route::middleware('auth')->group(function () {
         Route::get('purchase-request/approve/{id}/{uid}', [PurchaseRequestController::class, 'approve'])->name('purchaseRequest.approve');
         Route::get('purchase-request/{id}/complete', [PurchaseRequestController::class, 'complete'])->name('purchaseRequest.complete');
 
+        // ItemType
+        Route::post('itemType/update/{id}', [ItemTypeController::class, 'update'])->name('itemType.update');
+        Route::get('itemType/destroy/{id}', [ItemTypeController::class, 'destroy'])->name('itemType.destroy');
+        Route::resource('itemType', ItemTypeController::class)->except('show', 'destroy', 'update');
 
     });
 
@@ -276,8 +283,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/pdf/eligibility/{id}', [PdfController::class, 'downloadEligibility'])->name('pdf.eligibility');
     Route::get('/pdf/noa/{id}', [PdfController::class, 'downloadNoa'])->name('pdf.noa');
     Route::get('/pdf/quoted', [PdfController::class, 'downloadQuoted'])->name('pdf.quoted');
-    Route::get('/pdf/nopq', [PdfController::class, 'downloadNopq'])->name('pdf.nopq');
-    Route::get('/pdf/pqer', [PdfController::class, 'downloadPqer'])->name('pdf.pqer');
+    // Route::get('/pdf/npq', [PdfController::class, 'downloadNpq'])->name('pdf.npq');
+    Route::get('/pdf/nopq/{id}', [PdfController::class, 'downloadNopq'])->name('pdf.nopq');
+    Route::get('/pdf/pqer/{id}', [PdfController::class, 'downloadPqer'])->name('pdf.pqer');
     Route::get('/pdf/po-bidding/{id}', [PdfController::class, 'downloadbiddingPo'])->name('pdf.biddingPo');
     Route::get('/pdf/air-bidding/{id}', [PdfController::class, 'downloadbiddingAir'])->name('pdf.biddingAir');
     Route::get('/pdf/ris-bidding/{id}', [PdfController::class, 'downloadbiddingRis'])->name('pdf.biddingRis');

@@ -38,8 +38,6 @@
 
         p {
             font-size: 14px;
-            letter-spacing: 1px;
-             !important
         }
 
         .outer-container {
@@ -114,7 +112,7 @@
                     <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Place of Delivery: </td>
                     <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $pos->requestDetail->endUserOffice->name }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Delivery Term:</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"> 
+                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">
                         @if($pos->delivery_term == 1 )
                             Pick-up
                         @elseif($pos->delivery_term == 2)
@@ -126,7 +124,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Date of Delivery: </td>
-                    <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $pos->delivery_date }}</td>
+                    <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Payment Term:</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"> {{ $pos->payment_term }} </td>
                 </tr>
@@ -144,8 +142,8 @@
                 <tr>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->id }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->quantity }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->itemType->type }}</td>
-                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->description }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->unit->description }}</td>
+                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->description }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ number_format($po->unit_price, 2) }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ number_format($po->estimated_cost, 2) }}</td>
                 </tr>
@@ -177,7 +175,7 @@
             </div>
             <div class="outer-container" style="margin-top: 5%">
                 <p class="text-center">
-                    <label for="" style="font-weight: 600">Jen Mar Office Supplies Trading</label> <br>
+                    <label for="" style="font-weight: 600">{{ $pos->requestDetail->abstractCanvass->winners->name }}</label> <br>
                     (Signature over printed name)
                 </p>
                 <p class="text-center">

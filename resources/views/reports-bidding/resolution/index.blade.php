@@ -17,23 +17,33 @@
                 </thead>
                 <tbody>
                     @foreach ($resolutions as $resolution)
-                        <tr>
-                            <td>{{ $resolution->c_number }}</td>
-                            <td>{{ $resolution->requestDetail->pr_no }}</td>
-                            <td>{{ $resolution->apprv_date }}</td>
-                            <td>
-                                <a href="{{ route('pdf.resolution', $resolution->id) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
-                                <a href="{{ route('resolution-bid.edit', $resolution->id) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                                <a href="{{ route('resolution-bid.delete', $resolution->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $resolution->c_number }}</td>
+                        <td>{{ $resolution->requestDetail->pr_no }}</td>
+                        <td>{{ $resolution->apprv_date }}</td>
+                        <td>
+                            <a href="{{ route('pdf.resolution', $resolution->id) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
+                            @if($resolution->requestDetail->status == 9)
+                            <a href="{{ route('resolution-bid.edit', $resolution->id) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                            <a href="{{ route('resolution-bid.delete', $resolution->id) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            @else
+                            <a href="" class="btn btn-info disabled" onclick="return false"><i class="fas fa-edit"></i></a>
+                            <a href="" class="btn btn-secondary disabled" onclick="return false"><i class="fas fa-trash"></i></a>
+                            @endif
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
     <script>
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable({
+            "order": [
+                [0, "desc"]
+            ]
+        });
+
     </script>
 </div>
 

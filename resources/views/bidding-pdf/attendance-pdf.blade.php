@@ -37,7 +37,6 @@
 
     p {
         font-size: 14px;
-        letter-spacing: 1px;
 
     }
 

@@ -38,8 +38,6 @@
 
         p {
             font-size: 16px;
-            letter-spacing: 1px;
-             !important
         }
 
         .outer-container {
@@ -97,10 +95,10 @@
                 @foreach ($ics->requestDetail->purchaseRequest as $request)
                     <tr>
                         <td style="border: 1px solid black; font-size: 12px; padding: 10px;" >{{ $request->quantity }}</td>
-                        <td style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $request->item->itemType->type }}</td>
+                        <td style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $request->item->unit->description }}</td>
                         <td style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $request->unit_price }}</td>
                         <td style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $request->estimated_cost }}</td>
-                        <td style="border: 1px solid black; font-size: 12px; padding: 10px;" colspan="2">{{ $request->item->description }}</td>
+                        <td style="border: 1px solid black; font-size: 12px; padding: 10px;" colspan="2">{{ $request->description }}</td>
                         <td style="border: 1px solid black; font-size: 12px; padding: 10px;" colspan="2">{{ $request->item->id }}</td>
                         <td style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $ics->usefel_life }}</td>
                     </tr>

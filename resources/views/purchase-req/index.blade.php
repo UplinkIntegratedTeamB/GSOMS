@@ -15,7 +15,7 @@
                             <td>Department</td>
                             <td>Division</td>
                             <td>Section</td>
-                            <td>Date</td>
+                            <td>Mode</td>
                             <td>Status</td>
                             <td>Actions</td>
                         </tr>
@@ -27,7 +27,13 @@
                             <td>{{ $request->department->name }}</td>
                             <td>{{ $request->division ? $request->division->name : '' }}</td>
                             <td>{{ $request->section ? $request->section->name : '' }}</td>
-                            <td>{{ $request->date1 }}</td>
+                            <td>
+                                @if($request->procurement_mode_id == 1)
+                                    Bidding
+                                @else
+                                    Shopping/Canvass
+                                @endif
+                            </td>
                             <td>
                                 @if($request->procurement_mode_id == 2)
                                 @if( $request->status === 1 )
@@ -75,7 +81,7 @@
 
                                         @user
                                         @if($request->status === 0)
-                                        <a class="col btn btn-primary" href="{{ url("purchase-request/edit/$request->id") }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
+                                        <a class="col btn btn-primary" href="{{ route('purchaseRequest.editPr', $request->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
                                         <a class="col btn btn-danger" href="{{ route('purchaseRequest.removePr', ['id' => $request->id]) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
                                         <a class="col btn btn-info" href="{{ route('pdf.download', ['id' => $request->id]) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="PDF"><i class="fas fa-file-pdf"></i></a>
                                         @else
@@ -113,11 +119,11 @@
                                         @elseif($request->status == 10)
                                         @if($request->purchaseRequest[0]->item->itemType->category_id == 1)
                                         <a href="{{ route('ris.index') }}" class="col btn btn-primary">RIS</a>
-                                        @elseif($request->purchaseRequest[0]->item->itemType->category_id == 2)
-                                        @if($request->grand_total >= 200000)
-                                        <a href="{{ route('ics.index') }}" class="col btn btn-info">ICS</a>
-                                        @else
+                                        @elseif($request->purchaseRequest[0]->item->itemType->category_id != 1)
+                                        @if($request->grand_total >= 50000)
                                         <a href="{{ route('par.index') }}" class="col btn" style="background: rgb(163, 163, 255)">PAR</a>
+                                        @else
+                                        <a href="{{ route('ics.index') }}" class="col btn btn-info">ICS</a>
                                         @endif
                                         @endif
 
@@ -232,6 +238,7 @@
 
     $(document).ready(function() {
         $('.dataTable').DataTable({
+            "order": [[0, "desc"]],
             drawCallback: function(settings) {
                 $(`[data-bs-toggle="tooltip"]`).tooltip({
                     container: 'body'

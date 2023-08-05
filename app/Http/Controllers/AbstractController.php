@@ -35,7 +35,7 @@ class AbstractController extends Controller
             'grand_total' => $request->grand_total,
         ]);
 
-        $supplierOfferedItems = collect($request->inventory)->map(fn(array $offeredItem) => ['item_id' => $offeredItem['item_id'], 'quantity' => $offeredItem['quantity'], 'total_amt' => $offeredItem['total_amt'], 'offer_price' => $offeredItem['offer_price'], 'supplier_offered_id' => $supplierOffered->id])->toArray();
+        $supplierOfferedItems = collect($request->inventory)->map(fn(array $offeredItem) => ['item_id' => $offeredItem['item_id'], 'description' => $offeredItem['description'], 'quantity' => $offeredItem['quantity'], 'total_amt' => $offeredItem['total_amt'], 'offer_price' => $offeredItem['offer_price'], 'supplier_offered_id' => $supplierOffered->id])->toArray();
 
         SupplierOfferedItem::insert($supplierOfferedItems);
 
@@ -51,6 +51,7 @@ class AbstractController extends Controller
         $items = collect($request->inventory)->map(function (array $item) use ($sOffered) {
             return [
                 'item_id' => $item['item_id'],
+                'description' => $item['description'],
                 'quantity' => $item['quantity'],
                 'offer_price' => $item['offer_price'],
                 'total_amt' => $item['total_amt'],
@@ -108,8 +109,7 @@ class AbstractController extends Controller
             'abstract_canvass_id' => $id,
             'grand_total' => $request->grand_total,
         ]);
-
-        $supplierOfferedItems = collect($request->inventory)->map(fn(array $offeredItem) => ['item_id' => $offeredItem['item_id'], 'quantity' => $offeredItem['quantity'], 'total_amt' => $offeredItem['total_amt'], 'offer_price' => $offeredItem['offer_price'], 'supplier_offered_id' => $supplierOffered->id])->toArray();
+        $supplierOfferedItems = collect($request->inventory)->map(fn(array $offeredItem) => ['item_id' => $offeredItem['item_id'], 'quantity' => $offeredItem['quantity'], 'description' => $offeredItem['description'], 'total_amt' => $offeredItem['total_amt'], 'offer_price' => $offeredItem['offer_price'], 'supplier_offered_id' => $supplierOffered->id])->toArray();
         SupplierOfferedItem::insert($supplierOfferedItems);
 
         return redirect()->back();

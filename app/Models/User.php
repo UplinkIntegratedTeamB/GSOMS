@@ -49,6 +49,10 @@ class User extends Authenticatable
         return $this->hasRole(UserTypeEnum::Admin);
     }
 
+    public function isBmo() : bool {
+        return $this->hasRole(UserTypeEnum::Bmo);
+    }
+
     public function isUser() : bool {
         return $this->hasRole(UserTypeEnum::User);
     }

@@ -39,7 +39,6 @@
 
         p {
             font-size: 16px;
-            letter-spacing: 1px; !important
         }
 
         .outer-container {
@@ -83,7 +82,7 @@
             </p>
             <p style="margin-top: 4%">
                 <label for="" style="margin-left: 2em">Upon</label> careful examination validation and verification of the eligibility, technical and financial requirements that you have submitted for the bidding
-                of <label for="" style="text-decoration: underline; font-weight: 600">STC-GOOD-NO. 73-2022</label> <label for="" style="font-weight: 600">Details</label> of the Municipal Government of Stanta Cruz,
+                of <label for="" style="text-decoration: underline; font-weight: 600">STC-GOOD-NO. {{ $res->biddingAbstract->good }}</label> <label for="" style="font-weight: 600">{{ $res->purpose }}</label> of the Municipal Government of Stanta Cruz,
                 Laguna we are happy to inform you that you have successfully passed post qualification.
             </p>
 

@@ -58,10 +58,7 @@
 
     $(document).ready(function() {
         $('.datatable').DataTable({
-            columnDefs: [{
-                orderable: false
-                , targets: [0, 1, 2, 3, ]
-            , }],
+            "order": [[0, "desc"]],
             drawCallback: function (settings) {
                 $(`[data-bs-toggle="tooltip"]`).tooltip({
                     container: 'body'

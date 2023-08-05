@@ -102,7 +102,7 @@
                         <td>{{ $request->item->id }}</td>
                         <td>{{ Str::words($request->item->description, 5, ' ...') }}</td>
                         <td>{{ $request->quantity }}</td>
-                        <td>{{ number_format($request->unit_price, 2) }}</td>
+                        <td>{{ number_format((float)$request->unit_price, 2) }}</td>
                         <td>{{ number_format($request->estimated_cost, 2) }}</td>
                     </tr>
                     @endforeach

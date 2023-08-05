@@ -19,7 +19,7 @@ class BiddingRISController extends Controller
 
     public function index() {
 
-        $requests = RequestDetail::with('purchaseRequest', 'department', 'acceptanceInspection', 'requestIssue')->where('status', 12)->where('procurement_mode_id', 1)->get();
+        $requests = RequestDetail::with('purchaseRequest', 'department', 'acceptanceInspection', 'requestIssue')->where('procurement_mode_id', 1)->get();
 
         return view('reports-bidding.ris.index', compact('requests', ));
     }

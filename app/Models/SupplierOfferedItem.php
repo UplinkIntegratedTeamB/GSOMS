@@ -14,6 +14,7 @@ class SupplierOfferedItem extends Model
         'item_id',
         'quantity',
         'offer_price',
+        'description',
         'total_amt'
     ];
 

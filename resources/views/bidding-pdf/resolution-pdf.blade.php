@@ -37,7 +37,6 @@
 
     p {
         font-size: 16px;
-        letter-spacing: 1px;
 
     }
 
@@ -82,29 +81,29 @@
             $formattedDateTime = Carbon::parse($resolution->date_time)->format('F j, Y g:i a');
         @endphp
         <p>
-            <label for="" style="margin-left: 1em">WHEREAS, the Municipal Government of Santa Cruz, Laguna through the Municipal Mayor approved a
+            <label for="" style="margin-left: 3em">WHEREAS, the Municipal Government of Santa Cruz, Laguna through the Municipal Mayor approved a
                 Purchase Request for the
                 <b>{{ $resolution->requestDetail->purpose }}</b> with an Approved
                 <u><b> P.R. No. {{ $resolution->requestDetail->pr_no }}</b></u> dated <u><b>{{ $apprvDate }}</b></u> with the total amount of <u style="margin-left: 3px"> <b>
                         (P {{ number_format($resolution->requestDetail->grand_total, 2) }} ) <br></b></u></label>
         </p>
         <p>
-            <label for="">WHEREAS, the Invitaion to Bid for the above mentioned project was posted on the Bulletin Board
+            <label for="" style="margin-left: 3em ">WHEREAS, the Invitaion to Bid for the above mentioned project was posted on the Bulletin Board
                 of Santa Cruz Municipal Hall, conspicuous places, goverment office on <u><b>{{ $start }} - {{ $end }} </b></u></label>
         </p>
         <p>
-            <label for="">WHEREAS, in reponse to the said advertisements, <u><b>{{ $count }}</b></u> propective holder
+            <label for="" style="margin-left: 3em">WHEREAS, in reponse to the said advertisements, <u><b>{{ $count }}</b></u> propective holder
                 submitted
                 their purchased bid documents of intent and
                 application for eligibility on <u><b>{{ $date }}<br></b></u></label>
         </p>
         <p>
-            <label for="">WHEREAS, Eligibility, Technical and Financial Proposals of comprising envelope 1&2 were
+            <label for="" style="margin-left: 3em">WHEREAS, Eligibility, Technical and Financial Proposals of comprising envelope 1&2 were
                 submitted on <u><b>{{ $formattedDateTime }}</b></u> and publicly opened at <u><b>2:00 pm.</b></u>The
                 prospective bidder passed the preliminary examinations of eligibility requirments</label>
         </p>
         <p>
-            <label for="">WHEREAS, the bid proposals for the complying bidder are as follows</label>
+            <label for="" style="margin-left: 3em">WHEREAS, the bid proposals for the complying bidder are as follows</label>
         </p>
     </div>
 
@@ -168,7 +167,7 @@
 
         <div class="" style="margin-top: 3%">
             <p>
-                <label for="">WHEREAS, the detailed evaluation of bids conducted on {{ $date }} resulted;</label>
+                <label for="" style="margin-left: 3em">WHEREAS, the detailed evaluation of bids conducted on {{ $date }} resulted;</label>
             </p>
         </div>
         <div class="">
@@ -229,15 +228,15 @@
             </table>
             <div>
                 <p>
-                    <label for="">WHEREAS, upon careful examination, validation and verification of all eligibility,
+                    <label for="" style="margin-left: 3em">WHEREAS, upon careful examination, validation and verification of all eligibility,
                         technical and financial requirments submitted by eligible bidder two complying bidder
                         passed the post conducted on <u><b>{{ $date }}</b></u></label>
                 </p>
                 <p>
-                    <label for="">WHEREAS, the bid <u><b>{{ $offers->winners->name }}</b></u> has been found to be <strong style="margin-left: 3px; text-transform: uppercase">complying and the lowest bidders.</strong></label>
+                    <label for="" style="margin-left: 3em">WHEREAS, the bid <u><b>{{ $offers->winners->name }}</b></u> has been found to be <strong style="margin-left: 3px; text-transform: uppercase">complying and the lowest bidders.</strong></label>
                 </p>
                 <p>
-                    <label for="">NOW, THEREFORE, We, the members of the Bids and Awards Committee, hereby RESOLVE as it
+                    <label for="" style="margin-left: 3em">NOW, THEREFORE, We, the members of the Bids and Awards Committee, hereby RESOLVE as it
                         is hereby RESOLVED to recommend to <b>{{ $resolution->requestDetail->purpose }} </b> to MICHAEL M.
                         MAGNAYE owner of Reign Enterprises with postal address at Baranggay Babukal, Santa Cruz, Laguna
                         of <b>(P {{ $gtotal->grand_total }})</b></label> <br>

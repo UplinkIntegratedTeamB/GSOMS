@@ -18,7 +18,7 @@ class PARController extends Controller
 
     public function index() {
 
-        $requests = RequestDetail::where('status', 10)->with('acceptanceInspection', 'department')->get();
+        $requests = RequestDetail::where('procurement_mode_id', 2)->where('status', 10)->with('acceptanceInspection', 'department')->get();
 
         return view('reports.par.index', compact('requests'));
     }

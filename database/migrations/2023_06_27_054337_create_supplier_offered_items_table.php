@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('supplier_offered_id')->constrained()->cascadeOnDelete();
             $table->foreignId('item_id')->constrained()->cascadeOnDelete();
+            $table->string('description');
             $table->string('quantity');
             $table->string('offer_price');
             $table->string('total_amt');

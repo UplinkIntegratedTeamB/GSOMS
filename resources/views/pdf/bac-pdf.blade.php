@@ -38,7 +38,6 @@ align-items: center;
 
 p {
     font-size: 14px;
-    letter-spacing: 1px; !important
 }
 
 .outer-container {
@@ -104,7 +103,7 @@ p {
     Done this <label for="" style="text-decoration: underline">{{ \Carbon\Carbon::parse($resolution->created_at)->format('jS') }}</label> day of <label for="" style="text-decoration: underline">  {{ \Carbon\Carbon::parse($resolution->created_at)->format('F, Y') }} </label> at Santa Cruz Laguna
 </div>
 
-<div class="outer-container" style="margin-top: 4%">
+<div class="outer-container" style="margin-top: 6%">
         <p class="text-center">
             <label for="" style="font-size: 13px; font-weight: 600" >ENGR. MARIA LOURDES P. SAN MIGUEL</label> <br> Municipal General Services Officer
         </p>
@@ -113,7 +112,7 @@ p {
         </p>
 </div>
 
-<div class="outer-container" style="margin-top: 4%">
+<div class="outer-container" style="margin-top: 6%">
     <p class="text-center">
         <label for="" style="font-size: 13px; font-weight: 600" >ATTY. RONALDO C. MARIANO</label> <br> Municipal Legal Officer
     </p>
@@ -125,7 +124,7 @@ p {
     </p>
 </div>
 
-<div class="outer-container">
+<div class="outer-container" style="margin-top: 6%">
     <p class="text-center">
         Approved By:
     </p>
@@ -133,13 +132,11 @@ p {
         <label for="" class="text-center" style="font-size: 13px; font-weight: 600" >EDGAR S. SAN LUIS</label> <br> Municipal Mayor
     </p>
     <p class="text-center"></p>
-    <p class="text-center"></p>
-    <p class="text-center"></p>
 </div>
 
 <br>
 
-<p style="font-size: 11px"> <label for="" style="font-weight: 600">Control No.</label> {{ $resolution->control_no }}</p>
+<p style="font-size: 11px"> <label for="" style="font-weight: 600">Control No.</label> {{ $resolution->c_number }}</p>
 
 </body>
 </html>

@@ -26,8 +26,7 @@ class StorePurchaseRequest extends FormRequest
             'section' => 'max:50|nullable',
             'requested_by' => 'required|max:50',
             'evaluated_by' => 'required|max:50',
-            'procurement_mode_id' => 'nullable',
-            // 'pr_no' => 'required',
+            'procurement_mode_id' => 'required',
             'date1' => 'max:50|nullable|date',
             'ppmp_no' => 'nullable',
             'purpose' => 'max:50|required',
@@ -38,8 +37,9 @@ class StorePurchaseRequest extends FormRequest
             'items' => 'required|array',
             'items. * .unit_price' => 'required',
             'items. * .item_id' => 'required|numeric|min:1',
+            'items. * .description' => 'required|max:255',
             'items. * .quantity' => 'required|numeric|min:1',
-            'items. * .estimated_cost' => 'required|numeric|min:1',
+            'items. * .estimated_cost' => 'required|numeric',
             'grand_total' => 'required|numeric|min:1'
         ];
     }

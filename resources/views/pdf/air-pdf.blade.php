@@ -38,8 +38,6 @@
 
         p {
             font-size: 14px;
-            letter-spacing: 1px;
-             !important
         }
 
         .outer-container {
@@ -111,8 +109,8 @@
                 @foreach ($air->requestDetail->purchaseRequest as $po)
                 <tr>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->id }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->itemType->type }}</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->description }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->unit->description }}</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->description }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->quantity }}</td>
                 </tr>
                 @endforeach
@@ -128,8 +126,8 @@
 
                 </p>
                 <p class="text-center">
-                    <label for="" style="font-weight: 600">Hon. EDGAR S. SAN LUIS</label> <br>
-                    Municipal Mayor
+                    <label for="" style="font-weight: 600">EVANGELINE A. GALZOTE</label> <br>
+                    Property Officer
                 </p>
             </div>
         </div>
@@ -145,13 +143,13 @@
             </div>
             <div class="outer-container">
                 <p class="text-center">
-                    <label for="" style="font-weight: 600">Hon. EDGAR S. SAN LUIS</label> <br>
-                    Municipal Mayor
+                    <label for="" style="font-weight: 600">EDWINA S. FLORES</label> <br>
+                    Insperction Officer/Inpection Committee
 
                 </p>
                 <p class="text-center">
-                    <label for="" style="font-weight: 600">Hon. EDGAR S. SAN LUIS</label> <br>
-                    Municipal Mayor
+                    <label for="" style="font-weight: 600">ELEANOR LYNNE F. OMADTO</label> <br>
+                    Inspection Officer/Inspection Committee
                 </p>
             </div>
         </div>

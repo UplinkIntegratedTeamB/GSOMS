@@ -38,8 +38,6 @@
 
         p {
             font-size: 14px;
-            letter-spacing: 1px;
-             !important
         }
 
         .outer-container {
@@ -99,7 +97,7 @@
                 <tr>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $par->quantity }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $par->item->itemType->type }}</td>
-                    <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $par->item->description }}</td>
+                    <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $par->description }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: end">{{ $par->estimated_cost }}</td>
@@ -123,10 +121,12 @@
                 </p>
                 Received by:
                 <p class="text-center">
-                    <label for="" style="font-weight: 600">Hon. EDGAR S. SAN LUIS</label> <br>
-                    Municipal Mayor
+                    <label for="" style="font-weight: 600">RONALDO O. VALLES</label>
+                    <br> _________________________________________ <br> <br><br>
+                    <span for="" style="margin-top: 5%; font-size: 13px">Municipal Treasurer</span>
                 </p>
             </div>
+
         </div>
     </div>
 

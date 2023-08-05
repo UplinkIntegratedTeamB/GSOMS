@@ -39,7 +39,6 @@
 
         p {
             font-size: 16px;
-            letter-spacing: 1px; !important
         }
 
         .outer-container {
@@ -80,7 +79,7 @@
             <p>
                 <label for="" style="margin-left: 2em">This</label> is to inform you that your quoted price for furnishing and delivering this <label for="" style="font-weight: 600; text-transform: uppercase"> {{ $awards->requestDetail->bacRes->item_details }} </label>  in this municipality in the amount of
                  <label for="" style="font-weight: 600">{{ $awards->requestDetail->bacRes->amount_in_words }}</label>
-                Onky was the lowest price obtained as per canvass <label for="" style="font-weight: 600">{{ $awards->requestDetail->abstractCanvass->created_at->format('F j, Y') }}
+                Only was the lowest price obtained as per canvass <label for="" style="font-weight: 600">{{ $awards->requestDetail->abstractCanvass->created_at->format('F j, Y') }}
                 </label> Purchase Order <label for="" style="font-weight: 600">{{ $awards->po_no }}</label> In this connection
                 said supplies / material / services rendered stated below with the lowest price have been definitely considered by the Local Commmittee on Awards as reasonable and most advantageous to the government.
             </p>
@@ -100,7 +99,7 @@
             </p>
 
             <p style="margin-top: 10%">
-                Received: <br> <label for="" style="margin-left: 3em">{{ $awards->requestDetail->abstractCanvass->winners->name }}</label>
+                Received: <br> <label for="" style="margin-left: 3em; font-weight: 600">{{ $awards->requestDetail->abstractCanvass->winners->name }}</label>
             </p>
 
         </div>

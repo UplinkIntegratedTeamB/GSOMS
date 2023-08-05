@@ -78,7 +78,7 @@
                                 <td>{{ $pr->item->description }}</td>
                                 <td>{{ $pr->quantity }}</td>
                                 <td>{{ $pr->item->itemType->type }}</td>
-                                <td>{{ number_format($pr->item->unit_price, 2) }}</td>
+                                <td>{{ number_format($pr->unit_price, 2) }}</td>
                                 <td>{{ number_format($pr->estimated_cost, 2) }}</td>
                             </tr>
                             @php

@@ -30,6 +30,9 @@
                             <a href="{{ route('pdf.biddingPo', ['id' => $po->id]) }}" class="btn btn-primary">Print P.O</a>
                             <a href="{{ route('pdf.noa', ['id' => $po->id]) }}" class="btn btn-success">Print Awards</a>
                             <a href="{{ route('pdf.eligibility', ['id' => $po->id]) }}" class="btn btn-warning">Print Eligibility</a>
+                            <a href="{{ route('pdf.ntp', ['id' => $po->request_detail_id]) }}" class="btn btn-transparent" style="background: #CBC3E3">Notice to Proceed</a>
+                            <a href="{{ route('pdf.pqer', $po->request_detail_id) }}" class="btn btn-transparent" style="background: lightgray">Post Qualification Evalution Report</a>
+                            <a href="{{ route('pdf.nopq', $po->request_detail_id) }}" class="btn btn-transparent border shadow">Notice of Post Qualification</a>
                             @if($po->requestDetail->status == 10)
                             <a href="{{ route('po-bid.edit', ['id' => $po->requestDetail->id]) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                             <a href="{{ route('po-bid.delete', ['rid' => $po->requestDetail->id, 'id' => $po->id]) }}" onclick="confirmDelete(event)" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></a>
@@ -65,7 +68,9 @@
         }
 
         $(document).ready(function() {
-            $('#dataTable').DataTable();
+            $('#dataTable').DataTable({
+                "order": [[0, "desc"]]
+            });
         });
 
     </script>

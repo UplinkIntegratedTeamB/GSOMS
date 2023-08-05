@@ -49,25 +49,30 @@ class BacController extends Controller
 
     public function index()
     {
-        $res = BacRes::with('requestDetail', 'requestDetail.department')->get();
+        $res = BacRes::with('requestDetail', 'requestDetail.department')
+            ->orderBy('created_at', 'desc') // 'desc' for most recent, 'asc' for oldest
+            ->get();
 
         return view('reports.bac.index', compact('res'));
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $abstract = BacRes::with('requestDetail', 'requestDetail.department')->find($id);
 
         return view('reports.bac.update', compact('abstract', 'id'));
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $bac = BacRes::find($id);
         $bac->update($request->all());
 
         return redirect()->route('bac.index');
     }
 
-    public function delete($id, $rid) {
+    public function delete($id, $rid)
+    {
 
         BacRes::find($id)->delete($id);
 

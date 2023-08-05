@@ -89,7 +89,7 @@
                     <tr>
                         <td>{{ $request->item->id }}</td>
                         <td>{{ $request->quantity }}</td>
-                        <td>{{ $request->item->description }}</td>
+                        <td>{{ $request->description }}</td>
                         <td>{{ $request->item->itemType->type }}</td>
                         <td style="text-align: end">{{ number_format($request->item->unit_price, 2) }}</td>
                         <td style="text-align: end">{{ number_format($request->estimated_cost, 2) }}</td>

@@ -87,7 +87,7 @@ class InventoryController extends Controller
 
     public function create()
     {
-        $categories = Category::paginate();
+        $categories = Category::all();
         $itemTypes = ItemType::all();
         $units = Unit::all();
         return view('staff.inventory.create', compact('categories', 'itemTypes', 'units'));

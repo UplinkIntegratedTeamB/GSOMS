@@ -66,6 +66,8 @@
 
     $(document).ready(function() {
         $('#dataTable').DataTable({
+            "order": [[0, "desc"]],
+
             drawCallback: function (settings) {
                 $(`[data-bs-toggle="tooltip"]`).tooltip({
                     container: 'body'

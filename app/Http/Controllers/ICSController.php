@@ -18,7 +18,7 @@ class ICSController extends Controller
 
     public function index() {
 
-        $requests = RequestDetail::with('purchaseRequest', 'department', 'acceptanceInspection')->where('status', 10)->get();
+        $requests = RequestDetail::with('purchaseRequest', 'department', 'acceptanceInspection')->has('acceptanceInspection')->where('status', 10)->get();
 
         return view('reports.ics.index', compact('requests'));
     }

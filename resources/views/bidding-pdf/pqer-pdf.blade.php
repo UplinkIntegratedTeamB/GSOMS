@@ -36,8 +36,6 @@
 
     p {
         font-size: 16px;
-        letter-spacing: 1px;
-         !important
     }
 
     .outer-container {
@@ -64,9 +62,9 @@
     </div>
 
     <div class="" style="margin-top: 4%">
-        <label for="" style="font-weight: 600">Project reference Number:</label> <label for="" style="text-decoration: underline">STC-GOOD NO. 73-2022</label> <br> <br>
-        <label for="" style="font-weight: 600">Name of the Project:</label> <label for="" style="text-decoration: underline">Details</label> <br> <br>
-        <label for="" style="font-weight: 600">Location of the Project:</label> <label for="" style="text-decoration: underline">MAYOR'S OFFICE / M.D.R.R.MO</label> <br> <br>
+        <label for="" style="font-weight: 600">Project reference Number:</label> <label for="" style="text-decoration: underline">STC-GOOD NO. {{ $res->biddingAbstract->good }}</label> <br> <br>
+        <label for="" style="font-weight: 600">Name of the Project:</label> <label for="" style="text-decoration: underline">{{ $res->purpose }}</label> <br> <br>
+        <label for="" style="font-weight: 600">Location of the Project:</label> <label for="" style="text-decoration: underline">{{ $res->department->name }} / {{ $res->division?->name }} </label> <br> <br>
     </div>
 
     <div class="text-center">
@@ -117,7 +115,7 @@
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                         <p class="text-center" style="font-size: 12px;">
-                            Municipal Government of Sta. Cruz, Laguna, 2/F Municipal Hall, Cailles Street, Brgy. III, Santa Cruz, Laguna
+                            {{ $res->biddingAbstract->winners->address }}
                         </p>
                     </td>
                 </tr>
@@ -131,7 +129,7 @@
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                         <p class="text-center" style=" font-size: 12px;">
-                            Description
+                            {{ $res->purpose }}
                         </p>
                     </td>
                 </tr>
@@ -143,7 +141,7 @@
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                         <p class="text-center" style="font-size: 12px;">
-                            Mayor's Office / M.D.R.R.M.O
+                            {{ $res->department->name }} / {{ $res->division?->name }}
                         </p>
                     </td>
                 </tr>
@@ -155,7 +153,7 @@
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                         <p class="text-center" style="font-size: 12px;">
-                            P 601,200.00
+                            P {{ number_format($res->grand_total, 2) }}
                         </p>
                     </td>
                 </tr>
@@ -234,10 +232,10 @@
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                         <p class="text-center" style=" font-size: 12px;">
-                            December 14, 2022 <br>
+                            {{ date('F, j, Y', strtotime($res->biddingResolution->start)) }} <br>
                             Government Electronic Procurement System <br>
                             Buyer's Guide and other conspicuous places <br>
-                            December 22, 2022
+                            {{ date('F, j, Y', strtotime($res->biddingResolution->until)) }}
                         </p>
                     </td>
                 </tr>
@@ -261,8 +259,8 @@
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                         <p class="text-center" style=" font-size: 12px;">
-                            Devember 22, 2022 <br>
-                            Two (2)
+                            {{ date('F, j, Y', strtotime($res->biddingResolution->until)) }} <br>
+                            {{ $count }}
                         </p>
                     </td>
                 </tr>
@@ -280,8 +278,8 @@
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                         <p class="text-center" style=" font-size: 12px;">
-                            Devember 15, 2022 <br>
-                            Two (2)
+                            {{ date('F, j, Y', strtotime($res->biddingResolution->apprv_date)) }}  <br>
+                            {{ $count }}
                         </p>
                     </td>
                 </tr>
@@ -364,7 +362,7 @@
                 </td>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p class="text-center" style="font-size: 12px;">
-                        December 22, 2022 11:00 am
+                        {{ date('F, j, Y', strtotime($res->biddingResolution->until)) }} 11:00 am
                     </p>
                 </td>
             </tr>
@@ -378,7 +376,7 @@
                 </td>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p class="text-center" style=" font-size: 12px;">
-                        December 22, 2022 2:00 pm
+                        {{ date('F, j, Y', strtotime($res->biddingResolution->until)) }} 2:00 pm
                     </p>
                 </td>
             </tr>
@@ -401,7 +399,7 @@
                 </td>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p class="text-center" style="font-size: 12px;">
-                        Two (2)
+                        {{ $count }}
                     </p>
                 </td>
             </tr>
@@ -420,7 +418,7 @@
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p class="text-center" style="font-size: 12px;">
                         120 days <br>
-                        December 22, 2022
+                        {{ date('F, j, Y', strtotime($res->biddingResolution->until)) }}
                     </p>
                 </td>
             </tr>
@@ -457,18 +455,20 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($res->biddingAbstract->biddingOffereds as $supplier)
             <tr>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p style="text-align: start; font-size: 12px; text-transform: uppercase">
-                        name
+                        {{ $supplier->supplier->name }}
                     </p>
                 </td>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p class="text-center" style=" font-size: 12px;">
-                        total price
+                        {{ $supplier->grand_total }}
                     </p>
                 </td>
             </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -516,18 +516,20 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($res->biddingAbstract->biddingOffereds as $supplier)
             <tr>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p style="text-align: start; font-size: 12px; text-transform: uppercase">
-                        name
+                        {{ $supplier->supplier->name }}
                     </p>
                 </td>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p class="text-center" style=" font-size: 12px;">
-                        total price
+                        {{ $supplier->grand_total }}
                     </p>
                 </td>
             </tr>
+            @endforeach
         </tbody>
     </table>
 
@@ -562,23 +564,25 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($res->biddingAbstract->biddingOffereds as $supplier)
             <tr>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p style="text-align: start; font-size: 12px; text-transform: uppercase">
-                        name
+                        {{ $supplier->supplier->name }}
                     </p>
                 </td>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p class="text-center" style=" font-size: 12px;">
-                        total price
+                        Post Qualified
                     </p>
                 </td>
             </tr>
+            @endforeach
         </tbody>
     </table>
-    <div class="outer-container" style="margin-left: 4rem; margin-top: 5%">
+    <div class="outer-container" style="margin-left: 4rem; margin-top: 3%">
         <p>
-            <i style="font-size: 13px">Preparted by:</i> <br> <br> <br>
+            {{-- <i style="font-size: 13px">Preparted by:</i> <br> --}}
             <label for=""><strong>AMADO M. ALCAZAR</strong></label> <br>
             <span style="font-size: 13px">Engineering Assistant II</span> <br>
             <span style="font-size: 13px">MBAC -TWG</span>

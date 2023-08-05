@@ -38,7 +38,6 @@
 
         p {
             font-size: 16px;
-            letter-spacing: 1px; !important
         }
 
         .outer-container {

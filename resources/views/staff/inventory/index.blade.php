@@ -41,8 +41,8 @@
                     <th class="text-center">Category</th>
                     <th class="text-center">Description</th>
                     <th class="text-center">Item Type</th>
-                    <th class="text-center">Unit Price</th>
                     <th class="text-center">Unit Type</th>
+                    <th class="text-center">Unit Price</th>
                     <th class="text-center">Qty on Hand</th>
                     <th class="text-center">Actions</th>
                 </tr>
@@ -57,9 +57,7 @@
 <script>
     $(function() {
         const table = $('.data-table').DataTable({
-            processing: true
-            , serverSide: true
-            , scrollX: true
+            "order": [[0, "desc"]]
             , ajax: {
                 url: "{{ route('inventory.index') }}"
                 , data: function(d) {

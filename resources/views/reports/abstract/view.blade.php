@@ -83,7 +83,7 @@
                     <tr>
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $request->item->id }}</td>
-                        <td>{{ Str::words($request->item->description, 5, ' ...') }}</td>
+                        <td>{{ Str::words($request->description, 5, ' ...') }}</td>
                         <td>{{ $request->quantity }}</td>
                         <td>{{ $request->unit_price }}</td>
                         <td>{{ $request->estimated_cost }}</td>
@@ -167,7 +167,7 @@
                                     <tr>
                                         <td>
                                             {{-- <input type="text" class="form-control" readonly value=""> --}}
-                                            {{ Str::words($request->item->description, 5, ' ...') }}
+                                            <input type="text" class="form-control bg-transparent border-0" name="inventory[{{ $loop->index }}][description]" value="{{ Str::words($request->description, 5, ' ...') }}">
                                             <input type="hidden" name="inventory[{{ $loop->index }}][item_id]" value="{{ $request->item->id }}">
                                         </td>
                                         <td>
@@ -326,7 +326,7 @@
                                         html += `
                                         <tr class="custom-tr">
                                             <td>
-                                                ${item.item.description}
+                                                ${item.description}
                                                 <input type="hidden" name="inventory[${rowIdx}][item_id]" value="${item.id}">
                                             </td>
                                             <td>

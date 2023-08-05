@@ -135,13 +135,20 @@ class PdfController extends Controller
     ->inline();
     }
 
-    public function downloadNopq() {
-        return SnappyPdf::loadView('bidding-pdf.nopq-pdf')
+    public function downloadNopq($id) {
+
+        $res = RequestDetail::with('biddingAbstract')->find($id);
+
+        return SnappyPdf::loadView('bidding-pdf.nopq-pdf', compact('res'))
         ->inline();
     }
 
-    public function downloadPqer() {
-        return SnappyPdf::loadView('bidding-pdf.pqer-pdf')
+    public function downloadPqer($id) {
+
+        $res = RequestDetail::with('department', 'division', 'biddingAbstract.winners', 'biddingResolution', 'biddingAbstract.biddingOffereds')->find($id);
+        $count = $res->biddingAbstract->biddingOffereds->count();
+
+        return SnappyPdf::loadView('bidding-pdf.pqer-pdf', compact('res', 'count'))
         ->inline();
     }
 

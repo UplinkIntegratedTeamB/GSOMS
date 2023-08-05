@@ -46,6 +46,9 @@
                         <input type="text" class="form-control" placeholder="Serial Number" name="serial_number">
                     </div>
                 </div>
+                @error('serial_number')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="col">
                 <div class="form-group">
@@ -54,15 +57,18 @@
                         <input type="text" class="form-control" placeholder="Fund Cluster" name="fund_cluster" >
                     </div>
                 </div>
+                @error('fund_cluster')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
                 <div class="form-group">
                     <label for="">Estimated Usefel Life</label>
                     <div class="input-group">
                         <input type="text" name="usefel_life" placeholder="Usefel Life" class="form-control">
                     </div>
-                    {{-- <select name="usefel_life" class="form-control select2" id="">
-                        <option value="" disabled selected>Select Usefel Life</option>
-                    </select> --}}
                 </div>
+                @error('userfel_life')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
             </div>
             <div class="">
                 <button type="button" onclick="confirmSave(event)" class="btn btn-primary mt-2" style="float: right">Save</button>

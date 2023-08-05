@@ -38,8 +38,6 @@
 
         p {
             font-size: 14px;
-            letter-spacing: 1px;
-             !important
         }
 
         .outer-container {
@@ -112,7 +110,7 @@
                 <tr>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->id }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->itemType->type }}</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->description }}</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->description }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->quantity }}</td>
                 </tr>
                 @endforeach

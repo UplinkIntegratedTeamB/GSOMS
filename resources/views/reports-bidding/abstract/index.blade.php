@@ -26,11 +26,11 @@
                         <td>
                             <a href="{{ route('pdf.attendance', ['id' => $abstract->id]) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
                             @if($abstract->requestDetail->status == 6)
-                            <a href="{{ route('abstract.show', ['id' => $abstract->id]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                            <a href="{{ route('abstract-bid.show', ['id' => $abstract->id]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                             @else
                             <a href="" class="btn btn-info disabled" onclick="return false"><i class="fas fa-eye"></i></a>
                             @endif
-                            @if($abstract->requestDetail->status == 7 || $abstract->requestDetail->status == 8)
+                            @if($abstract->requestDetail->status == 7 || $abstract->requestDetail->status == 8 || $abstract->requestDetail->status == 6)
                             <a href="{{ route('abstract-bid.delete', ['id' => $abstract->id, 'rid' => $abstract->requestDetail->id]) }}" onclick="confirmDelete(event)" type="button" class="btn btn-secondary"><i class="fas fa-trash"></i></a>
                             @else
                             <a href="" class="btn btn-secondary disabled" onclick="return false"><i class="fas fa-trash"></i></a>
@@ -63,22 +63,9 @@
         }
 
         $(document).ready(function() {
-            var $dataTable = $('#dataTable');
-            var hasData = $dataTable.find('tbody tr').length > 0;
-
-            var dataTableOptions = {
-                processing: true
-                , columnDefs: [{
-                    orderable: false
-                    , targets: [0, 1, 2, 3]
-                , }]
-            };
-
-            if (hasData) {
-                // dataTableOptions.scrollX = true;
-            }
-
-            $dataTable.DataTable(dataTableOptions);
+            $('#dataTable').DataTable({
+                "order": [[0, "desc"]]
+            })
         });
 
     </script>

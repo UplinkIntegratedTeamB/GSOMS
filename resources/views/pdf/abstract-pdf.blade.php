@@ -43,7 +43,6 @@
 
         p {
             font-size: 14px;
-            letter-spacing: 1px;
              !important
         }
 
@@ -78,13 +77,13 @@
     $td = array();
     foreach ($abstracts->supplierOffereds as $key => $abstract) {
     foreach ($abstract->supplierOfferedItems as $key => $suppliers) {
-    if (!isset($td[$suppliers->item->description])) {
-    $td[$suppliers->item->description]['data'] = array();
-    $td[$suppliers->item->description]['qty'] = $suppliers->quantity;
-    $td[$suppliers->item->description]['unit'] = $suppliers->item->itemType->type;
+    if (!isset($td[$suppliers->description])) {
+    $td[$suppliers->description]['data'] = array();
+    $td[$suppliers->description]['qty'] = $suppliers->quantity;
+    $td[$suppliers->description]['unit'] = $suppliers->item->unit->description;
 
     }
-    array_push($td[$suppliers->item->description]['data'], array("grand_total" => $abstract->grand_total ,"offer_price" => $suppliers->offer_price, "total_amt" => $suppliers->total_amt));
+    array_push($td[$suppliers->description]['data'], array("grand_total" => $abstract->grand_total ,"offer_price" => $suppliers->offer_price, "total_amt" => $suppliers->total_amt));
     }
 
 
@@ -127,7 +126,7 @@
                     <th style="border: 1px solid black; font-size: 13px; padding: 10px"></th>
                     <th style="border: 1px solid black; font-size: 13px; padding: 10px"></th>
                     @foreach ($abstracts->supplierOffereds as $abstract)
-                    <th colspan="{{ 12 / count($td[$suppliers->item->description]['data']) }}" style="border: 1px solid black; font-size: 12px; padding: 10px">
+                    <th colspan="{{ 12 / count($td[$suppliers->description]['data']) }}" style="border: 1px solid black; font-size: 12px; padding: 10px">
                         {{ $abstract->supplier->name }}
                     </th>
                     @endforeach
@@ -137,9 +136,9 @@
                     <th colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px">Item</th>
                     <th style="border: 1px solid black; font-size: 12px;">Qty</th>
                     <th style="border: 1px solid black; font-size: 12px;">Unit</th>
-                    @foreach ($td[$suppliers->item->description]['data'] AS $html)
-                    <th colspan="{{ (12 / count($td[$suppliers->item->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;">Unit Price</th>
-                    <th colspan="{{ (12 / count($td[$suppliers->item->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;"> Total Amt. </th>
+                    @foreach ($td[$suppliers->description]['data'] AS $html)
+                    <th colspan="{{ (12 / count($td[$suppliers->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;">Unit Price</th>
+                    <th colspan="{{ (12 / count($td[$suppliers->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;"> Total Amt. </th>
                     @endforeach
                 </tr>
             </thead>
@@ -152,8 +151,8 @@
                     <td style="border: 1px solid black; font-size: 12px;">{{ $det['qty'] }}</td>
                     <td style="border: 1px solid black; font-size: 12px;">{{ $det['unit'] }}</td>
                     @foreach ($det['data'] as $x)
-                    <td colspan="{{ (12 / count($td[$suppliers->item->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;">{{ number_format($x["offer_price"],2) }}</td>
-                    <td colspan="{{ (12 / count($td[$suppliers->item->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;">{{ number_format($x["total_amt"],2) }}</td>
+                    <td colspan="{{ (12 / count($td[$suppliers->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;">{{ number_format($x["offer_price"],2) }}</td>
+                    <td colspan="{{ (12 / count($td[$suppliers->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;">{{ number_format($x["total_amt"],2) }}</td>
                     @endforeach
                 </tr>
                 @endforeach
@@ -162,8 +161,8 @@
                     <td colspan="2" style="border: 1px solid black; font-size: 12px;">Amount</td>
                     <td colspan="2" style="border: 1px solid black; font-size: 12px;">P</td>
                     @foreach ($det['data'] as $x)
-                    <td colspan="{{ (12 / count($td[$suppliers->item->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;"></td>
-                    <td colspan="{{ (12 / count($td[$suppliers->item->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;">{{ number_format($x['grand_total'],2) }} </td>
+                    <td colspan="{{ (12 / count($td[$suppliers->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;"></td>
+                    <td colspan="{{ (12 / count($td[$suppliers->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;">{{ number_format($x['grand_total'],2) }} </td>
                     @endforeach
                 </tr>
                 <tr style="text-align: start">
@@ -171,14 +170,14 @@
                     <td colspan="2" style="border: 1px solid black; font-size: 12px;">Amount</td>
                     <td colspan="2" style="border: 1px solid black; font-size: 12px;">P</td>
                     @foreach ($det['data'] as $x)
-                    <td colspan="{{ (12 / count($td[$suppliers->item->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;"></td>
-                    <td colspan="{{ (12 / count($td[$suppliers->item->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;">{{ number_format($x['grand_total'], 2) }} </td>
+                    <td colspan="{{ (12 / count($td[$suppliers->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;"></td>
+                    <td colspan="{{ (12 / count($td[$suppliers->description]['data'])) / 2 }}" style="border: 1px solid black; font-size: 12px;">{{ number_format($x['grand_total'], 2) }} </td>
                     @endforeach
                 </tr>
                 <tr style="text-align: start">
                     <td colspan="7" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: end;">Remarks</td>
-                    @foreach ($td[$suppliers->item->description] AS $det)
-                    <td colspan="{{ (12 / count($td[$suppliers->item->description]['data'])) }}" style="border: 1px solid black; font-size: 12px;"></td>
+                    @foreach ($td[$suppliers->description] AS $det)
+                    <td colspan="{{ (12 / count($td[$suppliers->description]['data'])) }}" style="border: 1px solid black; font-size: 12px;"></td>
                     @endforeach
                 </tr>
                 <tr style="text-align: start">

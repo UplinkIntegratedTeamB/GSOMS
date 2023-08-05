@@ -17,6 +17,7 @@
 
     <div class="container pt-5">
 
+      <div class="table-responsive">
         <table class=" data-table table table-bordered" id="inventory">
             <thead>
                 <tr>
@@ -40,7 +41,7 @@
                     <th class="text-center">Category</th>
                     <th class="text-center">Description</th>
                     <th class="text-center">Item Type</th>
-                    <th class="text-center">Unit</th>
+                    <th class="text-center">Unit Price</th>
                     <th class="text-center">Qty on Hand</th>
                     <th class="text-center">Unit Price</th>
                 </tr>
@@ -48,6 +49,7 @@
             <tbody class="text-center">
             </tbody>
         </table>
+      </div>
     </div>
 </div>
 
@@ -55,9 +57,7 @@
 <script>
     $(function() {
         const table = $('.data-table').DataTable({
-            processing: true
-            , serverSide: true
-            , scrollX: true
+            "order": [[0, "desc"]]
             , ajax: {
                 url: "{{ route('inventory.index') }}"
                 , data: function(d) {

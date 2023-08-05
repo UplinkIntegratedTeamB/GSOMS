@@ -44,14 +44,14 @@ class PurchaseRequestController extends Controller
     public function store(StorePurchaseRequest $request)
     {
         $year = date('Y');
-        $createdDetail = RequestDetail::create($request->except('quantity', 'pr_no') + [
+        $createdDetail = RequestDetail::create($request->except('quantity', 'pr_no', 'description') + [
             'user_id' => auth()->user()->id,
         ]);
         $formated_count = sprintf("%04d", $createdDetail->id);
         $createdDetail->pr_no = "PR-{$year}-{$formated_count}";
         $createdDetail->save();
 
-        $purchaseItems = collect($request->items)->map(fn(array $purchaseItem) => ['item_id' => $purchaseItem['item_id'], 'quantity' => $purchaseItem['quantity'], 'estimated_cost' => $purchaseItem['estimated_cost'], 'unit_price' => $purchaseItem['unit_price'], 'request_detail_id' => $createdDetail->id])->toArray();
+        $purchaseItems = collect($request->items)->map(fn(array $purchaseItem) => ['item_id' => $purchaseItem['item_id'], 'quantity' => $purchaseItem['quantity'], 'estimated_cost' => $purchaseItem['estimated_cost'], 'unit_price' => $purchaseItem['unit_price'], 'description' => $purchaseItem['description'], 'request_detail_id' => $createdDetail->id])->toArray();
 
         PurchaseRequest::insert($purchaseItems);
 
@@ -82,6 +82,23 @@ class PurchaseRequestController extends Controller
 
         return view('purchase-req.edit', compact('requestDetail', 'inventories', 'procurementModes', 'id', 'departments', 'categories', 'divisions'));
     }
+    public function editPr($id)
+    {
+        $requestDetail = RequestDetail::with('procurementMode', 'user', 'user.department', 'division', 'department', 'purchaseRequest', 'purchaseRequest.item.itemType')->find($id);
+
+        $user = User::find($requestDetail->user_id);
+        $department = $user->department()->with('divisions.sections')->first();
+        $departments = Department::paginate();
+        $categories = Category::all();
+        $inventories = Item::with('itemType')->paginate();
+        $procurementModes = ProcurementMode::all();
+        $divisions = $department->divisions;
+        foreach($divisions as $division) {
+            $section = $division->sections;
+        }
+
+        return view('purchase-req.editPr', compact('requestDetail', 'inventories', 'procurementModes', 'id', 'departments', 'categories', 'divisions'));
+    }
 
     public function preview($id)
     {
@@ -97,16 +114,15 @@ class PurchaseRequestController extends Controller
 
     public function update(StorePurchaseRequest $request, $id)
     {
-        dd($request->validated());
 
         $request_detail = RequestDetail::find($id);
         $request_detail->update($request->except('items', '_token', 'example_length') + ['user_id' => auth()->user()->id]);
 
         foreach ($request->items as $item) {
             if ($purchaseRequest = PurchaseRequest::where('item_id', $item['item_id'])->where('request_detail_id', $request_detail->id)->first()) {
-                $purchaseRequest->update(['quantity' => $item['quantity'], 'estimated_cost' => $item['estimated_cost']]);
+                $purchaseRequest->update(['quantity' => $item['quantity'], 'unit_price' => $item['unit_price'] , 'estimated_cost' => $item['estimated_cost']]);
             } else {
-                PurchaseRequest::create(['item_id' => $item['item_id'], 'quantity' => $item['quantity'], 'estimated_cost' => $item['estimated_cost'], 'unit_price' => $item['unit_price'], 'request_detail_id' => $request_detail->id]);
+                PurchaseRequest::create(['item_id' => $item['item_id'], 'quantity' => $item['quantity'],  'estimated_cost' => $item['estimated_cost'], 'unit_price' => $item['unit_price'], 'request_detail_id' => $request_detail->id]);
             }
         }
 
@@ -172,6 +188,12 @@ class PurchaseRequestController extends Controller
         $requests = RequestDetail::with('department', 'division', 'section')->where('status', 13)->get();
 
         return view('purchase-req.complete', compact('requests'));
+    }
+    public function completedPrUser() {
+
+        $requests = RequestDetail::with('department', 'division', 'section')->where('status', 13)->where('user_id', auth()->id())->get();
+
+        return view('purchase-req.completeUser', compact('requests'));
     }
 
 }

@@ -42,5 +42,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('user', function() {
             return auth()->user()->isUser();
         });
+
+        Blade::if('bmo', function() {
+            return auth()->user()->isBmo();
+        });
     }
 }

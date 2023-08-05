@@ -38,8 +38,6 @@
 
         p {
             font-size: 16px;
-            letter-spacing: 1px;
-             !important
         }
 
         .outer-container {
@@ -110,7 +108,7 @@
                 <tr>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $loop->index + 1 }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $request->item->itemType->type }}</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $request->item->description }}</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $request->description }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $request->quantity }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px;"> {{ $request->unit_price }} </td>
                 </tr>

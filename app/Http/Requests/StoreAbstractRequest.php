@@ -25,6 +25,7 @@ class StoreAbstractRequest extends FormRequest
             'supplier_id' => 'required|exists:suppliers,id',
             'inventory' => 'required|array',
             'inventory. * .quantity' => 'required',
+            'inventory. * .description' => 'required|string|max:255',
             'inventory. * .offer_price' => 'required',
             'inventory. * .total_amt' => 'required'
         ];

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAirRequest extends FormRequest
+class StoreItemTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class StoreAirRequest extends FormRequest
     public function rules()
     {
         return [
-            'request_detail_id' => 'nullable',
-            'obr_no' => 'nullable',
-            'invoice_no' => 'nullable'
+            'type' => 'required',
+            'category_id' => 'required'
         ];
     }
 }

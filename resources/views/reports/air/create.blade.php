@@ -22,10 +22,10 @@
                         <input type="text" class="form-control" readonly value="{{ $details->purchaseOrder->po_no }}">
                     </div>
                 </div>
-                <div class="form-group mt-2">
+                <div class="form-group mt-2" hidden>
                     <label for="">Invoice</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="invoice_no" required>
+                        <input type="text" class="form-control" name="invoice_no" >
                     </div>
                 </div>
                 @error('invoice_no')
@@ -45,16 +45,16 @@
                 </div>
             </div>
             <div class="col">
-                <div class="form-group">
+                <div class="form-group" hidden>
                     <label for="">OBR No.</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" value="" name="obr_no" required>
+                        <input type="text" class="form-control" value="" name="obr_no" >
                     </div>
                 </div>
                 @error('obr_no')
                 <span>{{ $message }}</span>
                 @enderror
-                <div class="form-group mt-2">
+                <div class="form-group  ">
                     <label for="">PR No.</label>
                     <div class="input-group">
                         <input type="text" class="form-control" readonly value="{{ $details->pr_no }}">

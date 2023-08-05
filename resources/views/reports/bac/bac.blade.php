@@ -31,7 +31,7 @@
                     <div class="form-group mt-2">
                         <label for="res_title">Item Details</label>
                         <div class="input-group">
-                            <textarea type="text" name="item_details" placeholder="Item Details" class="form-control" required>{{ old("item_details") }}</textarea>
+                            <textarea type="text" name="item_details" placeholder="Item Details" class="form-control" required>{{ $request->purpose }}</textarea>
                         </div>
                     </div>
                     @error('item_details')
@@ -62,7 +62,7 @@
                     <div class="form-group mt-2">
                         <label for="meeting">Date of Meeting</label>
                         <div class="input-group">
-                            <input type="date" name="meeting" value="" class="form-control" value="{{ old("meeting") }}" autofocus required>
+                            <input type="date" name="meeting" class="form-control" value="{{ old('meeting') ?? now()->format('Y-m-d') }}" autofocus required>
                         </div>
                     </div>
                     @error('meeting')
@@ -85,7 +85,7 @@
                     <div class="form-group mt-2">
                         <label for="meeting">Approve Date</label>
                         <div class="input-group">
-                            <input type="date" name="apprv_date" value="" class="form-control" value="{{ old("apprv_date") }}" autofocus required>
+                            <input type="date" name="apprv_date" class="form-control" value="{{ old('apprv_date') ?? now()->format('Y-m-d') }}" autofocus required>
                         </div>
                     </div>
                     @error('apprv_date')

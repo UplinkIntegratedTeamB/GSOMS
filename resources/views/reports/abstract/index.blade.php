@@ -22,7 +22,7 @@
                     <tr>
                         <td>{{ $abstract->requestDetail->pr_no }}</td>
                         <td>{{ $abstract->requestDetail->department->name }}</td>
-                        <td>{{ $abstract->created_at }}</td>
+                        <td>{{ date('F j, Y', strtotime($abstract->created_at)) }}</td>
                         <td>
                             <a href="{{ route('pdf.abstract', ['id' => $abstract->requestDetail->id]) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
                             @if($abstract->requestDetail->status == 7)
@@ -63,22 +63,9 @@
         }
 
         $(document).ready(function() {
-            var $dataTable = $('#dataTable');
-            var hasData = $dataTable.find('tbody tr').length > 0;
-
-            var dataTableOptions = {
-                processing: true
-                , columnDefs: [{
-                    orderable: false
-                    , targets: [0, 1, 2, 3]
-                , }]
-            };
-
-            if (hasData) {
-                // dataTableOptions.scrollX = true;
-            }
-
-            $dataTable.DataTable(dataTableOptions);
+            $('#dataTable').DataTable({
+                "order": [[0, "desc"]]
+            })
         });
 
     </script>

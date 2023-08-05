@@ -38,6 +38,10 @@
         border-color: red !important;
     }
 
+    #example th:nth-child(2) {
+    min-width: 300px; /* Adjust this value to your desired width */
+}
+
 </style>
 
 <div class="container-fluid">
@@ -54,7 +58,7 @@
         </div>
         <div class="card-body">
 
-            <form action="{{ route('purchase-request.update', $id) }}" method="POST">
+            <form action="{{ route('purchase-request.update', $id) }}" method="POST" id="formPr">
                 @csrf
                 <div class="row ">
                     <div class="col">
@@ -116,7 +120,7 @@
                             <select name="" disabled id="procurement_user" class="select2 form-control" readonly>
                                 <option disabled selected>Select Procurement Mode</option>
                             </select>
-                            <input type="number" hidden class="form-control" name="procurement_mode_id" id="procurement_value">
+                            <input type="number"  class="form-control" name="procurement_mode_id" id="procurement_value">
                             @error('procurement_mode_id')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -190,13 +194,12 @@
                             <div class="text-danger">End User Office is required</div>
                             @enderror
                         </div>
-
                     </div>
-
+                    @user
                     <div class="" style="float: right">
                         <button type="button" class="col-2 btn btn-primary mt-3 px-5" style="float: right;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add</button>
                     </div>
-
+                    @enduser
                 </div>
 
                 <div class="container-fluid p-2 mt-5 table-responsive">
@@ -215,12 +218,12 @@
                         <tbody class="text-center tableBody">
                             @foreach ($requestDetail->purchaseRequest as $request)
                             <tr>
-                                <td>{{ $request->item->id }}</td>
-                                <td>{{ $request->item->description }}</td>
+                                <td><input type="text" class="form-control bg-transparent border-0" readonly value="{{ $request->item->id }}" name="items[{{ $loop->index }}][item_id]"></td>
+                                <td><input type="text" class="form-control" value="{{ $request->description }}" name="items[{{ $loop->index }}][item_description]"></td>
                                 <td>{{ $request->item->itemType->type }}</td>
-                                <td>{{ $request->quantity }}</td>
-                                <td style="text-align: end">{{ number_format($request->unit_price, 2) }}</td>
-                                <td style="text-align: end">{{ number_format($request->estimated_cost, 2) }}</td>
+                                <td><input type="text" name="items[{{ $loop->index }}][quantity]" value="{{ $request->quantity }}" readonly class="form-control bg-transparent border-0 quantity-input"></td>
+                                <td style="text-align: end"><input type="text" value="{{ number_format($request->unit_price, 2) }}" class="form-control unit-price-input" name="items[{{ $loop->index }}][unit_price]"></td>
+                                <td style="text-align: end"><input type="text" value="{{ number_format($request->estimated_cost, 2) }}" name="items[{{ $loop->index }}][estimated_cost]" class="form-control estimated-cost-input"></td>
                                 <td>
                                     <a href="{{ route('purchaseRequest.remove', ['id' => $request->id, 'grand' => $id ]) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>
@@ -249,7 +252,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content" style="">
             <div class="modal-header">
@@ -298,7 +301,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <script>
     function confirmSave(event) {
@@ -347,207 +350,47 @@
 
     let selectedRows = [];
     let disabledRows = [];
-    let gtotal = parseFloat({{ $requestDetail->grand_total }});
-    let reqId = {{ $id }}
-    $.ajax({
-        url: '/purchase-request/json/' + reqId, // Replace with your actual controller URL and ID
-        type: 'GET'
-        , dataType: 'json'
-        , success: function(response) {
-            // Assuming the response contains a "data" property with an array of objects
-            if (response.hasOwnProperty('data')) {
-                disabledRows = response.data.map(item => item.item_id);
-                console.log('disabledRows:', disabledRows);
-            }
-        }
-        , error: function(xhr, status, error) {
-            console.error(error);
-        }
-    });
+    let gtotal = parseFloat({{$requestDetail->grand_total}});
+    let reqId = {{$id}}
 
     $(document).ready(function() {
 
-        const tableY = $('.data-table').DataTable({
-            processing: true
-            , serverSide: true
-            , deferRender: false
-            , columnDefs: [{
-                orderable: false
-                , targets: [0, 1, 2, 3, 4, 5]
-            , }],
+        const tableY = $('#example').DataTable({
+        drawCallback: function(settings) {
+        $('.unit-price-input').on('input', function() {
+            calculateEstimatedCost($(this));
+        });
 
+        function calculateEstimatedCost(unitPriceInput) {
+            const row = unitPriceInput.closest('tr');
+            const quantity = parseFloat(row.find('.quantity-input').val());
+            const unitPrice = parseFloat(unitPriceInput.val().replace(/[^0-9.-]/g, ''));
+            const estimatedCost = (quantity * unitPrice).toFixed(2);
 
-            drawCallback: function(settings) {
-                applySelectedRowClass();
-                applySelectRowDisable();
+            row.find('.estimated-cost-input').val(estimatedCost);
 
-                $('.inventory_item').click(function(e) {
-                    const checkbox = $(this).find('.clickable');
-                    const baseUrl = '{{ url('') }}';
-                    const rowDataId = $(this).data('id');
-                    $(this).toggleClass('selected_tr');
-                    checkbox.prop('checked', !checkbox.prop('checked'));
-                    const row = $(this);
+            let grandTotal = 0;
+            $('.estimated-cost-input').each(function() {
+                const cost = parseFloat($(this).val().replace(/[^0-9.-]/g, ''));
+                if (!isNaN(cost)) {
+                    grandTotal += cost;
+                }
+            });
 
-                    if (!row.hasClass('selected_tr')) {
-                        // Remove the row from the table
-                        $('#example tbody tr.appended-row[data-id="' + rowDataId + '"]').remove();
-                        $(this).removeClass('selected_row');
-                        // console.log('removed ' + rowDataId);
-
-                        const index = selectedRows.indexOf(rowDataId);
-                        if (index !== -1) {
-                            selectedRows.splice(index, 1);
-                        }
-                        console.log(selectedRows);
-                    } else {
-                        $.ajax({
-                            url: baseUrl + '/item/' + rowDataId
-                            , success: function(response) {
-
-                                if (!selectedRows.includes(rowDataId)) {
-                                    selectedRows.push(rowDataId);
-                                }
-
-                                function updateTotalPrice() {
-                                    let quantityInput = $(this); // Store the reference to the input element
-                                    let quantity = quantityInput.val();
-                                    // console.log(quantity);
-                                    let unitPrice = response.unit_price;
-                                    let totalCost = (quantity * unitPrice).toFixed(2);
-                                    // console.log(unitPrice);
-
-                                    // Adjust the selector to target the specific row
-                                    quantityInput.closest('tr.appended-row').find(`input[name="items[${tableLength}][estimated_cost]"]`).val(totalCost);
-                                    updateGrandTotal();
-                                }
-
-                                function updateGrandTotal() {
-                                    let totalCost = gtotal;
-                                    $('#example tbody tr.appended-row').each(function() {
-                                        let estimatedCost = parseFloat($(this).find('input[name*=estimated_cost]').val()) || 0;
-                                        totalCost += estimatedCost;
-                                    });
-                                    $('#grandTotal').val(totalCost.toFixed(2));
-
-                                    const grandTotalVal = parseFloat($('#grandTotal').val());
-                                    const procurement = $('#procurement_value');
-                                    if (grandTotalVal > 200000.00) {
-                                        procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
-                                    } else {
-                                        procurement.val(2); // Otherwise, set procurement value to 2
-                                    }
-                                }
-
-                                const tableLength = $('#example tbody tr.appended-row').length;
-
-                                function toggleSubmitButton() {
-                                    const rowCount = $('.appended-row').length;
-                                    const submitButton = $('.btn.btn-primary');
-                                    if (rowCount > 0) {
-                                        submitButton.prop('disabled', false);
-                                    } else {
-                                        submitButton.prop('disabled', true);
-                                    }
-                                }
-
-                                $(document).on('input', 'input[name*=quantity]', updateTotalPrice);
-
-                                const newRowHtml = `
-                            <tr class="appended-row" data-id="${response.id}">
-                                <td><input class='form-control bg-transparent border-0' readonly value='${response.id}' name='items[${tableLength}][item_id]' /></td>
-                                <td><label>${response.description}</label></td>
-                                <td><label>${response.unit.description}</label></td>
-                                <td><input class='form-control bg-transparent' type='number'  value='' id='qty' value="{{ old('quantity') }}" required placeholder="Quantity" name='items[${tableLength}][quantity]' /></td>
-                                <td><input class='form-control bg-transparent border-0' value='${response.unit_price}' readonly id='unit_price' style="text-align: end" name='items[${tableLength}][unit_price]' readonly /></td>
-                                <td><input class='form-control bg-transparent border-0' id="estimatedCost" readonly value='' readonly style="text-align: end" name='items[${tableLength}][estimated_cost]' /></td>
-                            </tr>`;
-
-                                // Append the new row at the top of the table
-                                $('.tableBody').prepend(newRowHtml);
-                                $('#example tbody').on('input', 'input[name*=quantity]', updateTotalPrice);
-                                updateGrandTotal();
-                                toggleSubmitButton();
-                                console.log(selectedRows);
-                                // selectedRows = [];
-
-                                $('input[name*=quantity]').val($('input[name*=quantity]').val().replace(/[^0-9]/g, ''));
-                            }
-                        });
-                    }
-                });
+            const procurement = $('#procurement_value');
+            if (grandTotal > 200000.00) {  // fixed this line
+                procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
+            } else {
+                procurement.val(2); // Otherwise, set procurement value to 2
             }
-            , ajax: {
-                url: "{{ route('inventory.index') }}"
-                , data: function(d) {
-                    d.category_id = $('#category_id').val()
-                        , d.search = $('input[aria-controls="DataTables_Table_0"]:first').val()
-                        , d.unit = $('#unit').val();
-                }
-            }
-            , columns: [{
-                    data: 'checkbox'
-                    , name: 'checkbox'
-                    , visible: false
-                }
-                , {
-                    data: 'id'
-                    , name: 'id'
-                }
-                , {
-                    data: 'category_id'
-                    , name: 'category_id'
-                }
-                , {
-                    data: 'description'
-                    , name: 'description'
-                }
-                , {
-                    data: 'item_type_id'
-                    , name: 'item_type_id'
-                    , render: function(data, type, row) {
-                        // Limit description to 5 words
-                        var words = data.split(' ').slice(0, 3).join(' ');
-                        return words + (data.split(' ').length > 3 ? '...' : '');
-                    }
-                }
-                , {
-                    data: 'unit_id'
-                    , name: 'unit_id'
-                }
-            , ]
-        });
-        $('#category_id').change(function() {
-            console.log('d.category_id');
-            tableY.draw();
-        });
-        const table = $('#example').DataTable({
-            scrollX: true
-            , pageLength: 50
-            , columnDefs: [{
-                orderable: false
-                , targets: [0, 1, 2, 3, 4, 5]
-            , }]
-        });
 
-        function applySelectedRowClass() {
-            selectedRows.forEach(function(value) {
-                const selectedElement = $(`.inventory_item[data-id="${value}"]`);
-                if (!selectedElement.hasClass('selected_tr')) {
-                    selectedElement.addClass('selected_tr');
-                }
-            })
+            // Update the grand_total input field with the new value
+            $('#grandTotal').val(grandTotal.toFixed(2));
         }
+    }
+});
 
-        function applySelectRowDisable() {
-            disabledRows.forEach(function(value) {
-                const selectedElement = $(`.inventory_item[data-id="${value}"]`);
-                selectedElement.removeClass('inventory_item')
-                selectedElement.attr('id', 'selected_tr')
-            })
-        }
-        $('.select2-container--default').removeAttr("style");
-    });
+    })
 
 </script>
 @endsection
