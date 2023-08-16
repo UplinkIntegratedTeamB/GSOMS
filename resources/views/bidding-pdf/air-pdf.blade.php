@@ -94,15 +94,20 @@
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Department</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $air->requestDetail->department->name }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Invoice No. {{ $air->invoice_no }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">PO Date</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Invoice No.</td>
                 </tr>
                 <tr>
-                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Item No. </td>
-                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; "> Unit</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Description</td>
-                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Quantity </td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Department</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $air->requestDetail->department->name }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Date</td>
+                </tr>
+                <tr>
+                    <th colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Item No. </th>
+                    <th colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; "> Unit</th>
+                    <th colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Description</th>
+                    <th colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Quantity </th>
                 </tr>
             </thead>
             <tbody>
@@ -126,8 +131,8 @@
 
                 </p>
                 <p class="text-center">
-                    <label for="" style="font-weight: 600">Hon. EDGAR S. SAN LUIS</label> <br>
-                    Municipal Mayor
+                    <label for="" style="font-weight: 600">EVANGILINE A. GALZOTE</label> <br>
+                    Property Officer
                 </p>
             </div>
         </div>
@@ -143,13 +148,13 @@
             </div>
             <div class="outer-container">
                 <p class="text-center">
-                    <label for="" style="font-weight: 600">Hon. EDGAR S. SAN LUIS</label> <br>
-                    Municipal Mayor
+                    <label for="" style="font-weight: 600">EDWINA S. FLORES</label> <br>
+                    Inspection Officer / Inspection Committee
 
                 </p>
                 <p class="text-center">
-                    <label for="" style="font-weight: 600">Hon. EDGAR S. SAN LUIS</label> <br>
-                    Municipal Mayor
+                    <label for="" style="font-weight: 600">ELEANOR LYNNE F. OMADTO</label> <br>
+                    Inspection Officer / Inspection Committee
                 </p>
             </div>
         </div>

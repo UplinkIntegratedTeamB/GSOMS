@@ -16,7 +16,12 @@ class BiddingResolution extends Model
         'apprv_date',
         'date_time',
         'until',
-        'request_detail_id'
+        'request_detail_id',
+        'bid_evaluation',
+        'post_qualification',
+        'notice_of_awards',
+        'obr',
+        'delivery_term'
     ];
 
     use HasFactory;

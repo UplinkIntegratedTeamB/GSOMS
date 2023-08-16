@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>ACCEPTANCE AND INSPECTION REPORT</title>
 </head>
 <body>
     <style>
@@ -57,16 +57,22 @@
             display: -webkit-flex;
             display: flex;
         }
-
+        .header-logo{
+            width: 100px;
+            height:100px;
+            float: left;
+            margin-left: 4em;
+        }
     </style>
 
 
     <div class="text-center">
-        <label for="">Republic of the Philippines</label> <br>
-        <label for="">Province of Laguna</label><br>
-        <label for="">Municipality of Sta Cruz</label> <br>
-        <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
-        <h4>ACCEPTANCE AND INSPECTION REPORT</h4>
+    <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+        <label style="margin-right: 13em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 13em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 13em;" for="">Municipality of Sta Cruz</label> <br>
+        <label style="margin-right: 13em;" for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <h4 style="margin-right: 13em;">ACCEPTANCE AND INSPECTION REPORT</h4>
     </div>
 
     <div class="container">
@@ -154,6 +160,10 @@
             </div>
         </div>
     </div>
+<footer class="outer-container" style="margin-top: 50%;" >
+    <img  style="margin: 0 0 0 2em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
+    <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
+</footer>
 
 </body>
 </html>

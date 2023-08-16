@@ -70,8 +70,10 @@ class InventoryController extends Controller
                 ->make(true);
         }
 
+        $items = Item::with('itemType', 'unit')->get();
+
         if(auth()->user()->hasRole('staff')) {
-            return view('staff.inventory.index', compact('categories'));
+            return view('staff.inventory.index', compact('categories', 'items'));
         } else {
             return view('user.inventory.index', compact('categories'));
         }

@@ -103,6 +103,7 @@
 
                                         @elseif($request->status === 5)
                                         <a href="{{ route('bac.create', ['id' => $request->id]) }}" class="col btn btn-primary">Create Bac Res</a>
+                                        <a href="{{ route('purchase-request.cancel', $request->id) }}" class="btn btn-danger" onclick="confirmCancel(event)" >Cancel</a>
 
                                         @elseif($request->status === 6)
                                         <a href="{{ route('rfq.create', ['id' => $request->id]) }}" class="col btn btn-primary">Proceed to RFQ </a>
@@ -118,7 +119,11 @@
 
                                         @elseif($request->status == 10)
                                         @if($request->purchaseRequest[0]->item->itemType->category_id == 1)
+                                        @if($request->PurchaseRequest[0]->item->itemType->id == 14)
+                                        <a href="{{ route('purchaseRequest.complete', $request->id) }}" type="button" onclick="complete(event)" class="col btn btn-primary">Complete</a>
+                                        @else
                                         <a href="{{ route('ris.index') }}" class="col btn btn-primary">RIS</a>
+                                        @endif
                                         @elseif($request->purchaseRequest[0]->item->itemType->category_id != 1)
                                         @if($request->grand_total >= 50000)
                                         <a href="{{ route('par.index') }}" class="col btn" style="background: rgb(163, 163, 255)">PAR</a>
@@ -139,13 +144,13 @@
                                         <a class="col btn btn-primary" href="{{ url("purchase-request/edit/$request->id") }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
                                         <a href="{{ route('purchaseRequest.approve', ['id' => $request->id, 'uid' => auth()->id()]) }}" type="button" class="col btn btn-success" onclick="confirmApproval(event)" data-bs-toggle="tooltip" data-bs-placement="top" title="Approve"><i class="fas fa-check text-white"></i></a>
                                         <a class="col btn btn-info" href="{{ route('pdf.download', ['id' => $request->id]) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="PDF"><i class="fas fa-file-pdf"></i></a>
-
                                         @elseif($request->status == 5)
-                                        <a href="{{ route('abstract-bid.create', $request->id) }}" class="btn btn-primary">Abstract of Bid</a>
+                                        <a href="{{ route('invitation.create', $request->id) }}" class="btn btn-primary">Invitation of Bid</a>
+                                        <a href="{{ route('purchase-request.cancel', $request->id) }}" class="btn btn-danger" onclick="confirmCancel(event)" >Cancel</a>
                                         @elseif($request->status == 6)
-                                        <a href="{{ route('abstract-bid.show', $request->id) }}" class="btn btn-primary">Abstract of Bid</a>
+                                        <a href="{{ route('abstract-bid.create', $request->id) }}" class="btn btn-primary">Abstract of Bid</a>
                                         @elseif($request->status == 7)
-                                        <a href="{{ route('abstract-bid.attendance', $request->biddingAbstract->id) }}" class="btn btn-primary">Attendance for Abstract</a>
+                                        <a href="{{ route('abstract-bid.show', $request->id) }}" class="btn btn-primary">Abstract of Bid</a>
                                         @elseif($request->status == 8)
                                         <a href="{{ route('resolution-bid.create', $request->id) }}" class="btn btn-primary">Resolution</a>
                                         @elseif($request->status == 9)
@@ -186,7 +191,7 @@
 
         Swal.fire({
             title: 'Are you sure?'
-            , text: 'You want to approve this Purchase Request?'
+            , text: 'You want to APPROVE this Purchase Request?'
             , icon: 'question'
             , showCancelButton: true
             , confirmButtonText: 'Save'
@@ -205,7 +210,26 @@
 
         Swal.fire({
             title: 'Are you sure?'
-            , text: 'You want to delete this Purchase Request?'
+            , text: 'You want to DELETE this Purchase Request?'
+            , icon: 'question'
+            , showCancelButton: true
+            , confirmButtonText: 'Delete'
+            , cancelButtonText: 'Cancel'
+        , }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = deleteURL; // Navigate to the specified route
+            }
+        });
+    }
+
+    function confirmCancel(event) {
+        event.preventDefault(); // Prevent the default link behavior
+
+        const deleteURL = event.currentTarget.getAttribute('href');
+
+        Swal.fire({
+            title: 'Are you sure?'
+            , text: 'You want to CANCEL this Purchase Request?'
             , icon: 'question'
             , showCancelButton: true
             , confirmButtonText: 'Delete'

@@ -22,8 +22,8 @@
                             <td><span class="fw-normal">{{ $user->name }}</span></td>
                             <td><span class="fw-normal">{{ $user->email }}</span></td>
                             <td><span class="fw-normal">{{ $user->roles->first()->name }}</span></td>
-                            <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a></td>
-                            <td><a href="{{ route('users.delete', $user->id) }}" class="btn btn-primary">Remove</a></td>
+                            <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('users.delete', $user->id) }}" class="btn btn-danger">Remove</a></td>
                         </tr>
                     @endforeach
                 </tbody>

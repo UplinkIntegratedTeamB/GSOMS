@@ -17,10 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('c_number')->nullable();
             $table->string('amount_in_word');
-            $table->string('start');
-            $table->string('apprv_date');
-            $table->string('date_time');
-            $table->string('until');
+            $table->string('obr');
+            $table->string('delivery_term');
             $table->foreignId('request_detail_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

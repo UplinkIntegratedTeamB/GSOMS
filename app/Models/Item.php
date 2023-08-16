@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Item extends Model
 {
@@ -49,6 +50,11 @@ class Item extends Model
 
     public function supplierOfferedItems() {
         return $this->hasMany(SupplierOfferedItem::class);
+    }
+
+    public function tripTicket() : HasOne
+    {
+        return $this->hasOne(TripTicket::class);
     }
 
 }

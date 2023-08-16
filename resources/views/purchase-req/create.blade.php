@@ -34,8 +34,9 @@
     }
 
     #example th:nth-child(2) {
-    min-width: 300px; /* Adjust this value to your desired width */
-}
+        min-width: 300px;
+        /* Adjust this value to your desired width */
+    }
 
 </style>
 
@@ -181,6 +182,7 @@
                             @enderror
                         </div>
 
+                        @staff
                         <div class="row form-group mt-2">
                             <label for="">End User Office <span for="" class="text-danger">*</span></label>
                             <select name="euo" id="euo" class="select2 form-control">
@@ -196,6 +198,25 @@
                             <div class="text-danger">End User Office is required</div>
                             @enderror
                         </div>
+                        @endstaff
+                        @user
+                        <input type="hidden" name="euo" value="{{ auth()->user()->department->id }}">
+                        <div class="row form-group mt-2">
+                            <label for="">End User Office <span for="" class="text-danger">*</span></label>
+                            <select name="" id="euo" class="select2 form-control" disabled>
+                                <option value="" selected disabled>Select End User Office</option>
+                                @foreach ($departments as $department)
+                                <option value="{{ $department->id }}" {{ old('euo') == $department->id || (auth()->user()->department_id == $department->id && old('euo') === null) ? 'selected' : '' }}>
+                                    {{ $department->name }}
+                                </option>
+                                @endforeach
+                            </select>
+
+                            @error('euo')
+                            <div class="text-danger">End User Office is required</div>
+                            @enderror
+                        </div>
+                        @enduser
 
                     </div>
 
@@ -402,16 +423,22 @@
                                     selectedRows.push(rowDataId);
                                 }
 
-                                function updateTotalPrice() {
-                                    let quantityInput = $(this); // Store the reference to the input element
-                                    let quantity = quantityInput.val();
+                                function updateEstimatedCost(row) {
+                                    let quantityInput = row.find('input[name*=quantity]');
+                                    let unitPriceInput = row.find('input[name*=unit_price]');
+                                    let estimatedCostInput = row.find('input[name*=estimated_cost]');
 
-                                    let unitPrice = response.unit_price;
+                                    let quantity = parseFloat(quantityInput.val()) || 0;
+                                    let unitPrice = parseFloat(unitPriceInput.val()) || 0;
                                     let totalCost = (quantity * unitPrice).toFixed(2);
 
-                                    // Adjust the selector to target the specific row
-                                    quantityInput.closest('tr.appended-row').find(`input[name="items[${tableLength}][estimated_cost]"]`).val(totalCost);
+                                    estimatedCostInput.val(totalCost);
                                     updateGrandTotal();
+                                }
+
+                                function updateTotalPrice() {
+                                    let row = $(this).closest('tr.appended-row');
+                                    updateEstimatedCost(row);
                                 }
 
                                 function updateGrandTotal() {
@@ -443,8 +470,10 @@
                                     }
                                 }
 
-                                $(document).on('input', 'input[name*=quantity]', updateTotalPrice);
-
+                                $(document).on('input', 'input[name*=quantity], input[name*=unit_price]', function() {
+                                    let row = $(this).closest('tr.appended-row');
+                                    updateEstimatedCost(row);
+                                });
                                 var newRowHtml = `
                                     <tr class="appended-row" data-id="${response.id}">
                                         <td><input class='form-control bg-transparent border-0' readonly value='${response.id}' name='items[${tableLength}][item_id]' /></td>
@@ -452,10 +481,10 @@
                                         <td><label>${response.unit.description}</label></td>
                                         <td><input class='form-control bg-transparent' type='number'  value='' id='qty' value="{{ old('quantity') }}" required placeholder="Quantity" name='items[${tableLength}][quantity]' min="1" /></td>
                                         @staff
-                                        <td><input class='form-control bg-transparent border-0' value='${response.unit_price}' readonly id='unit_price' name='items[${tableLength}][unit_price]' /></td>
+                                        <td><input type='number' class='form-control' value='' id='unit_price' name='items[${tableLength}][unit_price]' /></td>
                                         @endstaff
                                         @user
-                                        <td><input class='form-control bg-transparent border-0' value='${response.unit_price}' id='unit_price' readonly name='items[${tableLength}][unit_price]' /></td>
+                                        <td><input class='form-control' value='${response.unit_price}' id='unit_price' name='items[${tableLength}][unit_price]' /></td>
                                         @enduser
                                         <td><input class='form-control bg-transparent border-0' id="estimatedCost" readonly value='' name='items[${tableLength}][estimated_cost]' /></td>
                                     </tr>`;
@@ -506,8 +535,8 @@
                     }
                 }
                 , {
-                    data: 'item_type_id'
-                    , name: 'item_type_id'
+                    data: 'unit_id'
+                    , name: 'unit_id'
                     , render: function(data, type, row) {
                         // Limit description to 5 words
                         var words = data.split(' ').slice(0, 3).join(' ');

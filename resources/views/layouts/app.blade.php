@@ -19,10 +19,12 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"> --}}
 
+    <link rel="icon" type="image/png" href="{{ asset('images/brand/bgstacruz.png') }}" >
+
     {{-- Swal --}}
     {{-- <link rel="stylesheet" href="https://unpkg.com/sweetalert/dist/sweetalert.css"> --}}
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'GSOMS') }}</title>
 
     <!-- Styles -->
     @vite('resources/sass/app.scss')

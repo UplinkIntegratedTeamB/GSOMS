@@ -61,7 +61,7 @@
                             <input type="text" class="form-control" placeholder="Address" value="{{ $supplier->address }}" readonly>
                         </div>
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col form-group mt-2">
                             <label for="">Conforme Date</label>
                             <div class="input-group">
@@ -80,7 +80,7 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col mb-5">
                     <div class="form-group">
@@ -110,7 +110,7 @@
                             <option value="Online Payment">Online Payment</option>
                         </select>
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col form-group mt-2">
                             <label for=""> No. of Days </label>
                             <div class="input-group">
@@ -129,7 +129,7 @@
                                 <option value="3">As per schedule</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="container-fluid table-responsive">

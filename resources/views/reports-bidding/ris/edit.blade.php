@@ -37,20 +37,12 @@
             </div>
             <div class="col mb-5">
 
-                <div class="row">
                     <div class="col form-group">
                         <label for="">RIS No.</label>
                         <div class="input-group">
                             <input type="text" class="form-control" readonly value="{{ $requests->requestIssue->c_number }}">
                         </div>
                     </div>
-                    <div class="col form-group">
-                        <label for="">RIS Date</label>
-                        <div class="input-group">
-                            <input type="date" name="date" value="{{ date('Y-m-d', strtotime($requests->requestIssue->date)) }}" class="form-control">
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col form-group">
                         <label for="">AIR No.</label>
@@ -72,41 +64,6 @@
                 </div>
 
             </div>
-
-            <table class="table table-bordered" id="dataTable">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Qty</th>
-                        <th>Description</th>
-                        <th>Unit</th>
-                        <th>Unit Value</th>
-                        <th>Estimated Cost</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($requests->purchaseRequest as $request)
-                        <tr>
-                            <td>{{ $request->item->id }}</td>
-                            <td>{{ $request->quantity }}</td>
-                            <td>{{ $request->item->description }}</td>
-                            <td>{{ $request->item->itemType->type }}</td>
-                            <td style="text-align: end">{{ number_format($request->item->unit_price, 2) }}</td>
-                            <td style="text-align: end">{{ number_format($request->estimated_cost, 2) }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="text-align: end">Grand Total:</td>
-                        <th style="text-align: end">{{ number_format($requests->grand_total, 2) }}</th>
-                    </tr>
-                </tbody>
-            </table>
             <div class="mt-4">
                 <button class="btn btn-primary" style="float: right">Save</button>
             </div>

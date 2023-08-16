@@ -25,8 +25,7 @@
                     <td>{{ $request->pr_no }}</td>
                     <td>{{ $request->department->name }}</td>
                     <td>
-                        <a href="{{ route('pdf.biddingRis', $request->requestIssue->id) }}" class="btn btn-primary">Print RIS</a>
-                        <a href="{{ route('pdf.ntp', $request->id) }}" class="btn btn-success">Notice to Proceed</a>
+                        <a href="{{ route('pdf.biddingRis', $request->requestIssue->id) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
                         @if($request->status == 12)
                         <a href="{{ route('ris-bid.edit', $request->id) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                         <a href="{{ route('ris-bid.delete', ['id' => $request->requestIssue?->id, 'rid' => $request->id]) }}"  type="button" onclick="confirmDelete(event)" class="btn btn-danger"><i class="fas fa-trash"></i></a>

@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\BiddingAIRController;
 use App\Http\Controllers\BiddingRISController;
+use App\Http\Controllers\BidInvitationController;
 use App\Http\Controllers\ItemTypeController;
+use App\Http\Controllers\TripTicketController;
+use App\Http\Controllers\VehicleRegistrationController;
+use App\Models\Division;
 use App\Models\Section;
 use App\Models\BiddingAbstract;
 use Illuminate\Support\Facades\Route;
@@ -70,6 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::get('purchase-request/completedPr', [PurchaseRequestController::class, 'completedPr'])->name('purchaseRequest.completedPr');
     Route::get('purchase-request/completedPrUser', [PurchaseRequestController::class, 'completedPrUser'])->name('purchaseRequest.completedPrUser');
     Route::post('purchase-request/update/{id}', [PurchaseRequestController::class, 'update'])->name('purchase-request.update');
+    Route::get('purchase-request/cancel/{id}', [PurchaseRequestController::class, 'cancel'])->name('purchase-request.cancel');
     Route::resource('purchase-request', PurchaseRequestController::class)
         ->only('index', 'show', 'store');
 
@@ -77,6 +82,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/divisions/{division}/sections', function ($division) {
         $sections = Section::where('division_id', $division)->get();
         return response()->json($sections);
+    });
+
+    Route::get('/departments/{id}/divisions', function ($id) {
+        $divisions = Division::where('department_id', $id)->get();
+        return response()->json($divisions);
     });
 
     // Inventory
@@ -229,6 +239,14 @@ Route::middleware('auth')->group(function () {
         Route::post('ris-bid/{id}/update', [BiddingRISController::class, 'update'])->name('ris-bid.update');
         Route::get('ris-bid/{id}/{rid}/delete', [BiddingRISController::class, 'delete'])->name('ris-bid.delete');
 
+        // Invitation of Bid
+        Route::get('invitation/{id}', [BidInvitationController::class, 'create'])->name('invitation.create');
+        Route::get('invitation', [BidInvitationController::class, 'index'])->name('invitation.index');
+        Route::post('invitation/{id}', [BidInvitationController::class, 'store'])->name('invitation.store');
+        Route::get('invitation-bid/{id}', [BidInvitationController::class, 'edit'])->name('invitation-bid.edit');
+        Route::post('invitation-bid/{invitationBid}', [BidInvitationController::class, 'update'])->name('invitation-bid.update');
+        Route::get('invitation-bid/{invitationBid}/delete', [BidInvitationController::class, 'destroy'])->name('invitation-bid.destroy');
+
         // END OF BIDDING
 
         // Supplier
@@ -253,6 +271,13 @@ Route::middleware('auth')->group(function () {
         Route::post('itemType/update/{id}', [ItemTypeController::class, 'update'])->name('itemType.update');
         Route::get('itemType/destroy/{id}', [ItemTypeController::class, 'destroy'])->name('itemType.destroy');
         Route::resource('itemType', ItemTypeController::class)->except('show', 'destroy', 'update');
+
+        // VEHICLE REGISTRATION
+        Route::resource('vehicle', VehicleRegistrationController::class);
+        // Route::get('vehicle', [VehicleRegistrationController::class, 'index'])->name('vehicle.index');
+
+        // Trip Ticket
+        Route::resource('trip-ticket', TripTicketController::class);
 
     });
 
@@ -282,13 +307,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/pdf/resolution{id}', [PdfController::class, 'downloadResolution'])->name('pdf.resolution');
     Route::get('/pdf/eligibility/{id}', [PdfController::class, 'downloadEligibility'])->name('pdf.eligibility');
     Route::get('/pdf/noa/{id}', [PdfController::class, 'downloadNoa'])->name('pdf.noa');
-    Route::get('/pdf/quoted', [PdfController::class, 'downloadQuoted'])->name('pdf.quoted');
-    // Route::get('/pdf/npq', [PdfController::class, 'downloadNpq'])->name('pdf.npq');
+    Route::get('/pdf/quoted/{id}', [PdfController::class, 'downloadQuoted'])->name('pdf.quoted');
+    Route::get('/pdf/iob/{id}', [PdfController::class, 'downloadIob'])->name('pdf.iob');
     Route::get('/pdf/nopq/{id}', [PdfController::class, 'downloadNopq'])->name('pdf.nopq');
     Route::get('/pdf/pqer/{id}', [PdfController::class, 'downloadPqer'])->name('pdf.pqer');
     Route::get('/pdf/po-bidding/{id}', [PdfController::class, 'downloadbiddingPo'])->name('pdf.biddingPo');
     Route::get('/pdf/air-bidding/{id}', [PdfController::class, 'downloadbiddingAir'])->name('pdf.biddingAir');
     Route::get('/pdf/ris-bidding/{id}', [PdfController::class, 'downloadbiddingRis'])->name('pdf.biddingRis');
-
+    Route::get('/pdf/abstract-bidding/{id}', [PdfController::class, 'downloadBiddingAbstract'])->name('pdf.biddingAbstract');
+    Route::get('/pdf/trip-ticket/{id}', [PdfController::class, 'downloadTripTicket'])->name('pdf.tripTicket');
 
 });

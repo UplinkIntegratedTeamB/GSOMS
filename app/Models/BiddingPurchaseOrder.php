@@ -12,10 +12,8 @@ class BiddingPurchaseOrder extends Model
         'request_detail_id',
         'po_no',
         'payment_term',
-        'confirm_date',
-        'delivery_date',
-        'no_of_days',
-        'delivery_term'
+        'delivery_term',
+        'obr'
     ];
 
     use HasFactory;

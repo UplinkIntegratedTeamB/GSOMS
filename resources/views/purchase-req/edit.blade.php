@@ -39,8 +39,9 @@
     }
 
     #example th:nth-child(2) {
-    min-width: 300px; /* Adjust this value to your desired width */
-}
+        min-width: 300px;
+        /* Adjust this value to your desired width */
+    }
 
 </style>
 
@@ -120,7 +121,7 @@
                             <select name="" disabled id="procurement_user" class="select2 form-control" readonly>
                                 <option disabled selected>Select Procurement Mode</option>
                             </select>
-                            <input type="number"  class="form-control" name="procurement_mode_id" id="procurement_value">
+                            <input type="number" class="form-control" name="procurement_mode_id" id="procurement_value">
                             @error('procurement_mode_id')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -221,9 +222,11 @@
                                 <td><input type="text" class="form-control bg-transparent border-0" readonly value="{{ $request->item->id }}" name="items[{{ $loop->index }}][item_id]"></td>
                                 <td><input type="text" class="form-control" value="{{ $request->description }}" name="items[{{ $loop->index }}][item_description]"></td>
                                 <td>{{ $request->item->itemType->type }}</td>
-                                <td><input type="text" name="items[{{ $loop->index }}][quantity]" value="{{ $request->quantity }}" readonly class="form-control bg-transparent border-0 quantity-input"></td>
-                                <td style="text-align: end"><input type="text" value="{{ number_format($request->unit_price, 2) }}" class="form-control unit-price-input" name="items[{{ $loop->index }}][unit_price]"></td>
-                                <td style="text-align: end"><input type="text" value="{{ number_format($request->estimated_cost, 2) }}" name="items[{{ $loop->index }}][estimated_cost]" class="form-control estimated-cost-input"></td>
+                                <td><input type="text" name="items[{{ $loop->index }}][quantity]" value="{{ $request->quantity }}" class="form-control quantity-input"></td>
+                                <td style="text-align: end">
+                                    <input type="text" value="{{ $request->unit_price }}" class="form-control unit-price-input" name="items[{{ $loop->index }}][unit_price]">
+                                </td>
+                                <td style="text-align: end"><input type="text" value="{{ number_format($request->estimated_cost, 2) }}" name="items[{{ $loop->index }}][estimated_cost]" readonly class="form-control estimated-cost-input"></td>
                                 <td>
                                     <a href="{{ route('purchaseRequest.remove', ['id' => $request->id, 'grand' => $id ]) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>
@@ -249,59 +252,6 @@
         </div>
     </div>
 </div>
-
-
-<!-- Modal -->
-{{-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content" style="">
-            <div class="modal-header">
-                <h1 class="modal-title- fs-5" id="staticBackdropLabel">Inventory List</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <div class="container-fluid" id="inventoryTable">
-                    <table id="category-table" class="data-table table table-bordered table-responsive" style="width: 100%">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th></th>
-                                <th>
-                                    <select name="category" id="category_id" class="filter select2 form-control">
-                                        <option value="" selected>Category</option>
-                                        @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </th>
-                                <th></th>
-                                <th>
-                                    @foreach ($requestDetail->purchaseRequest as $request->first)
-                                    <input type="text" hidden class="form-control " value="{{ $request->item->itemType->type }}" id="unit">
-                                    @endforeach
-                                </th>
-                                <th></th>
-                            </tr>
-                            <tr>
-                                <th></th>
-                                <th>Item No.</th>
-                                <th>Category</th>
-                                <th>Item Description</th>
-                                <th>Unit Type</th>
-                                <th>Unit</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Done</button>
-            </div>
-        </div>
-    </div>
-</div> --}}
 
 <script>
     function confirmSave(event) {
@@ -350,47 +300,45 @@
 
     let selectedRows = [];
     let disabledRows = [];
-    let gtotal = parseFloat({{$requestDetail->grand_total}});
-    let reqId = {{$id}}
+    let gtotal = parseFloat({{$requestDetail->grand_total }});
+    let reqId = {{ $id }}
 
     $(document).ready(function() {
-
-        const tableY = $('#example').DataTable({
+    const tableY = $('#example').DataTable({
         drawCallback: function(settings) {
-        $('.unit-price-input').on('input', function() {
-            calculateEstimatedCost($(this));
-        });
-
-        function calculateEstimatedCost(unitPriceInput) {
-            const row = unitPriceInput.closest('tr');
-            const quantity = parseFloat(row.find('.quantity-input').val());
-            const unitPrice = parseFloat(unitPriceInput.val().replace(/[^0-9.-]/g, ''));
-            const estimatedCost = (quantity * unitPrice).toFixed(2);
-
-            row.find('.estimated-cost-input').val(estimatedCost);
-
-            let grandTotal = 0;
-            $('.estimated-cost-input').each(function() {
-                const cost = parseFloat($(this).val().replace(/[^0-9.-]/g, ''));
-                if (!isNaN(cost)) {
-                    grandTotal += cost;
-                }
+            $('.unit-price-input, .quantity-input').on('input', function() {
+                calculateEstimatedCost($(this));
             });
 
-            const procurement = $('#procurement_value');
-            if (grandTotal > 200000.00) {  // fixed this line
-                procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
-            } else {
-                procurement.val(2); // Otherwise, set procurement value to 2
+            function calculateEstimatedCost(inputElement) {
+                const row = inputElement.closest('tr');
+                const quantity = parseFloat(row.find('.quantity-input').val());
+                const unitPrice = parseFloat(row.find('.unit-price-input').val().replace(/[^0-9.-]/g, ''));
+                const estimatedCost = (quantity * unitPrice).toFixed(2);
+
+                row.find('.estimated-cost-input').val(estimatedCost);
+
+                let grandTotal = 0;
+                $('.estimated-cost-input').each(function() {
+                    const cost = parseFloat($(this).val().replace(/[^0-9.-]/g, ''));
+                    if (!isNaN(cost)) {
+                        grandTotal += cost;
+                    }
+                });
+
+                const procurement = $('#procurement_value');
+                if (grandTotal > 200000.00) {
+                    procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
+                } else {
+                    procurement.val(2); // Otherwise, set procurement value to 2
+                }
+
+                // Update the grand_total input field with the new value
+                $('#grandTotal').val(grandTotal.toFixed(2));
             }
-
-            // Update the grand_total input field with the new value
-            $('#grandTotal').val(grandTotal.toFixed(2));
         }
-    }
+    });
 });
-
-    })
 
 </script>
 @endsection

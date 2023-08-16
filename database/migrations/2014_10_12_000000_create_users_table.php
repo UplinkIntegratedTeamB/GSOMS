@@ -55,6 +55,17 @@ return new class extends Migration
             ['name' => 'BMO', 'email' => 'bmo@gmail.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'department_id' => null],
         ];
 
+        $admins = [
+            ['name' => 'admin', 'email' => 'admin@example.net', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'department_id' => null],
+        ];
+
+        $roleAdmin = Role::findByName('admin');
+
+        foreach($admins as $admin) {
+            $bmo = User::create($admin);
+            $bmo->assignRole($roleAdmin);
+        }
+
         $roleBmo = Role::findByName('bmo');
 
         foreach($bmos as $bmoUser) {

@@ -17,7 +17,8 @@ class BiddingAbstract extends Model
         'purpose',
         'cash_bond',
         'good',
-        'winner_total'
+        'winner_total',
+        'bank'
     ];
 
     use HasFactory;

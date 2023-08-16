@@ -24,7 +24,7 @@
                         <td>{{ $abstract->requestDetail->department->name }}</td>
                         <td>{{ $abstract->created_at }}</td>
                         <td>
-                            <a href="{{ route('pdf.attendance', ['id' => $abstract->id]) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
+                            <a href="{{ route('pdf.biddingAbstract', ['id' => $abstract->id]) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
                             @if($abstract->requestDetail->status == 6)
                             <a href="{{ route('abstract-bid.show', ['id' => $abstract->id]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                             @else

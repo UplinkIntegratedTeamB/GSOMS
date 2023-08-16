@@ -29,7 +29,7 @@ class StorePurchaseRequest extends FormRequest
             'procurement_mode_id' => 'required',
             'date1' => 'max:50|nullable|date',
             'ppmp_no' => 'nullable',
-            'purpose' => 'max:50|required',
+            'purpose' => 'max:255|required',
             'region' => 'max:50|nullable',
             'sof' => 'max:50|nullable',
             'euo' => 'max:50|required',

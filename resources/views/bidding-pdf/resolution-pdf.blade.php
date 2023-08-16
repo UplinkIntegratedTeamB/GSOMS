@@ -75,10 +75,10 @@
         @php
             use Carbon\Carbon;
             $apprvDate = Carbon::parse($resolution->apprv_date)->format('F j, Y');
-            $start = Carbon::parse($resolution->start)->format('F j, Y');
+            $start = Carbon::parse($resolution->start)->format('F j');
             $end = Carbon::parse($resolution->until)->format('F j, Y');
-            $date = Carbon::parse($resolution->date_time)->format('F j, Y');
-            $formattedDateTime = Carbon::parse($resolution->date_time)->format('F j, Y g:i a');
+            // $date = Carbon::parse($resolution->date_time)->format('F j, Y');
+            // $formattedDateTime = Carbon::parse($resolution->date_time)->format('F j, Y g:i a');
         @endphp
         <p>
             <label for="" style="margin-left: 3em">WHEREAS, the Municipal Government of Santa Cruz, Laguna through the Municipal Mayor approved a
@@ -95,11 +95,11 @@
             <label for="" style="margin-left: 3em">WHEREAS, in reponse to the said advertisements, <u><b>{{ $count }}</b></u> propective holder
                 submitted
                 their purchased bid documents of intent and
-                application for eligibility on <u><b>{{ $date }}<br></b></u></label>
+                application for eligibility on <u><b>{{ $end }}<br></b></u></label>
         </p>
         <p>
             <label for="" style="margin-left: 3em">WHEREAS, Eligibility, Technical and Financial Proposals of comprising envelope 1&2 were
-                submitted on <u><b>{{ $formattedDateTime }}</b></u> and publicly opened at <u><b>2:00 pm.</b></u>The
+                submitted on <u><b>{{ $end }}</b></u> and publicly opened at <u><b>2:00 pm.</b></u>The
                 prospective bidder passed the preliminary examinations of eligibility requirments</label>
         </p>
         <p>
@@ -167,7 +167,7 @@
 
         <div class="" style="margin-top: 3%">
             <p>
-                <label for="" style="margin-left: 3em">WHEREAS, the detailed evaluation of bids conducted on {{ $date }} resulted;</label>
+                <label for="" style="margin-left: 3em">WHEREAS, the detailed evaluation of bids conducted on {{ $end }} resulted;</label>
             </p>
         </div>
         <div class="">
@@ -230,7 +230,7 @@
                 <p>
                     <label for="" style="margin-left: 3em">WHEREAS, upon careful examination, validation and verification of all eligibility,
                         technical and financial requirments submitted by eligible bidder two complying bidder
-                        passed the post conducted on <u><b>{{ $date }}</b></u></label>
+                        passed the post conducted on <u><b>{{ $end }}</b></u></label>
                 </p>
                 <p>
                     <label for="" style="margin-left: 3em">WHEREAS, the bid <u><b>{{ $offers->winners->name }}</b></u> has been found to be <strong style="margin-left: 3px; text-transform: uppercase">complying and the lowest bidders.</strong></label>
@@ -241,6 +241,12 @@
                         MAGNAYE owner of Reign Enterprises with postal address at Baranggay Babukal, Santa Cruz, Laguna
                         of <b>(P {{ $gtotal->grand_total }})</b></label> <br>
                     {{-- <label for="" style="margin-left: 2em">Done this <u>26th</u> of December 2022</label> --}}
+                </p>
+
+                <p style="margin-top: 2em; ">
+                    <label for="" style="margin-left: 3em">
+                        Done this ____ day of {{ date('F, Y', strtotime($resolution->until)) }}
+                    </label>
                 </p>
 
 

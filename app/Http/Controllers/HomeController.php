@@ -24,18 +24,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $pr = RequestDetail::where('status', '!=', 13)
+        $pr = RequestDetail::where('status', '!=', 14)
             ->where('user_id', auth()->id())
             ->count();
 
-        $pr_complete = RequestDetail::where('status', '==', 13)
+        $pr_complete = RequestDetail::where('status', '==', 14)
             ->where('user_id', auth()->id())
             ->count();
 
-        $requests = RequestDetail::where('status', '!=', 13)->count();
-        $requestComplete = RequestDetail::where('status', 13)->count();
+        $requests = RequestDetail::where('status', '!=', 14)->count();
+        $requestComplete = RequestDetail::where('status', 14)->count();
 
-        $prs = RequestDetail::with('department', 'division', 'section')->where('status', 13)->get();
+        $prs = RequestDetail::with('department', 'division', 'section')->where('status', 14)->where('user_id', auth()->id())->get();
+        $prsStaff = RequestDetail::with('department', 'division', 'section')->where('status', 14)->get();
 
         return view('home', compact('pr', 'pr_complete', 'requests', 'requestComplete', 'prs'));
     }

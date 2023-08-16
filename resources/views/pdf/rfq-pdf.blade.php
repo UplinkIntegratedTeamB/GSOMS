@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>REQUEST FOR QUOTATION</title>
 </head>
 <body>
 
 <style>
     * {
         font-family: 'Poppins', sans-serif;
+        /* border: 1px solid black; */
     }
 
     .text-center {
@@ -56,41 +57,49 @@
         -webkit-flex: 1;
         flex: 1;
     }
+    .header-logo{
+        width: 120px;
+        height:120px;
+        float: left;
+        margin-left: 2em;
+    }
 
 </style>
 
+
     <div class="text-center">
-        <label for="">Republic of the Philippines</label> <br>
-        <label for="">Province of Laguna</label><br>
-        <label for="">Municipality of Sta Cruz</label>
-        <h4>OFFICE OF THE MUNICIPAL GENERAL SERVICES</h4>
+    <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+        <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 11em;" for="">Municipality of Sta Cruz</label>
+        <h4 style="margin-right: 11em;">OFFICE OF THE MUNICIPAL GENERAL SERVICES</h4>
         <h5>REQUEST FOR QUOTATION (RFQ) OF PRICES</h5>
     </div>
 
     <div class="outer-container" style="margin-left: 3%">
         <p>
-            Date: <i style="text-decoration: underline">{{ date('F j , Y', strtotime($rfq->requestDetail->created_at)) }}</i> <br> <br>
-            P.R No.: <i style="text-decoration: underline">{{ $rfq->requestDetail->pr_no }}</i>
+            Date: <i style="text-decoration: underline; font-weight:600;">{{ date('F j , Y', strtotime($rfq->requestDetail->created_at)) }}</i> <br> <br>
+            P.R No.: <i style="text-decoration: underline; font-weight:600;">{{ $rfq->requestDetail->pr_no }}</i>
         </p>
-        <p style="text-align: end">
-            Date: <i style="text-decoration: underline">{{ date('F j , Y', strtotime($rfq->date)) }}</i> <br> <br>
-            Quotation No. <i style="text-decoration: underline">{{ $rfq->quotation_no }}</i>
+        <p style="text-align: start; margin-left: 57%;">
+            Date: <i style="text-decoration: underline; font-weight:600;">{{ date('F j , Y', strtotime($rfq->date)) }}</i> <br> <br>
+            Quotation No. <i style="text-decoration: underline; font-weight:600;">{{ $rfq->quotation_no }}</i>
         </p>
     </div>
 
     <div class="outer-container" style="margin-top: 3%">
-        <label for="">__________________________________________</label> <br> <br>
-        <label for="">__________________________________________</label>
+        <label style="margin-left: 1.7em;" for="">__________________________________________</label> <br> <br>
+        <label style="margin-left: 1.7em;" for="">__________________________________________</label>
     </div>
 
     <div class="container" style="margin-top: 4%">
         <p>
-            Please qoute your lowest price on item/s listed below, subject to the General Conditions on the last page, starting the shortest time of delivery and submit your quotation duly signed by your
+           <label style="margin-left: 3em;"> Please</label> qoute your lowest price on item/s listed below, subject to the General Conditions on the last page, starting the shortest time of delivery and submit your quotation duly signed by your
             representative not later than within the day in the return envelope attacged herewith.
         </p>
     </div>
 
-    <div class="text-end" style="margin-top: 3%">
+    <div class="text-start" style="margin-top: 3%; margin-left:65%; font-weight:600;">
         ENGR. MA. LOURDES P. SAN MIGUEL <br>
         Municipal General Services Officer
     </div>
@@ -169,22 +178,27 @@
     </div>
 
     <div class="outer-container">
-        <p>
+        <p style="margin-left: 3em;">
             <strong>Certified Correct:</strong>
         </p>
-        <p class="text-center">
+        <p class="text-center"  style="margin-left: 12em;" >
             ________________________________________ <br> Printed Name / Signiture
         </p>
     </div>
 
     <div class="outer-container">
-        <p class="text-center">
+        <p class="text-center" >
             ________________________________________ <br> Canvasser
         </p>
-        <p class="text-center">
+        <p class="text-center" >
             ________________________________________ <br> Printed Name / Signiture
         </p>
     </div>
+
+<footer class="outer-container" style="margin-top: 10%;" >
+    <img  style="margin: 0 0 0 2em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
+    <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
+</footer>
 
 </body>
 </html>

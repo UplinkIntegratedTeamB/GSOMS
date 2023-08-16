@@ -17,14 +17,8 @@
                             <input type="text" readonly value="{{ $cFormat }}" class="form-control">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Department</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" value="{{ $request->department->name }}" readonly>
-                        </div>
-                    </div>
                     <div class="form-group mt-2">
-                        <label for="">Amout in words.</label>
+                        <label for="">Amout in words. ( P {{ number_format($grandTotal->grand_total, 2) }} ) </label>
                         <div class="input-group">
                             <textarea id="" name="amount_in_word" cols="47" rows="1" class="form-control" placeholder="Amount in Words"></textarea>
                         </div>
@@ -35,17 +29,17 @@
                         </div>
                     @enderror
                     <div class="form-group mt-2">
-                        <label for="">Invitation start</label>
+                        <label for=""> Obligation Request No. </label>
                         <div class="input-group">
-                            <input type="date" name="start" class="form-control">
+                            <input id="" name="obr" class="form-control" placeholder="Obligation Request No." />
                         </div>
                     </div>
+                    @error('amount_in_word')
+                        <div class="text-danger">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-                @error('start')
-                    <div class="text-danger">
-                        {{ $message }}
-                    </div>
-                @enderror
                 <div class="col">
                     <div class="form-group">
                         <label for="">PR No.</label>
@@ -53,39 +47,18 @@
                             <input type="text" class="form-control" readonly value="{{ $request->pr_no }}">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Approved Date</label>
-                        <div class="input-group">
-                            <input type="date" name="apprv_date" class="form-control" >
-                        </div>
-                    </div>
-                    @error('apprv_date')
-                        <div class="text-danger">
-                            {{ $message }}
-                        </div>
-                    @enderror
                     <div class="form-group mt-2">
-                        <label for="">Date and Time Start</label>
+                        <label for="">Department</label>
                         <div class="input-group">
-                            <input type="datetime-local" name="date_time" class="form-control" >
+                            <input type="text" class="form-control" value="{{ $request->department->name }}" readonly>
                         </div>
                     </div>
-                    @error('date_time')
-                        <div class="text-danger">
-                            {{ $message }}
-                        </div>
-                    @enderror
                     <div class="form-group mt-2">
-                        <label for="">Invitation until</label>
+                        <label for="">Delivery Term</label>
                         <div class="input-group">
-                            <input type="date" name="until" class="form-control">
+                            <input type="text" class="form-control" placeholder="Delivery Term" name="delivery_term">
                         </div>
                     </div>
-                    @error('until')
-                        <div class="text-danger">
-                            {{ $message }}
-                        </div>
-                    @enderror
                 </div>
                 <div class="mt-3">
                     <button class="btn btn-primary" style="float: right">Save</button>

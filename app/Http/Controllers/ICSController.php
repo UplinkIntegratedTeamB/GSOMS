@@ -9,21 +9,24 @@ use Illuminate\Http\Request;
 
 class ICSController extends Controller
 {
-    public function create($id) {
+    public function create($id)
+    {
 
         $ics = RequestDetail::find($id);
 
         return view('reports.ics.create', compact('ics', 'id'));
     }
 
-    public function index() {
+    public function index()
+    {
 
         $requests = RequestDetail::with('purchaseRequest', 'department', 'acceptanceInspection')->has('acceptanceInspection')->where('status', 10)->get();
 
         return view('reports.ics.index', compact('requests'));
     }
 
-    public function store(StoreICSRequest $request, $id) {
+    public function store(StoreICSRequest $request, $id)
+    {
 
         InventoryCustodian::create($request->validated() + ['request_detail_id' => $id]);
 
@@ -34,28 +37,35 @@ class ICSController extends Controller
         return redirect()->route('ics.show');
     }
 
-    public function show() {
+    public function show()
+    {
 
-        $requests = RequestDetail::with('inventoryCustodian', 'department')->where('status', 11)->get();
+        $requests = RequestDetail::with('inventoryCustodian', 'department')
+            ->where('procurement_mode_id', 2)
+            ->whereHas('inventoryCustodian') // Add this line to filter based on InventoryCustodian
+            ->get();
 
         return view('reports.ics.show', compact('requests'));
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $ics = InventoryCustodian::with('requestDetail')->find($id);
 
         return view('reports.ics.edit', compact('ics', 'id'));
     }
 
-    public function update(StoreICSRequest $request, $id) {
+    public function update(StoreICSRequest $request, $id)
+    {
 
         InventoryCustodian::find($id)->update($request->validated());
 
         return redirect()->route('ics.show');
     }
 
-    public function delete($id, $rid) {
+    public function delete($id, $rid)
+    {
 
         InventoryCustodian::find($id)->delete($id);
 

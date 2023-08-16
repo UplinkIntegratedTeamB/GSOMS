@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>ABSTRACT OF CANVASS</title>
 </head>
 <body>
 
     <style>
         * {
             font-family: 'Poppins', sans-serif;
+             /* border: 1px solid black; */
         }
 
         .text-center {
@@ -57,16 +58,22 @@
             -webkit-flex: 1;
             flex: 1;
         }
-
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+    }
     </style>
 
     <div class="text-center">
-        <label for="">Republic of the Philippines</label> <br>
-        <label for="">Province of Laguna</label><br>
-        <label for="">Municipality of Sta Cruz</label>
-        <h5>ABSTRACT OF CANVASS</h5>
+    <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+        <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 11em;" for="">Municipality of Sta Cruz</label>
+        <h5 style="margin-right: 12em;" >ABSTRACT OF CANVASS</h5>
     </div>
-
+    <br>
     <p style="text-transform: uppercase">
         {{ $abstracts->requestDetail->bacRes->res_title }}
     </p>
@@ -184,7 +191,7 @@
                     <td colspan="19" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start;">PURPOSE: <label style="text-transform: uppercase; margin-left: 10px"> {{ $abstracts->requestDetail->bacRes->item_details }} </label> </td>
                 </tr>
                 <tr style="text-align: start">
-                    <td colspan="19" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start;">Item No. are awarded to in the amount of Php. 0.00 <br> Item No. 1 are awarded to <label style="text-transform: uppercase">{{ $abstracts->winners->name }}</label> in the amount of Php. {{ number_format($abstracts->requestDetail->grand_total, 2) }} </td>
+                    <td colspan="19" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start;">Item No. 1 are awarded to <label style="text-transform: uppercase">{{ $abstracts->winners->name }}</label> in the amount of Php. {{ number_format($abstracts->requestDetail->grand_total, 2) }} </td>
                 </tr>
             </tbody>
         </table>
@@ -224,6 +231,11 @@
             <label for="" style="font-size: 13px; font-weight: 600"> EDGAR S. SANLUIS </label> <br> <label for="" style="font-size: 12px">Municipal Mayor</label>
         </p>
     </div>
+
+<footer class="outer-container" style="margin-top: 20%;" >
+    <img  style="margin: 0 0 0 2em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
+    <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
+</footer>
 
 </body>
 </html>

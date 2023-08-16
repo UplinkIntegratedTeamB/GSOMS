@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>NOTICE OF AWARD</title>
 </head>
 <body>
 
@@ -52,16 +52,22 @@
             -webkit-flex: 1;
             flex: 1;
         }
-
+        .header-logo{
+            width: 90px;
+            height:90px;
+            float: left;
+            margin-left: 4em;
+        }
 
         </style>
 
 
         <div class="text-center">
-            <label for="">Republic of the Philippines</label> <br>
-            <label for="">Province of Laguna</label><br>
-            <label for="">Municipality of Sta Cruz</label> <br>
-            <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+            <label style="margin-right: 13em;" for="">Republic of the Philippines</label> <br>
+            <label style="margin-right: 13em;" for="">Province of Laguna</label><br>
+            <label style="margin-right: 13em;" for="">Municipality of Sta Cruz</label> <br>
+            <label style="margin-right: 13em;" for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
         </div>
 
         <div class="" style="margin-top: 5%;">
@@ -77,8 +83,8 @@
 
         <div class="">
             <p>
-                <label for="" style="margin-left: 2em">This</label> is to inform you that your quoted price for furnishing and delivering this <label for="" style="font-weight: 600; text-transform: uppercase"> {{ $awards->requestDetail->bacRes->item_details }} </label>  in this municipality in the amount of
-                 <label for="" style="font-weight: 600">{{ $awards->requestDetail->bacRes->amount_in_words }}</label>
+                <label for="" style="margin-left: 2em">This</label> is to inform you that your quoted price for furnishing and delivering this <label for="" style="font-weight: 600; text-transform: uppercase"> {{ $awards->requestDetail->bacRes->item_details }} </label>  in this municipality in the amount of 
+                <label for="" style="font-weight: 600">{{ $awards->requestDetail->bacRes->amount_in_words }}</label>
                 Only was the lowest price obtained as per canvass <label for="" style="font-weight: 600">{{ $awards->requestDetail->abstractCanvass->created_at->format('F j, Y') }}
                 </label> Purchase Order <label for="" style="font-weight: 600">{{ $awards->po_no }}</label> In this connection
                 said supplies / material / services rendered stated below with the lowest price have been definitely considered by the Local Commmittee on Awards as reasonable and most advantageous to the government.
@@ -103,6 +109,10 @@
             </p>
 
         </div>
+<footer class="outer-container" style="margin-top: 30%;" >
+    <img  style="margin: 0 0 0 2em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
+    <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
+</footer>
 
 </body>
 </html>

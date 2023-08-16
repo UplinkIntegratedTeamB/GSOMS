@@ -7,6 +7,7 @@ use App\Models\AcceptanceInspection;
 use App\Models\BacRes;
 use App\Models\BiddingAbstract;
 use App\Models\BiddingOffered;
+use App\Models\BiddingOfferedItem;
 use App\Models\BiddingPurchaseOrder;
 use App\Models\BiddingResolution;
 use App\Models\InventoryCustodian;
@@ -14,6 +15,7 @@ use App\Models\PropertyAcknowledgement;
 use App\Models\PurchaseOrder;
 use App\Models\Quotation;
 use App\Models\RequestIssue;
+use App\Models\TripTicket;
 use Illuminate\Http\Request;
 use App\Models\RequestDetail;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -50,7 +52,7 @@ class PdfController extends Controller
     public function downloadAbstract($id)
     {
         $abstract = AbstractCanvass::with('requestDetail.endUserOffice', 'requestDetail.bacRes', 'requestDetail.purchaseRequest.item')
-            ->where('request_detail_id' ,$id)->first();
+            ->where('request_detail_id', $id)->first();
 
         $abstracts = $abstract->load('supplierOffereds.supplierOfferedItems.item');
 
@@ -76,42 +78,47 @@ class PdfController extends Controller
 
     }
 
-    public function downloadPar($id) {
+    public function downloadPar($id)
+    {
 
         $pars = PropertyAcknowledgement::with('requestDetail.purchaseRequest.item.itemType')->where('request_detail_id', $id)->first();
 
         return SnappyPdf::loadView('pdf.par-pdf', compact('pars'))
-        ->inline();
+            ->inline();
     }
 
-    public function downloadAir($id) {
+    public function downloadAir($id)
+    {
         $air = AcceptanceInspection::with('requestDetail.abstractCanvass', 'requestDetail.purchaseOrder', 'requestDetail.purchaseRequest.item.itemType')->where('request_detail_id', $id)->first();
 
         return SnappyPdf::loadView('pdf.air-pdf', compact('air'))
             ->inline();
     }
 
-    public function downloadIcs($id) {
+    public function downloadIcs($id)
+    {
         $ics = InventoryCustodian::with('requestDetail.purchaseRequest.item.itemType')->where('request_detail_id', $id)->first();
 
         return SnappyPdf::loadView('pdf.ics-pdf', compact('ics'))
             ->inline();
     }
 
-    public function downloadRis($id) {
+    public function downloadRis($id)
+    {
 
         $ris = RequestIssue::with('requestDetail.purchaseRequest.item.itemType', 'requestDetail.department', 'requestDetail.acceptanceInspection')->where('request_detail_id', $id)->first();
 
         return SnappyPdf::loadView('pdf.ris-pdf', compact('ris'))
-        ->inline();
+            ->inline();
     }
 
-    public function downloadNtp($id) {
+    public function downloadNtp($id)
+    {
 
         $ntp = RequestDetail::with('biddingAbstract.winners', 'biddingResolution', 'biddingPurchaseOrder')->find($id);
 
         return SnappyPdf::loadView('bidding-pdf.ntp-pdf', compact('ntp'))
-        ->inline();
+            ->inline();
     }
 
     public function downloadEligibility($id)
@@ -119,40 +126,60 @@ class PdfController extends Controller
         $res = BiddingPurchaseOrder::with('requestDetail.biddingAbstract.winners')->find($id);
 
         return SnappyPdf::loadView('bidding-pdf.eligibility-pdf', compact('res'))
-        ->inline();
+            ->inline();
     }
 
-    public function downloadNoa($id) {
+    public function downloadNoa($id)
+    {
 
         $awards = BiddingPurchaseOrder::with('requestDetail.biddingAbstract', 'requestDetail.biddingResolution', 'requestDetail.purchaseRequest.item.itemType')->find($id);
 
         return SnappyPdf::loadView('bidding-pdf.noa-pdf', compact('awards'))
-        ->inline();
+            ->inline();
     }
 
-    public function downloadQuoted() {
-        return SnappyPdf::loadView('bidding-pdf.quoted-pdf')
-    ->inline();
+    public function downloadQuoted($id)
+    {
+
+        $quotes = RequestDetail::with('purchaseRequest', 'biddingAbstract.winners', 'biddingAbstract.biddingOffereds.biddingOfferedItems')->find($id);
+        $winner = $quotes->biddingAbstract->winner;
+        $offered = BiddingOffered::where('bidding_abstract_id', $quotes->biddingAbstract->id)->where('supplier_id', $winner)->first();
+        $items = BiddingOfferedItem::with('biddingOffered', 'item.unit')->where('bidding_offered_id', $offered->id)->get();
+
+        return SnappyPdf::loadView('bidding-pdf.quoted-pdf', compact('quotes', 'items'))
+            ->inline();
     }
 
-    public function downloadNopq($id) {
+    public function downloadIob($id)
+    {
+
+        $bids = RequestDetail::with('bidInvitation', 'department')->find($id);
+
+        return SnappyPdf::loadView('bidding-pdf.iob', compact('bids'))
+            ->inline();
+    }
+
+    public function downloadNopq($id)
+    {
 
         $res = RequestDetail::with('biddingAbstract')->find($id);
 
         return SnappyPdf::loadView('bidding-pdf.nopq-pdf', compact('res'))
-        ->inline();
+            ->inline();
     }
 
-    public function downloadPqer($id) {
+    public function downloadPqer($id)
+    {
 
-        $res = RequestDetail::with('department', 'division', 'biddingAbstract.winners', 'biddingResolution', 'biddingAbstract.biddingOffereds')->find($id);
+        $res = RequestDetail::with('department', 'division', 'biddingAbstract.winners', 'bidInvitation', 'biddingAbstract.biddingOffereds')->find($id);
         $count = $res->biddingAbstract->biddingOffereds->count();
 
         return SnappyPdf::loadView('bidding-pdf.pqer-pdf', compact('res', 'count'))
-        ->inline();
+            ->inline();
     }
 
-    public function downloadResolution($id) {
+    public function downloadResolution($id)
+    {
 
         $resolution = BiddingResolution::with('requestDetail.department', 'requestDetail.biddingAbstract.biddingOffereds')->find($id);
         $count = $resolution->requestDetail->biddingAbstract->biddingOffereds->count();
@@ -166,11 +193,17 @@ class PdfController extends Controller
     public function downloadbiddingPo($id)
     {
         $pos = BiddingPurchaseOrder::with('requestDetail.biddingAbstract', 'requestDetail.biddingResolution', 'requestDetail.purchaseRequest.item.itemType', 'requestDetail.acceptanceInspection')->find($id);
-        return SnappyPdf::loadView('bidding-pdf.po-pdf', compact('pos'))
+        $res = $pos->requestDetail;
+        $winner = $res->biddingAbstract->winner;
+        $offered = BiddingOffered::where('bidding_abstract_id', $res->biddingAbstract->id)->where('supplier_id', $winner)->first();
+        $items = BiddingOfferedItem::with('biddingOffered', 'item.unit')->where('bidding_offered_id', $offered->id)->get();
+
+        return SnappyPdf::loadView('bidding-pdf.po-pdf', compact('pos', 'items', 'offered'))
             ->inline();
     }
 
-    public function downloadAttendance($id) {
+    public function downloadAttendance($id)
+    {
 
         $bac = BiddingAbstract::with('attendance', 'biddingOffereds.supplier', 'requestDetail')->find($id);
         $count = $bac->biddingOffereds->count();
@@ -180,18 +213,40 @@ class PdfController extends Controller
             ->inline();
     }
 
-    public function downloadbiddingAir($id) {
+    public function downloadbiddingAir($id)
+    {
         $air = AcceptanceInspection::with('requestDetail.abstractCanvass', 'requestDetail.purchaseOrder', 'requestDetail.purchaseRequest.item.itemType')->where('request_detail_id', $id)->first();
 
         return SnappyPdf::loadView('bidding-pdf.air-pdf', compact('air'))
             ->inline();
     }
 
-    public function downloadbiddingRis($id) {
+    public function downloadbiddingRis($id)
+    {
 
         $ris = RequestIssue::with('requestDetail.purchaseRequest.item.itemType', 'requestDetail.department', 'requestDetail.acceptanceInspection')->where('request_detail_id', $id)->first();
 
         return SnappyPdf::loadView('bidding-pdf.ris', compact('ris'))
+            ->inline();
+    }
+
+    public function downloadBiddingAbstract($id) {
+
+         $abstract = BiddingAbstract::with('requestDetail.purchaseRequest.item', 'requestDetail.bidInvitation')->find($id);
+
+        $abstracts = $abstract->load('biddingOffereds.biddingOfferedItems.item');
+
+        return SnappyPdf::loadView('bidding-pdf.abstract', compact('abstracts'))
         ->inline();
     }
+
+    public function downloadTripTicket($id) {
+
+        $months = TripTicket::where('month_id', $id)->get();
+
+        $pdf = SnappyPdf::loadView('staff.tripTicket_pdf.tripticket', compact('months'));
+        $pdf->setPaper('a4', 'landscape'); // Set paper size and orientation
+        return $pdf->inline();
+    }
+
 }

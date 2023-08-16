@@ -26,25 +26,20 @@ class BiddingAbstractController extends Controller
 
     public function store(StoreAbstractBid $request, $id)
     {
-        $year = date('Y');
-
         $biddingCanvass = BiddingAbstract::create($request->only('winner', 'purpose', 'cash_bond') + ['request_detail_id' => $id]);
-        $good = sprintf("%04d", $biddingCanvass->id);
-        $biddingCanvass->good = "{$good}-{$year}";
-        $biddingCanvass->save();
-
         $supplier = $request->supplier_id;
         $biddingOffered = BiddingOffered::create([
             'supplier_id' => $supplier,
             'bidding_abstract_id' => $biddingCanvass->id,
             'grand_total' => $request->grand_total,
+            'bank' => $request->bank
         ]);
 
-        $supplierOfferedItems = collect($request->inventory)->map(fn(array $offeredItem) => ['item_id' => $offeredItem['item_id'], 'quantity' => $offeredItem['quantity'], 'total_amt' => $offeredItem['total_amt'], 'offer_price' => $offeredItem['offer_price'], 'bidding_offered_id' => $biddingOffered->id])->toArray();
+        $supplierOfferedItems = collect($request->inventory)->map(fn(array $offeredItem) => ['item_id' => $offeredItem['item_id'], 'item_description' => $offeredItem['item_description'], 'quantity' => $offeredItem['quantity'], 'total_amt' => $offeredItem['total_amt'], 'offer_price' => $offeredItem['offer_price'], 'bidding_offered_id' => $biddingOffered->id])->toArray();
 
         BiddingOfferedItem::insert($supplierOfferedItems);
 
-        RequestDetail::find($id)->update(['status' => 6]);
+        RequestDetail::find($id)->update(['status' => 7]);
 
         return redirect()->route('abstract-bid.show', $biddingCanvass->id);
     }
@@ -88,9 +83,10 @@ class BiddingAbstractController extends Controller
             'supplier_id' => $supplier,
             'bidding_abstract_id' => $id,
             'grand_total' => $request->grand_total,
+            'bank' => $request->bank
         ]);
 
-        $supplierOfferedItems = collect($request->inventory)->map(fn(array $offeredItem) => ['item_id' => $offeredItem['item_id'], 'quantity' => $offeredItem['quantity'], 'total_amt' => $offeredItem['total_amt'], 'offer_price' => $offeredItem['offer_price'], 'bidding_offered_id' => $supplierOffered->id])->toArray();
+        $supplierOfferedItems = collect($request->inventory)->map(fn(array $offeredItem) => ['item_id' => $offeredItem['item_id'], 'item_description' => $offeredItem['item_description'], 'quantity' => $offeredItem['quantity'], 'total_amt' => $offeredItem['total_amt'], 'offer_price' => $offeredItem['offer_price'], 'bidding_offered_id' => $supplierOffered->id])->toArray();
         BiddingOfferedItem::insert($supplierOfferedItems);
 
         return redirect()->back();
@@ -106,7 +102,7 @@ class BiddingAbstractController extends Controller
         $abstract = BiddingAbstract::find($id);
         $abstract->delete($id);
 
-        RequestDetail::find($rid)->update(['status' => 5]);
+        RequestDetail::find($rid)->update(['status' => 6]);
 
         return redirect()->back();
     }
@@ -131,9 +127,9 @@ class BiddingAbstractController extends Controller
         $canvass->update(['winner' => $lowestId, 'winner_total' => $lowest]);
 
 
-        RequestDetail::find($canvass->request_detail_id)->update(['status' => 7]);
+        RequestDetail::find($canvass->request_detail_id)->update(['status' => 8]);
 
-        return redirect()->route('abstract-bid.attendance', $id);
+        return redirect()->route('abstract-bid.index');
     }
 
     public function removeItem($id)
@@ -158,12 +154,12 @@ class BiddingAbstractController extends Controller
         return view('reports-bidding.abstract.attendance', compact('abstract', 'id'));
     }
 
-    public function addAttendance(StoreAttendanceRequest $request, $id, $rid) {
-        Attendance::create($request->validated() + ['bidding_abstract_id' => $id]);
+    // public function addAttendance(StoreAttendanceRequest $request, $id, $rid) {
+    //     Attendance::create($request->validated() + ['bidding_abstract_id' => $id]);
 
-        RequestDetail::find($rid)->update(['status' => 8]);
+    //     RequestDetail::find($rid)->update(['status' => 8]);
 
-        return redirect()->route('abstract-bid.index');
-    }
+    //     return redirect()->route('abstract-bid.index');
+    // }
 
 }

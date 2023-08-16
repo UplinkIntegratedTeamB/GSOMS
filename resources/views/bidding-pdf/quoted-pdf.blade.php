@@ -65,15 +65,15 @@
 
         <div class="" style="margin-top: 5%;">
             <p>
-                Nmae <br>
-                Address
+                {{ $quotes->biddingAbstract->winners->name }} <br>
+                {{ $quotes->biddingAbstract->winners->address }}
             </p>
         </div>
 
         <div class="">
             <p>
-                This is to inform you that your quoted price for <label for="" style="font-weight: 600">Description</label> with <i style="font-weight: 600">Purchase Request No.</i>
-                <label for="" style="text-decoration: underline">1191</label> dated <label for="" style="text-decoration: underline">Dec, 02, 2022</label> has been accepted by the Municipal Bid and Award Commitee.
+                This is to inform you that your quoted price for <label for="" style="font-weight: 600">{{ $quotes->purpose }}</label> with <i style="font-weight: 600">Purchase Request No.</i>
+                <label for="" style="text-decoration: underline">{{ $quotes->pr_no }}</label> dated <label for="" style="text-decoration: underline">{{ date('F, j, Y', strtotime($quotes->created_at)) }}</label> has been accepted by the Municipal Bid and Award Commitee.
             </p>
 
             <div class="">
@@ -99,14 +99,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($items as $item)
                         <tr>
-                            <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start" >1</td>
-                            <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">BTL/S</td>
-                            <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">50</td>
-                            <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">0.9% SODIUM CHLORIDE 1L</td>
-                            <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: end">119.00</td>
-                            <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: end">5,950.00</td>
+                            <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $item->item->id }}</td>
+                            <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $item->item->unit->description }}</td>
+                            <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $item->quantity }}</td>
+                            <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $item->item_description }}</td>
+                            <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: end">{{ number_format($item->offer_price, 2) }}</td>
+                            <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: end">{{ number_format($item->total_amt, 2) }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

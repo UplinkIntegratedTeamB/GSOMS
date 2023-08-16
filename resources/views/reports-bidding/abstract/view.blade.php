@@ -161,7 +161,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group mb-4">
+                            <div class="form-group mb-2">
                                 <label for="">Supplier</label> <br>
                                 <select name="supplier_id" id="supplier_${supplierLength}" class="form-control select2" style="width: 100%">
                                     <option value="" selected disabled>Select Supplier</option>
@@ -170,6 +170,11 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="mb-2 form-group">
+                                <label for="">Bank</label>
+                                <input type="text" name="bank" placeholder="Bank" class="form-control">
+                            </div>
+
                             <table class="table table-bordered" id="modalTable">
                                 <thead>
                                     <tr>
@@ -184,8 +189,9 @@
                                     <tr>
                                         <td>
                                             {{-- <input type="text" class="form-control" readonly value=""> --}}
-                                            {{ Str::words($request->item->description, 5, ' ...') }}
-                                            <input type="hidden" name="inventory[{{ $loop->index }}][item_id]" value="{{ $request->item->id }}">
+                                            {{ Str::words($request->description, 5, ' ...') }}
+                                        <input type="hidden" name="inventory[{{ $loop->index }}][item_description]" value="{{ $request->description }}" class="form-control">
+                                        <input type="hidden" name="inventory[{{ $loop->index }}][item_id]" value="{{ $request->item->id }}">
                                         </td>
                                         <td>
                                             <input type="text" class="form-control quantity bg-transparent border-0" name="inventory[{{ $loop->index }}][quantity]" value="{{ $request->quantity }}" id="quantity{{ $loop->index }}" readonly>
@@ -211,12 +217,13 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
+
         <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <form id="updateForm" action="{{ route('abstract-bid.update', ':id') }}" method="POST">
                 @csrf
@@ -342,7 +349,7 @@
                                         html += `
                                         <tr class="custom-tr">
                                             <td>
-                                                ${item.item.description}
+                                                ${item.description}
                                                 <input type="hidden" name="inventory[${rowIdx}][item_id]" value="${item.id}">
                                             </td>
                                             <td>

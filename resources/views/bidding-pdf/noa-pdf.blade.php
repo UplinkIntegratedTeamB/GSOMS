@@ -100,7 +100,7 @@
             </p>
 
             <p style="margin-top: 3%">
-            Received by the Bidder: <br> <label for="" style="text-decoration: underline; font-weight: 600">Name</label>
+            Received by the Bidder: <br> <label for="" style="text-decoration: underline; font-weight: 600">{{ $awards->requestDetail->biddingAbstract->winners->name }}</label>
             </p>
 
         </div>

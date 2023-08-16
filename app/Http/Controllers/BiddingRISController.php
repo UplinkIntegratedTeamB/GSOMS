@@ -24,11 +24,11 @@ class BiddingRISController extends Controller
         return view('reports-bidding.ris.index', compact('requests', ));
     }
 
-    public function store(StoreRisRequest $request, $id) {
+    public function store($id) {
 
         $year = date('Y');
 
-        $ris = RequestIssue::create($request->validated() + ['request_detail_id' => $id]);
+        $ris = RequestIssue::create(['request_detail_id' => $id]);
         $ris->c_number = "RIS-{$year}-00" . $ris->id;
         $ris->save();
 
@@ -53,8 +53,8 @@ class BiddingRISController extends Controller
         return view('reports-bidding.ris.edit', compact('requests'));
     }
 
-    public function update(StoreRisRequest $request, $id) {
-        RequestIssue::find($id)->update($request->validated());
+    public function update($id) {
+        // RequestIssue::find(  $id)->update($request->validated());
 
         return redirect()->route('ris-bid.index');
     }

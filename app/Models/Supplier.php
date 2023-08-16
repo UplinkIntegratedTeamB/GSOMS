@@ -42,4 +42,9 @@ class Supplier extends Model
         return $this->hasMany(SupplierOffered::class);
     }
 
+    public function tripTicket() : HasMany
+    {
+        return $this->hasMany(TripTicket::class);
+    }
+
 }

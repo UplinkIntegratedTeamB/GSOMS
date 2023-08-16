@@ -26,7 +26,7 @@
 </style>
 
 <div class="container-fluid">
-    <form action="{{ route('suppliers.store') }}" method="POST" class="shadow-lg p-4">
+    <form action="{{ route('suppliers.update', $id) }}" method="POST" class="shadow-lg p-4">
         @csrf
         <h5 class="my-3">Create Supplier</h5>
 

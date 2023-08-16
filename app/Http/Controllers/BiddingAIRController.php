@@ -19,10 +19,10 @@ class BiddingAIRController extends Controller
         return view('reports-bidding.air.create', compact('details', 'date', 'id'));
     }
 
-    public function store(StoreBiddingAir $request, $id) {
+    public function store($id) {
         $year = date('Y');
 
-        $air =  AcceptanceInspection::create($request->validated() + ['request_detail_id' => $id]);
+        $air =  AcceptanceInspection::create(['request_detail_id' => $id]);
         $formated_count = sprintf("%04d", $air->id);
         $air->c_number = "AIR-{$year}-{$formated_count}";
         $air->save();
@@ -44,9 +44,9 @@ class BiddingAIRController extends Controller
         return view('reports-bidding.air.edit', compact('details', 'id'));
     }
 
-    public function update(StoreBiddingAir $request, $id) {
+    public function update($id) {
 
-        AcceptanceInspection::find($id)->update($request->validated());
+        // AcceptanceInspection::find($id)->update($request->validated());
 
         return redirect()->route('air-bid.index');
     }

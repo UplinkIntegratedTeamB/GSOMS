@@ -27,9 +27,12 @@ class StoreAbstractBid extends FormRequest
             'winner' => 'nullable|exists:suppliers,id',
             'purpose' => 'required',
             'cash_bond' => 'required',
+            'bank' => 'required|string|max:255',
             'supplier_id' => 'required|exists:suppliers,id',
             'inventory' => 'required|array',
             'inventory. * .quantity' => 'required|min:1',
+            'inventory. * .item_id' => 'required',
+            'inventory. * .item_description' => 'required|string|max:255',
             'inventory. * .offer_price' => 'required|min:1',
             'inventory. * .total_amt' => 'required|min:1'
         ];

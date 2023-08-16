@@ -25,10 +25,8 @@ class StoreBiddingResolution extends FormRequest
     {
         return [
             'amount_in_word' => 'required|max:255',
-            'start' => 'required',
-            'apprv_date' => 'required',
-            'date_time' => 'required',
-            'until' => 'required',
+            'obr' => 'required|string|max:255',
+            'delivery_term' => 'required|max:255'
         ];
     }
 }

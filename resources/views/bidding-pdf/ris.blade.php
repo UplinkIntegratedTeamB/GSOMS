@@ -63,13 +63,7 @@
         <h4> REQUISITION AND ISSUE SLIP </h4>
     </div>
 
-    <div class="container">
-        @php
-            use Carbon\Carbon;
-            $date = Carbon::createFromFormat('Y-m-d', $ris->date);
-            $formattedDate = $date->format('F j, Y');
-        @endphp
-        <label for="">Date: {{ $formattedDate }}</label>
+    <div class="">
         <table style="border-collapse: collapse; margin: 0 auto ">
             <thead>
                 <tr>
@@ -83,17 +77,19 @@
                     <th></th>
                     <th></th>
                 </tr>
-                <tr>
-                    <th style="border: 1px solid black; font-size: 12px; padding: 10px;">Department</th>
-                    <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $ris->requestDetail->department->name }}</td>
-                    <th style="border: 1px solid black; font-size: 12px; padding: 10px;">RIS No.</th>
-                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $ris->c_number }}</td>
+                <tr style="text-align: start">
+                    <th style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Department</th>
+                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $ris->requestDetail->department->name }}</td>
+                    <th style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">RIS No.</th>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $ris->c_number }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Date:</td>
                 </tr>
                 <tr>
-                    <th style="border: 1px solid black; font-size: 12px; padding: 10px;">Division</th>
-                    <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $ris->requestDetail->division?->name }}</td>
-                    <th style="border: 1px solid black; font-size: 12px; padding: 10px;">AIR No.</th>
-                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 10px;">{{ $ris->requestDetail->acceptanceInspection->c_number }}</td>
+                    <th style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Division</th>
+                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $ris->requestDetail->division?->name }}</td>
+                    <th style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">AIR No.</th>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $ris->requestDetail->acceptanceInspection->c_number }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Date</td>
                 </tr>
                 <tr>
                     <th style="border: 1px solid black; font-size: 12px; padding: 10px;">#</th>

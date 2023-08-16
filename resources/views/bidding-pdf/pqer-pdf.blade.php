@@ -62,7 +62,7 @@
     </div>
 
     <div class="" style="margin-top: 4%">
-        <label for="" style="font-weight: 600">Project reference Number:</label> <label for="" style="text-decoration: underline">STC-GOOD NO. {{ $res->biddingAbstract->good }}</label> <br> <br>
+        <label for="" style="font-weight: 600">Project reference Number:</label> <label for="" style="text-decoration: underline">STC-GOOD NO. {{ $res->bidInvitation->good }}</label> <br> <br>
         <label for="" style="font-weight: 600">Name of the Project:</label> <label for="" style="text-decoration: underline">{{ $res->purpose }}</label> <br> <br>
         <label for="" style="font-weight: 600">Location of the Project:</label> <label for="" style="text-decoration: underline">{{ $res->department->name }} / {{ $res->division?->name }} </label> <br> <br>
     </div>
@@ -232,10 +232,10 @@
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                         <p class="text-center" style=" font-size: 12px;">
-                            {{ date('F, j, Y', strtotime($res->biddingResolution->start)) }} <br>
+                            {{ date('F, j, Y', strtotime($res->bidInvitation->start)) }} <br>
                             Government Electronic Procurement System <br>
                             Buyer's Guide and other conspicuous places <br>
-                            {{ date('F, j, Y', strtotime($res->biddingResolution->until)) }}
+                            {{ date('F, j, Y', strtotime($res->bidInvitation->until)) }}
                         </p>
                     </td>
                 </tr>
@@ -259,7 +259,7 @@
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                         <p class="text-center" style=" font-size: 12px;">
-                            {{ date('F, j, Y', strtotime($res->biddingResolution->until)) }} <br>
+                            {{ date('F, j, Y', strtotime($res->bidInvitation->until)) }} <br>
                             {{ $count }}
                         </p>
                     </td>
@@ -278,7 +278,7 @@
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                         <p class="text-center" style=" font-size: 12px;">
-                            {{ date('F, j, Y', strtotime($res->biddingResolution->apprv_date)) }}  <br>
+                            {{ date('F, j, Y', strtotime($res->bidInvitation->start)) }}  <br>
                             {{ $count }}
                         </p>
                     </td>
@@ -362,7 +362,7 @@
                 </td>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p class="text-center" style="font-size: 12px;">
-                        {{ date('F, j, Y', strtotime($res->biddingResolution->until)) }} 11:00 am
+                        {{ date('F, j, Y', strtotime($res->bidInvitation->until)) }} 11:00 am
                     </p>
                 </td>
             </tr>
@@ -376,7 +376,7 @@
                 </td>
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p class="text-center" style=" font-size: 12px;">
-                        {{ date('F, j, Y', strtotime($res->biddingResolution->until)) }} 2:00 pm
+                        {{ date('F, j, Y', strtotime($res->bidInvitation->until)) }} 2:00 pm
                     </p>
                 </td>
             </tr>
@@ -418,7 +418,7 @@
                 <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
                     <p class="text-center" style="font-size: 12px;">
                         120 days <br>
-                        {{ date('F, j, Y', strtotime($res->biddingResolution->until)) }}
+                        {{ date('F, j, Y', strtotime($res->bidInvitation->until)) }}
                     </p>
                 </td>
             </tr>

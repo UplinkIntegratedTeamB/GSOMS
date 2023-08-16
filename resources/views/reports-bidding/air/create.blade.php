@@ -23,15 +23,6 @@
                     </div>
                 </div>
                 <div class="form-group mt-2">
-                    <label for="">Invoice</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="invoice_no" required>
-                    </div>
-                </div>
-                @error('invoice_no')
-                <span>{{ $message }}</span>
-                @enderror
-                <div class="form-group mt-2">
                     <label for="">Department</label>
                     <div class="input-group">
                         <input type="text" class="form-control" readonly value="{{ $details->department->name }}">
@@ -45,16 +36,7 @@
                 </div>
             </div>
             <div class="col">
-                <div class="form-group">
-                    <label for="">OBR No.</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" value="" name="obr_no" required>
-                    </div>
-                </div>
-                @error('obr_no')
-                <span>{{ $message }}</span>
-                @enderror
-                <div class="form-group mt-2">
+                <div class="form-group ">
                     <label for="">PR No.</label>
                     <div class="input-group">
                         <input type="text" class="form-control" readonly value="{{ $details->pr_no }}">

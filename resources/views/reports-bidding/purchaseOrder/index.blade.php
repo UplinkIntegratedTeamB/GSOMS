@@ -30,6 +30,7 @@
                             <a href="{{ route('pdf.biddingPo', ['id' => $po->id]) }}" class="btn btn-primary">Print P.O</a>
                             <a href="{{ route('pdf.noa', ['id' => $po->id]) }}" class="btn btn-success">Print Awards</a>
                             <a href="{{ route('pdf.eligibility', ['id' => $po->id]) }}" class="btn btn-warning">Print Eligibility</a>
+                            <a href="{{ route('pdf.quoted', ['id' => $po->requestDetail->id]) }}" class="btn btn-transparent" style="background: #ADD8E6">Computation of Awards</a>
                             <a href="{{ route('pdf.ntp', ['id' => $po->request_detail_id]) }}" class="btn btn-transparent" style="background: #CBC3E3">Notice to Proceed</a>
                             <a href="{{ route('pdf.pqer', $po->request_detail_id) }}" class="btn btn-transparent" style="background: lightgray">Post Qualification Evalution Report</a>
                             <a href="{{ route('pdf.nopq', $po->request_detail_id) }}" class="btn btn-transparent border shadow">Notice of Post Qualification</a>

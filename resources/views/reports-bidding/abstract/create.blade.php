@@ -101,7 +101,7 @@
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
                             <td>{{ $request->item->id }}</td>
-                            <td>{{ Str::words($request->item->description, 5, ' ...') }}</td>
+                            <td>{{ Str::words($request->description, 5, ' ...') }}</td>
                             <td>{{ $request->quantity }}</td>
                             <td>{{ $request->unit_price }}</td>
                             <td>{{ $request->estimated_cost }}</td>
@@ -116,14 +116,14 @@
             </button>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group mb-4">
+                            <div class="form-group mb-2">
                                 <label for="">Supplier</label> <br>
                                 <select name="supplier_id" id="supplier_${supplierLength}" class="form-control select2" style="width: 100%">
                                     <option value="" selected disabled>Select Supplier</option>
@@ -131,6 +131,10 @@
                                     <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="">Bank</label>
+                                <input type="text" name="bank" placeholder="Bank" class="form-control">
                             </div>
                             <table class="table table-bordered" id="modalTable">
                                 <thead>
@@ -145,7 +149,8 @@
                                     @foreach ($requests->purchaseRequest as $request)
                                     <tr>
                                         <td>
-                                            {{ Str::words($request->item->description, 5, ' ...') }}
+                                            {{ Str::words($request->description, 5, ' ...') }}
+                                            <input type="hidden" name="inventory[{{ $loop->index }}][item_description]" value="{{ $request->description }}" class="form-control">
                                             <input type="hidden" name="inventory[{{ $loop->index }}][item_id]" value="{{ $request->item->id }}">
                                         </td>
                                         <td>
@@ -175,7 +180,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </div>

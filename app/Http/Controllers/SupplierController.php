@@ -61,7 +61,7 @@ class SupplierController extends Controller
         $classTypes = ClassType::paginate();
 
 
-        return view('staff.supplier.update', compact('supplier', 'classTypes'));
+        return view('staff.supplier.update', compact('supplier', 'classTypes', 'id'));
     }
 
     public function update(Request $request, $id)

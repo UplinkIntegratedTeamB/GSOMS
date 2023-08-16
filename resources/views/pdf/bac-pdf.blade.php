@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/brand/favicon.ico') }}" />
+    <title>BAC ROSOLUTION</title>
 </head>
 <body>
 <style>
 * {
     font-family: 'Poppins', sans-serif;
+ 
 }
 
 .text-center {
@@ -52,14 +54,24 @@ p {
     flex: 1;
 }
 
+.header-logo{
+    width: 70px;
+    height:70px;
+    margin-left:46%;
+}
 
+footer {
+  position: fixed;
+  width: 100%;
+}
 </style>
 
-
+<img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
 <div class="text-center">
     <label for="">Republic of the Philippines</label> <br>
     <label for="">Province of Laguna</label><br>
-    <label for="">Municipality of Sta Cruz</label>
+    <label for="">Municipality of Santa Cruz</label>
+    <hr style="height:2px; border-width:0; color:gray; background-color:black; margin-left:3em; width:90%;">
 
     <h3>BAC RESOLUTION NO.</h3>
     <label for="">Series of 2023</label>
@@ -67,8 +79,8 @@ p {
 </div>
 
 <div class="container">
-    <p class="text-center">
-        <strong>WHEREAS,</strong> the Municipal Government of Santa Cruz, Laguna through the Municipal Mayor approved a Purchase Request for the Furnishing and Delivering of
+    <p style="text-align: justify;" class="text-center">
+        <strong style="margin-left: 3em;">WHEREAS,</strong> the Municipal Government of Santa Cruz, Laguna through the Municipal Mayor approved a Purchase Request for the Furnishing and Delivering of
         <label for="" style="text-decoration: underline">{{ $resolution->item_details }}</label> in the amount of
         <label for="" style="text-decoration: underline">{{ $resolution->amount_in_words }} ( Php {{ $resolution->requestDetail->grand_total }}) </label> and had been verified to be in the Annual Procurement Plan for FY 2023 with the Approved
         Purchase Request Number <label for="" style="text-decoration: underline">{{ $resolution->requestDetail->pr_no }}</label> dated
@@ -79,8 +91,8 @@ p {
 </div>
 
 <div class="container" style="margin-top: 30px">
-    <p class="text-center">
-        <strong>WHEREAS,</strong> paragraph (b) Section 52 of Rule XVI of the Implementing Rules and Regulations of R.A 9184 otherwise known as the Government Procurement Reform Acts allows
+    <p style="text-align: justify;" class="text-center">
+        <strong style="margin-left: 3em;">WHEREAS,</strong> paragraph (b) Section 52 of Rule XVI of the Implementing Rules and Regulations of R.A 9184 otherwise known as the Government Procurement Reform Acts allows
         <strong>
             @if($resolution->requestDetail->procurement_mode_id == 2)
             Shopping
@@ -93,8 +105,8 @@ p {
 </div>
 
 <div class="container" style="margin-top: 30px">
-    <p class="text-center">
-        <strong>NOW THEREFORE,</strong> We the Members of Bids and Awards Committee, hereby RESOLVE as it is hereby RESOLVED to recommend to AWARD CONTRACT through Shopping for furnishing and delivering of
+    <p style="text-align: justify;" class="text-center">
+        <strong style="margin-left: 3em;">NOW THEREFORE,</strong> We the Members of Bids and Awards Committee, hereby RESOLVE as it is hereby RESOLVED to recommend to AWARD CONTRACT through Shopping for furnishing and delivering of
         <label for="" style="text-decoration: underline">{{ $resolution->item_details }}</label> with provisions sets forth in Article XVI Section 52 of IRRA of R.A 9184.
     </p>
 </div>
@@ -128,15 +140,18 @@ p {
     <p class="text-center">
         Approved By:
     </p>
-    <p class="text-center">
+    <p style="margin-top: 3em;" class="text-center">
         <label for="" class="text-center" style="font-size: 13px; font-weight: 600" >EDGAR S. SAN LUIS</label> <br> Municipal Mayor
     </p>
     <p class="text-center"></p>
 </div>
 
-<br>
 
-<p style="font-size: 11px"> <label for="" style="font-weight: 600">Control No.</label> {{ $resolution->c_number }}</p>
+<footer class="outer-container" style="margin-top: 20%;" >
+    <p style="font-size: 11px; margin: 0 0 0 4em;"> <label for="" style="font-weight: 600">Control No.</label> {{ $resolution->c_number }}</p>
+    <img  style="margin: 0 0 0 5em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
+    <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
+</footer>
 
 </body>
 </html>

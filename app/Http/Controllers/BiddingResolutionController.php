@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBiddingResolution;
+use App\Models\BiddingOffered;
 use App\Models\BiddingResolution;
 use App\Models\RequestDetail;
 use Illuminate\Http\Request;
@@ -11,12 +12,16 @@ class BiddingResolutionController extends Controller
 {
     public function create($id) {
 
-        $request = RequestDetail::with('department')->find($id);
+        $request = RequestDetail::with('department', 'biddingAbstract.winners')->find($id);
+
+        $bid = $request->biddingAbstract->id;
+        $winner = $request->biddingAbstract->winner;
+        $grandTotal = BiddingOffered::where('bidding_abstract_id', $bid)->where('supplier_id', $winner)->first();
 
         $year = date('Y');
         $cFormat = "BR-{$year}-XXXX";
 
-        return view('reports-bidding.resolution.create', compact('cFormat', 'request', 'id'));
+        return view('reports-bidding.resolution.create', compact('cFormat', 'request', 'id', 'grandTotal'));
     }
 
     public function store(StoreBiddingResolution $request, $id) {
@@ -40,7 +45,10 @@ class BiddingResolutionController extends Controller
     }
 
     public function edit($id) {
-        $request = BiddingResolution::with('requestDetail.department')->find($id);
+        $request = BiddingResolution::with('requestDetail.department', 'requestDetail.biddingAbstract.winners')->find($id);
+        $req = $request->requestDetail;
+        $winner = $req->biddingAbstract->winner;
+        $grandTotal = BiddingOffered::where('bidding_abstract_id', $req->biddingAbstract->id)->where('supplier_id', $winner)->first();
 
         return view('reports-bidding.resolution.edit', compact('id', 'request'));
     }

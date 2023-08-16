@@ -41,6 +41,9 @@
     #example th:nth-child(2) {
     min-width: 300px; /* Adjust this value to your desired width */
 }
+    #example th:nth-child(4) {
+    min-width: 150px; /* Adjust this value to your desired width */
+}
 
 </style>
 
@@ -223,9 +226,9 @@
                                     <td><input type="text" class="form-control bg-transparent border-0" readonly value="{{ $request->item->id }}" name="items[{{ $loop->index }}][item_id]"></td>
                                     <td><input type="text" class="form-control" value="{{ $request->description }}" name="items[{{ $loop->index }}][description]"></td>
                                     <td>{{ $request->item->itemType->type }}</td>
-                                    <td><input type="text" value="{{ $request->quantity }}" name="items[{{ $loop->index }}][quantity]" class="form-control quantity-input"></td>
-                                    <td style="text-align: end"><input type="text" value="{{ number_format($request->unit_price, 2) }}" readonly name="items[{{ $loop->index }}][unit_price]" class="form-control border-0 bg-transparent unit-price-input"></td>
-                                    <td style="text-align: end"><input type="text" name="items[{{ $loop->index }}][estimated_cost]" value="{{ number_format($request->estimated_cost, 2) }}" class="form-control estimated-cost-input"></td>
+                                    <td><input type="number" value="{{ $request->quantity }}" name="items[{{ $loop->index }}][quantity]" min="1" class="form-control quantity-input"></td>
+                                    <td style="text-align: end"><input type="text" value="{{ $request->unit_price }}" name="items[{{ $loop->index }}][unit_price]" min="1" class="form-control unit-price-input"></td>
+                                    <td><input type="text" style="text-align: end" name="items[{{ $loop->index }}][estimated_cost]" value="{{ number_format($request->estimated_cost, 2) }}" class="form-control estimated-cost-input"></td>
                                     <td>
                                         <a href="{{ route('purchaseRequest.remove', ['id' => $request->id, 'grand' => $id ]) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                     </td>
@@ -405,7 +408,42 @@
             $('#grandTotal').val(grandTotal.toFixed(2));
         }
 
-        const tableX = $('#example').DataTable();
+        $(document).ready(function() {
+    const tableY = $('#example').DataTable({
+        drawCallback: function(settings) {
+            $('.unit-price-input, .quantity-input').on('input', function() {
+                calculateEstimatedCost($(this));
+            });
+
+            function calculateEstimatedCost(inputElement) {
+                const row = inputElement.closest('tr');
+                const quantity = parseFloat(row.find('.quantity-input').val());
+                const unitPrice = parseFloat(row.find('.unit-price-input').val().replace(/[^0-9.-]/g, ''));
+                const estimatedCost = (quantity * unitPrice).toFixed(2);
+
+                row.find('.estimated-cost-input').val(estimatedCost);
+
+                let grandTotal = 0;
+                $('.estimated-cost-input').each(function() {
+                    const cost = parseFloat($(this).val().replace(/[^0-9.-]/g, ''));
+                    if (!isNaN(cost)) {
+                        grandTotal += cost;
+                    }
+                });
+
+                const procurement = $('#procurement_value');
+                if (grandTotal > 200000.00) {
+                    procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
+                } else {
+                    procurement.val(2); // Otherwise, set procurement value to 2
+                }
+
+                // Update the grand_total input field with the new value
+                $('#grandTotal').val(grandTotal.toFixed(2));
+            }
+        }
+    });
+});
 
 
         const tableY = $('.data-table').DataTable({
@@ -450,33 +488,40 @@
                                     selectedRows.push(rowDataId);
                                 }
 
-                                function updateTotalPrice() {
-                                    let quantityInput = $(this);
-                                    let quantity = quantityInput.val();
-                                    console.log(quantityInput);
-                                    let unitPrice = response.unit_price;
+                                function updateEstimatedCost(row) {
+                                    let quantityInput = row.find('input[name*=quantity]');
+                                    let unitPriceInput = row.find('input[name*=unit_price]');
+                                    let estimatedCostInput = row.find('input[name*=estimated_cost]');
+
+                                    let quantity = parseFloat(quantityInput.val()) || 0;
+                                    let unitPrice = parseFloat(unitPriceInput.val()) || 0;
                                     let totalCost = (quantity * unitPrice).toFixed(2);
-                                    console.log(unitPrice);
-                                    quantityInput.closest('tr.appended-row').find(`input[name="items[${tableLength}][estimated_cost]"]`).val(totalCost);
+
+                                    estimatedCostInput.val(totalCost);
                                     updateGrandTotal();
                                 }
 
-                                function updateGrandTotal() {
-                                    let totalCost = gtotal;
-                                    $('#example tbody tr.appended-row').each(function() {
-                                        let estimatedCost = parseFloat($(this).find('input[name*=estimated_cost]').val()) || 0;
-                                        totalCost += estimatedCost;
-                                    });
-                                    $('#grandTotal').val(totalCost.toFixed(2));
-
-                                    const grandTotalVal = parseFloat($('#grandTotal').val());
-                                    const procurement = $('#procurement_value');
-                                    if (grandTotalVal > 200000.00) {
-                                        procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
-                                    } else {
-                                        procurement.val(2); // Otherwise, set procurement value to 2
-                                    }
+                                function updateTotalPrice() {
+                                    let row = $(this).closest('tr.appended-row');
+                                    updateEstimatedCost(row);
                                 }
+
+                                function updateGrandTotal() {
+                                let totalCost = gtotal;
+                                $('#example tbody tr.appended-row').each(function() {
+                                    let estimatedCost = parseFloat($(this).find('input[name*=estimated_cost]').val()) || 0;
+                                    totalCost += estimatedCost;
+                                });
+                                $('#grandTotal').val(totalCost.toFixed(2));
+
+                                const grandTotalVal = parseFloat($('#grandTotal').val());
+                                const procurement = $('#procurement_value');
+                                if (grandTotalVal > 200000.00) {
+                                    procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
+                                } else {
+                                    procurement.val(2); // Otherwise, set procurement value to 2
+                                }
+                            }
 
                                 const tableLength = $('#example tbody tr.appended-row').length;
 
@@ -490,7 +535,10 @@
                                     }
                                 }
 
-                                $(document).on('input', 'input[name*=quantity]', updateTotalPrice);
+                                $(document).on('input', 'input[name*=quantity], input[name*=unit_price]', function() {
+                                    let row = $(this).closest('tr.appended-row');
+                                    updateEstimatedCost(row);
+                                });
 
                                 const newRowHtml = `
                             <tr class="appended-row" data-id="${response.id}">
@@ -498,7 +546,7 @@
                                 <td><input class="form-control" value="${response.description}" name="items[${tableLength}][description]" /></td>
                                 <td><label>${response.unit.description}</label></td>
                                 <td><input class='form-control bg-transparent' type='number' id='qty' value="{{ old('quantity') }}" required placeholder="Quantity" name='items[${tableLength}][quantity]' /></td>
-                                <td><input class='form-control bg-transparent border-0' value='${response.unit_price}' readonly id='unit_price' style="text-align: end" name='items[${tableLength}][unit_price]' readonly /></td>
+                                <td><input class='form-control bg-transparent border-0' value='${response.unit_price}'  id='unit_price' style="text-align: start" name='items[${tableLength}][unit_price]'  /></td>
                                 <td><input class='form-control bg-transparent border-0' id="estimatedCost" readonly value='' readonly style="text-align: end" name='items[${tableLength}][estimated_cost]' /></td>
                             </tr>`;
 
@@ -509,7 +557,7 @@
                                 toggleSubmitButton();
                                 console.log(selectedRows);
 
-                                $('input[name*=quantity]').val($('input[name*=quantity]').val().replace(/[^0-9]/g, ''));
+                                // $('input[name*=quantity]').val($('input[name*=quantity]').val().replace(/[^0-9]/g, ''));
                             }
                         });
                     }

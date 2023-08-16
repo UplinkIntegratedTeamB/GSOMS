@@ -96,7 +96,7 @@
                 <tr>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
                     <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Mode of Procurement: <br>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">
                         @if($pos->requestDetail->procurement_mode_id == 2)
                         Shopping / Canvass
                         @else
@@ -111,15 +111,7 @@
                     <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Place of Delivery: </td>
                     <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $pos->requestDetail->endUserOffice->name }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Delivery Term:</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">
-                        @if($pos->delivery_term == 1 )
-                            Pick-up
-                        @elseif($pos->delivery_term == 2)
-                            Delivery w/in Calendar days from receipt of PO
-                        @else
-                        As per schedule
-                        @endif
-                    </td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $pos->requestDetail->biddingResolution->delivery_term }}</td>
                 </tr>
                 <tr>
                     <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Date of Delivery: </td>
@@ -137,14 +129,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($pos->requestDetail->purchaseRequest as $po)
+                @foreach ($items as $po)
                 <tr>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->id }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->quantity }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->quantity }}</td>
                     <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->itemType->type }}</td>
-                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->description }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ number_format($po->unit_price, 2) }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ number_format($po->estimated_cost, 2) }}</td>
+                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item_description }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ number_format($po->offer_price, 2) }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ number_format($po->total_amt, 2) }}</td>
                 </tr>
                 @endforeach
                 <tr>
@@ -155,8 +147,8 @@
                     <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start"></td>
                 </tr>
                 <tr>
-                    <td colspan="7" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">( In Words ) {{ $pos->requestDetail->biddingResolution->amount_in_words }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start"> {{ number_format($pos->requestDetail->grand_total, 2) }} </td>
+                    <td colspan="7" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">( In Words ) {{ $pos->requestDetail->biddingResolution->amount_in_word }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start"> {{ number_format($offered->grand_total, 2) }} </td>
                 </tr>
             </tbody>
         </table>
@@ -195,7 +187,7 @@
             <div class="" style="width: 34%; border: 1px solid black; padding: 10px">
                 <br>
                 <p>
-                    {{-- <label for="" style="margin-right: 2em">OBR No. :</label>  <br> <br> --}}
+                    <label for="" style="margin-right: 2em">OBR No. : {{ $pos->requestDetail->biddingResolution->obr }} </label>  <br> <br>
                     <label for="" style="margin-right: 2em">AMOUNT:</label> {{ number_format($pos->requestDetail->grand_total, 2) }}
                 </p>
             </div>

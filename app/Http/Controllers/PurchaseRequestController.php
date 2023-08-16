@@ -60,7 +60,7 @@ class PurchaseRequestController extends Controller
 
     public function show()
     {
-        $requests = RequestDetail::with(['procurementMode', 'department', 'division', 'user', 'approvedByUser', 'biddingAbstract', 'purchaseRequest.item.itemType'])->orderBy('created_at', 'desc')->where('status', '!=', 13)->get();
+        $requests = RequestDetail::with(['procurementMode', 'department', 'division', 'user', 'approvedByUser', 'biddingAbstract', 'purchaseRequest.item.itemType', 'endUserOffice'])->orderBy('created_at', 'desc')->where('status', '!=', 14)->get();
 
         return view('purchase-req.index', compact('requests'));
     }
@@ -116,7 +116,7 @@ class PurchaseRequestController extends Controller
     {
 
         $request_detail = RequestDetail::find($id);
-        $request_detail->update($request->except('items', '_token', 'example_length') + ['user_id' => auth()->user()->id]);
+        $request_detail->update($request->except('items', '_token', 'example_length'));
 
         foreach ($request->items as $item) {
             if ($purchaseRequest = PurchaseRequest::where('item_id', $item['item_id'])->where('request_detail_id', $request_detail->id)->first()) {
@@ -164,7 +164,7 @@ class PurchaseRequestController extends Controller
     public function complete($id) {
 
         $pr = RequestDetail::find($id);
-        $pr->status = 13;
+        $pr->status = 14;
         $pr->save();
 
         return redirect()->back();
@@ -185,15 +185,22 @@ class PurchaseRequestController extends Controller
 
     public function completedPr() {
 
-        $requests = RequestDetail::with('department', 'division', 'section')->where('status', 13)->get();
+        $requests = RequestDetail::with('department', 'division', 'section')->where('status', 14)->get();
 
         return view('purchase-req.complete', compact('requests'));
     }
     public function completedPrUser() {
 
-        $requests = RequestDetail::with('department', 'division', 'section')->where('status', 13)->where('user_id', auth()->id())->get();
+        $requests = RequestDetail::with('department', 'division', 'section')->where('status', 14)->where('user_id', auth()->id())->get();
 
         return view('purchase-req.completeUser', compact('requests'));
+    }
+
+    public function cancel($id) {
+
+        RequestDetail::find($id)->update(['status' => 0]);
+
+        return redirect()->back();
     }
 
 }

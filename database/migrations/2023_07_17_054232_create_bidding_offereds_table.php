@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('bidding_abstract_id')->constrained()->cascadeOnDelete();
             $table->foreignId('supplier_id')->constrained()->cascadeOnDelete();
+            $table->string('bank');
             $table->string('grand_total');
             $table->timestamps();
         });

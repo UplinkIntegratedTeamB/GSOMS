@@ -21,7 +21,7 @@ class RISController extends Controller
 
     public function index() {
 
-        $requests = RequestDetail::with('purchaseRequest', 'department', 'acceptanceInspection')->where('status', 10)->get();
+        $requests = RequestDetail::with('purchaseRequest', 'department', 'acceptanceInspection')->where('procurement_mode_id', 2)->get();
 
         return view('reports.ris.index', compact('requests', ));
     }
@@ -45,7 +45,10 @@ class RISController extends Controller
 
     public function show() {
 
-        $requests = RequestDetail::where('status', 11)->with('requestIssue')->get();
+        $requests = RequestDetail::with('requestIssue')
+            ->where('procurement_mode_id', 2)
+            ->whereHas('requestIssue')
+            ->get();
 
         return view('reports.ris.show', compact('requests'));
     }

@@ -99,6 +99,11 @@ class RequestDetail extends Model
         return $this->hasOne(Quotation::class);
     }
 
+    public function bidInvitation() : HasOne
+    {
+        return $this->hasOne(BidInvitation::class);
+    }
+
     public function approvedByUser() : BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by', 'id', 'name');

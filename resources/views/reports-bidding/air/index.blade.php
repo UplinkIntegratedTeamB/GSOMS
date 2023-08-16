@@ -19,22 +19,24 @@
                 </thead>
                 <tbody>
                     @foreach ($airs as $air)
-                    <tr>
-                        <td>{{ $air->acceptanceInspection->c_number }}</td>
-                        <td>{{ $air->pr_no }}</td>
-                        <td>{{ date('F d, Y', strtotime($air->acceptanceInspection->created_at)) }}</td>
-                        <td>
-                            <a href="{{ route('pdf.biddingAir', $air->acceptanceInspection->request_detail_id) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
-                            @if($air->status == 11)
-                            <a href="{{ route('air-bid.edit', $air->acceptanceInspection->request_detail_id) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                            <a href="{{ route('air-bid.delete', ['id' => $air->acceptanceInspection->id, 'rid' => $air->acceptanceInspection->request_detail_id]) }}" type="button" onclick="confirmDelete(event)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                            @else
-                            <a href="" class="btn btn-secondary disabled" onclick="return false"><i class="fas fa-trash"></i></a>
-                            <a href="" class="btn btn-info disabled" onclick="return false"><i class="fas fa-edit"></i></a>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
+                    @if((!$air->acceptanceInspection == null))
+                   <tr>
+                       <td>{{ $air->acceptanceInspection->c_number }}</td>
+                       <td>{{ $air->pr_no }}</td>
+                       <td>{{ date('F d, Y', strtotime($air->acceptanceInspection->created_at)) }}</td>
+                       <td>
+                           <a href="{{ route('pdf.biddingAir', $air->acceptanceInspection->request_detail_id) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
+                           @if($air->status == 11)
+                           <a href="{{ route('air-bid.edit', $air->acceptanceInspection->request_detail_id) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                           <a href="{{ route('air-bid.delete', ['id' => $air->acceptanceInspection->id, 'rid' => $air->acceptanceInspection->request_detail_id]) }}" type="button" onclick="confirmDelete(event)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                           @else
+                           <a href="" class="btn btn-secondary disabled" onclick="return false"><i class="fas fa-trash"></i></a>
+                           <a href="" class="btn btn-info disabled" onclick="return false"><i class="fas fa-edit"></i></a>
+                           @endif
+                       </td>
+                   </tr>
+                   @endif
+                   @endforeach
                 </tbody>
             </table>
         </div>

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>PDF</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/brand/bgstacruz.png') }}">
+    <title>Purchase Request</title>
 </head>
 <body>
 
@@ -29,6 +30,9 @@ table th, table td {
 </style>
 
 
+<div class="">
+    <img src="{{ asset('images/brand/bgstacruz.png') }}" height="80" width="80" alt="" style="float: left"> <br>
+</div>
 
 <div class="text-center">
     <label for="">Republic of the Philippines</label> <br>

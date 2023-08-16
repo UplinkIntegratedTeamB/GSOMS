@@ -12,6 +12,7 @@ class BiddingOfferedItem extends Model
     protected $fillable = [
         'bidding_offered_id',
         'item_id',
+        'item_description',
         'quantity',
         'offer_price',
         'total_amt'

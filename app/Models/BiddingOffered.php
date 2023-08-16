@@ -12,7 +12,8 @@ class BiddingOffered extends Model
     protected $fillable = [
         'bidding_abstract_id',
         'supplier_id',
-        'grand_total'
+        'grand_total',
+        'bank'
     ];
 
     use HasFactory;

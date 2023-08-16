@@ -27,7 +27,7 @@
                     @staff
                     <p>{{ $requestComplete }} Completed PR </p>
                     @endstaff
-                    <a class="card-link" style="color: blue; text-decoration: underline" href="{{ route('purchase-request.show', auth()->id()) }}">See Status</a>
+                    <a class="card-link" style="color: blue; text-decoration: underline" href="{{ route('purchaseRequest.completedPr', auth()->id()) }}">See Status</a>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <h6 class="fw-bold mb-1 card-title">{{ __('Overall Remaining Balance') }}</h6>
                     <p> <strong>P 100,000.00</strong></p>
-                    <a class="card-link" style="color: blue; text-decoration: underline" href="{{ route('purchase-request.show', auth()->id()) }}">See Balance</a>
+                    <a class="card-link" style="color: blue; text-decoration: underline" href="">See Balance</a>
                 </div>
             </div>
         </div>
@@ -59,24 +59,42 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @user
                         @foreach ($prs as $pr)
-                            <tr>
-                                <td>{{ $pr->pr_no }}</td>
-                                <td>{{ $pr->department->name }}</td>
-                                <td>{{ $pr->division?->name }}</td>
-                                <td>{{ $pr->section?->name }}</td>
-                                <td>{{ $pr->created_at }}</td>
-                                <td>
-                                    <a class="col btn btn-primary" href="{{ url("purchase-request/view/$pr->id") }}"><i class="fas fa-eye"></i></a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>{{ $pr->pr_no }}</td>
+                            <td>{{ $pr->department->name }}</td>
+                            <td>{{ $pr->division?->name }}</td>
+                            <td>{{ $pr->section?->name }}</td>
+                            <td>{{ $pr->created_at }}</td>
+                            <td>
+                                <a class="col btn btn-primary" href="{{ url("purchase-request/view/$pr->id") }}"><i class="fas fa-eye"></i></a>
+                            </td>
+                        </tr>
                         @endforeach
+                        @enduser
+
+                        @staff
+                        @foreach ($prsStaff as $pr)
+                        <tr>
+                            <td>{{ $pr->pr_no }}</td>
+                            <td>{{ $pr->department->name }}</td>
+                            <td>{{ $pr->division?->name }}</td>
+                            <td>{{ $pr->section?->name }}</td>
+                            <td>{{ $pr->created_at }}</td>
+                            <td>
+                                <a class="col btn btn-primary" href="{{ url("purchase-request/view/$pr->id") }}"><i class="fas fa-eye"></i></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                        @endstaff
                     </tbody>
                 </table>
             </div>
         </div>
         <script>
             $('#dataTable').DataTable();
+
         </script>
     </div>
 </div>

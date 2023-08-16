@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('request_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('department_id')->constrained()->onDelete('cascade');
-            $table->foreignId('division_id')->nullable()->constrained()->onDelete('cascade');
-            $table->string('section_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('department_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('division_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('section_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('requested_by');
             $table->string('evaluated_by');
             $table->string('procurement_mode_id')->nullable();
@@ -26,12 +26,12 @@ return new class extends Migration
             $table->string('region')->nullable();
             $table->string('sof')->nullable();
             $table->unsignedBigInteger('euo')->nullable();
-            $table->foreign('euo')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('euo')->references('id')->on('departments')->cascadeOnDelete();
             $table->integer('grand_total');
             $table->integer('status')->default(0);
             $table->unsignedBigInteger('approved_by')->nullable();
-            $table->foreign('approved_by')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreign('approved_by')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

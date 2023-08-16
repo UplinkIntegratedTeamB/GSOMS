@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('request_detail_id');
             $table->string('po_no')->nullable();
             $table->string('payment_term');
-            $table->string('confirm_date');
-            $table->string('delivery_date');
-            $table->string('no_of_days');
-            $table->string('delivery_term');
+            // $table->string('confirm_date');
+            // $table->string('delivery_date');
+            // $table->string('no_of_days');
+            // $table->string('delivery_term');
             $table->timestamps();
         });
     }
