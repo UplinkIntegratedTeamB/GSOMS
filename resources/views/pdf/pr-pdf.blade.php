@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/png" href="{{ asset('images/brand/bgstacruz.png') }}">
-    <title>Purchase Request</title>
+    <title>PURCHASE REQUEST</title>
 </head>
 <body>
 
@@ -20,27 +20,27 @@
 }
 
 table th, table td {
-  width: 120px; /* set width to 100 pixels */
-  text-align: center; /* center align the text inside */
+    width: 120px; /* set width to 100 pixels */
+    text-align: center; /* center align the text inside */
 }
-
-
-
+.header-logo{
+    width: 120px;
+    height:120px;
+    float: left;
+    margin-left: 2em;
+    }
 
 </style>
 
 
-<div class="">
-    <img src="{{ asset('images/brand/bgstacruz.png') }}" height="80" width="80" alt="" style="float: left"> <br>
-</div>
-
 <div class="text-center">
-    <label for="">Republic of the Philippines</label> <br>
-    <label for="">Province of Laguna</label><br>
-    <label for="">Municipality of Sta Cruz</label>
+<img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+    <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+    <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+    <label style="margin-right: 11em;" for="">Municipality of Sta Cruz</label>
 
-    <h4>OFFICE OF THE MUNICIPAL GENERAL SERVICES</h4>
-    <h3>PURCHASE REQUEST</h3>
+    <h4 style="margin-right: 11em;">OFFICE OF THE MUNICIPAL GENERAL SERVICES</h4>
+    <h3 style="margin-right: 11em;">PURCHASE REQUEST</h3>
 </div>
 
 <div class="container">
@@ -129,9 +129,9 @@ table th, table td {
                 <td colspan="8" rowspan=""> <br> Certified as to cash Availability <br> Amount : {{ number_format($requestDetail->grand_total, 2) }}</td>
             </tr>
             <tr style="border-left: 1px solid black; border-right: 1px solid black;">
-                <td colspan="4"> <br> <br> <label for="" style="font-weight: 600">{{ $requestDetail->evaluated_by }}</label> <br> Municipal General Services Officer </td>
+                <td colspan="4"> <br> <br> <label for="" style="font-weight: 600; text-transform: uppercase;">{{ $requestDetail->requested_by }}</label> <br> Municipal General Services Officer </td>
                 <th></th>
-                <td colspan="8" rowspan=""> <br> <label for="" style="font-weight: 600" >Ronaldo O. Valles</label> <br> Municipal Treasuser </td>
+                <td colspan="8" rowspan=""> <br> <label for="" style="font-weight: 600; text-transform: uppercase;" >Ronaldo O. Valles</label> <br> Municipal Treasuser </td>
             </tr>
             <tr style="border-left: 1px solid black; border-right: 1px solid black;">
                 <td colspan="4"> <br> <br> Noted as to Submitted and Approved <br> Annual Procurement Plan </td>
@@ -139,9 +139,9 @@ table th, table td {
                 <td colspan="8" rowspan=""> <br> <br> Approved By: </td>
             </tr>
             <tr style="border-left: 1px solid black; border-right: 1px solid black; border-bottom: 1px solid black">
-                <td colspan="4"> <br><br> <label for="" style="font-weight: 600">{{ $requestDetail->evaluated_by }}</label> <br> Municipal General Services Officer </td>
+                <td colspan="4"> <br><br> <label for="" style="font-weight: 600; text-transform: uppercase;">{{ $requestDetail->evaluated_by }}</label> <br> Municipal General Services Officer </td>
                 <th></th>
-                <td colspan="8" rowspan=""> <br> <br> <label for="" style="font-weight: 600">Edgar S. San Luis</label> <br> Municipal Mayor </td>
+                <td colspan="8" rowspan=""> <br> <br> <label for="" style="font-weight: 600; text-transform: uppercase;;">Edgar S. San Luis</label> <br> Municipal Mayor </td>
             </tr>
         </tfoot>
     </table>

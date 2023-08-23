@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('department_id')->constrained()->cascadeOnDelete();
             $table->foreignId('division_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('vehicle_registration_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('supplier_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('gas_station_id')->constrained()->cascadeOnDelete();
             $table->string('driver');
             $table->string('passenger');
             $table->foreignId('month_id')->constrained()->cascadeOnDelete();

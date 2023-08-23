@@ -120,7 +120,7 @@
                     <tbody>
                         @foreach ($abstracts->supplierOffereds as $request)
                         <tr>
-                            <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ $request->id }}</td>
                             <td>{{ $request->supplier->name }}</td>
                             <td>{{ $request->grand_total }}</td>
                             <td>
@@ -140,7 +140,7 @@
                 <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Supplier Details</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -149,7 +149,10 @@
                                 <select name="supplier_id" id="supplier_${supplierLength}" class="form-control select2" style="width: 100%">
                                     <option value="" selected disabled>Select Supplier</option>
                                     @foreach ($suppliers as $supplier)
-                                    <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                                    @php
+                                    $isDisabled = in_array($supplier->id, $abstracts->supplierOffereds->pluck('id')->toArray());
+                                    @endphp
+                                    <option value="{{ $supplier->id }}" {{ $isDisabled ? 'disabled' : '' }} >{{ $supplier->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -244,7 +247,6 @@
 </div>
 
 <script>
-
     function confirmSave(event) {
         event.preventDefault(); // Prevent the default form submission
 
@@ -313,7 +315,7 @@
                     let html = '';
                     const tableLength = $('#example tbody tr').length;
                     const offers = $(this).data('offered');
-                    $("#updateForm").attr('action',"{{ config('app.url') }}" + '/abstract/' + $(this).data('offered'));
+                    $("#updateForm").attr('action', "{{ config('app.url') }}" + '/abstract/' + $(this).data('offered'));
                     if (abstract.supplier_offereds) {
                         $(".custom-tr").remove();
                         abstract.supplier_offereds.forEach(function(firstSupplierOffered, idx) {

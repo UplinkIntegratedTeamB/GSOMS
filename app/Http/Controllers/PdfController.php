@@ -224,7 +224,7 @@ class PdfController extends Controller
     public function downloadbiddingRis($id)
     {
 
-        $ris = RequestIssue::with('requestDetail.purchaseRequest.item.itemType', 'requestDetail.department', 'requestDetail.acceptanceInspection')->where('request_detail_id', $id)->first();
+        $ris = RequestIssue::with('requestDetail.purchaseRequest.item.itemType', 'requestDetail.department', 'requestDetail.acceptanceInspection')->find($id);
 
         return SnappyPdf::loadView('bidding-pdf.ris', compact('ris'))
             ->inline();
@@ -240,13 +240,33 @@ class PdfController extends Controller
         ->inline();
     }
 
-    public function downloadTripTicket($id) {
+    public function downloadTripTicket($id, $gas) {
 
-        $months = TripTicket::where('month_id', $id)->get();
+        $months = TripTicket::with('gasStation', 'month')
+            ->where('month_id', $id)
+            ->where('gas_station_id', $gas)
+            ->get();
 
         $pdf = SnappyPdf::loadView('staff.tripTicket_pdf.tripticket', compact('months'));
         $pdf->setPaper('a4', 'landscape'); // Set paper size and orientation
         return $pdf->inline();
+    }
+
+    public function downloadTripTicketDriver($id) {
+
+        $tickets = TripTicket::with('vehicleRegistration')->find($id);
+        $ticketId = sprintf("%04d", $tickets->id);
+
+        return SnappyPdf::loadView('staff.tripTicket_pdf.driver', compact('tickets', 'ticketId'))
+            ->inline();
+    }
+
+    public function downloadBoq($id) {
+
+        $request = RequestDetail::with('purchaseRequest.item.unit', 'department')->find($id);
+
+        return SnappyPdf::loadView('bidding-pdf.boq', compact('request'))
+            ->inline();
     }
 
 }

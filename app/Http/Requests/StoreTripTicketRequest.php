@@ -26,8 +26,8 @@ class StoreTripTicketRequest extends FormRequest
         return [
             'department_id' => 'required|exists:departments,id',
             'division_id' => 'nullable|exists:divisions,id',
-            'item_id' => 'required|exists:items,id',
-            'supplier_id' => 'required|exists:suppliers,id',
+            'vehicle_registration_id' => 'required|exists:vehicle_registrations,id',
+            'gas_station_id' => 'required|exists:gas_stations,id',
             'month_id' => 'required|exists:months,id',
             'driver' => 'required|string|max:255',
             'passenger' => 'nullable|string|max:255',

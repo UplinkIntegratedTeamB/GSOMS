@@ -11,6 +11,7 @@
 <style>
     * {
         font-family: 'Poppins', sans-serif;
+
         /* border: 1px solid black; */
     }
 
@@ -43,7 +44,8 @@
     }
 
     p {
-        font-size: 14px;
+        font-size: 12px;
+
     }
 
     .outer-container {
@@ -63,6 +65,16 @@
         float: left;
         margin-left: 2em;
     }
+
+    /* .header {
+        position: fixed;
+        top: 0;
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+    } */
 
 </style>
 
@@ -99,7 +111,7 @@
         </p>
     </div>
 
-    <div class="text-start" style="margin-top: 3%; margin-left:65%; font-weight:600;">
+    <div class="text-start" style="margin-top: 3%; margin-left:65%; font-weight:600; font-size: 13px;">
         ENGR. MA. LOURDES P. SAN MIGUEL <br>
         Municipal General Services Officer
     </div>
@@ -199,6 +211,5 @@
     <img  style="margin: 0 0 0 2em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
     <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
 </footer>
-
 </body>
 </html>

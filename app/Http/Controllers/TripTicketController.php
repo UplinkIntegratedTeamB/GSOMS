@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GasStation;
 use App\Models\Item;
 use App\Models\Month;
 use App\Models\Division;
@@ -17,7 +18,7 @@ class TripTicketController extends Controller
     public function create() {
 
         $departments = Department::with('divisions')->get();
-        $suppliers = Supplier::all();
+        $suppliers = GasStation::all();
         $items = VehicleRegistration::all();
         $months = Month::all();
 
@@ -34,16 +35,17 @@ class TripTicketController extends Controller
 
     public function index() {
 
-        $trips = TripTicket::with('department', 'supplier', 'month')->get();
+        $trips = TripTicket::with('department', 'gasStation', 'month')->get();
         $months = Month::all();
+        $gases =  GasStation::all();
 
-        return view('staff.tripTicket.index', compact('trips', 'months'));
+        return view('staff.tripTicket.index', compact('trips', 'months', 'gases'));
     }
 
     public function edit(TripTicket $tripTicket) {
 
         $departments = Department::with('divisions')->get();
-        $suppliers = Supplier::all();
+        $suppliers = GasStation::all();
         $items = Item::all();
         $months = Month::all();
 

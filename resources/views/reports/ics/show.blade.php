@@ -20,15 +20,15 @@
             <tbody>
                 @foreach ($requests as $request)
                 <tr>
-                    <td>{{ $request->inventoryCustodian?->serial_number }}</td>
-                    <td>{{ $request->pr_no }}</td>
-                    <td>{{ $request->department->name }}</td>
+                    <td>{{ $request->serial_number }}</td>
+                    <td>{{ $request->requestDetail->pr_no }}</td>
+                    <td>{{ $request->requestDetail->department->name }}</td>
                     <td>
-                        <a href="{{ route('pdf.ics', ['id' => $request->id]) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
+                        <a href="{{ route('pdf.ics', ['id' => $request->requestDetail->id]) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
                         @if($request->inventoryCustodian)
                         @if($request->status == 11)
-                        <a href="{{ route('ics.edit', ['id' => $request->inventoryCustodian?->id]) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
-                        <a href="{{ route('ics.delete', ['id' => $request->inventoryCustodian?->id, 'rid' => $request->id]) }}" type="button" onclick="confirmDelete(event)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        <a href="{{ route('ics.edit', ['id' => $request->id]) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                        <a href="{{ route('ics.delete', ['id' => $request->id, 'rid' => $request->requestDetail->id]) }}" type="button" onclick="confirmDelete(event)" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                         @else
                         <a href="" class="btn btn-secondary disabled" onclick="return false"><i class="fas fa-trash"></i></a>
                         <a href="" class="btn btn-info disabled" onclick="return false"><i class="fas fa-edit"></i></a>

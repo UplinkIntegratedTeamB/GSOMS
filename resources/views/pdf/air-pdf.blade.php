@@ -58,21 +58,21 @@
             display: flex;
         }
         .header-logo{
-            width: 100px;
-            height:100px;
+            width: 120px;
+            height:120px;
             float: left;
-            margin-left: 4em;
-        }
+            margin-left: 2em;
+    }
     </style>
 
 
     <div class="text-center">
     <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
-        <label style="margin-right: 13em;" for="">Republic of the Philippines</label> <br>
-        <label style="margin-right: 13em;" for="">Province of Laguna</label><br>
-        <label style="margin-right: 13em;" for="">Municipality of Sta Cruz</label> <br>
-        <label style="margin-right: 13em;" for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
-        <h4 style="margin-right: 13em;">ACCEPTANCE AND INSPECTION REPORT</h4>
+        <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 11em;" for="">Municipality of Sta Cruz</label> <br>
+        <label style="margin-right: 11em;" for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <h4 style="margin-right: 11em;">ACCEPTANCE AND INSPECTION REPORT</h4>
     </div>
 
     <div class="container">

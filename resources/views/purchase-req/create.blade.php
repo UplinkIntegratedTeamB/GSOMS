@@ -477,7 +477,7 @@
                                 var newRowHtml = `
                                     <tr class="appended-row" data-id="${response.id}">
                                         <td><input class='form-control bg-transparent border-0' readonly value='${response.id}' name='items[${tableLength}][item_id]' /></td>
-                                        <td><input class='form-control' value="${response.description}" name='items[${tableLength}][description]'  /></td>
+                                        <td><textarea name="items[${tableLength}][description]" row="2" class="form-control">${response.description}</textarea> </td>
                                         <td><label>${response.unit.description}</label></td>
                                         <td><input class='form-control bg-transparent' type='number'  value='' id='qty' value="{{ old('quantity') }}" required placeholder="Quantity" name='items[${tableLength}][quantity]' min="1" /></td>
                                         @staff

@@ -145,7 +145,8 @@
                                         <a href="{{ route('purchaseRequest.approve', ['id' => $request->id, 'uid' => auth()->id()]) }}" type="button" class="col btn btn-success" onclick="confirmApproval(event)" data-bs-toggle="tooltip" data-bs-placement="top" title="Approve"><i class="fas fa-check text-white"></i></a>
                                         <a class="col btn btn-info" href="{{ route('pdf.download', ['id' => $request->id]) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="PDF"><i class="fas fa-file-pdf"></i></a>
                                         @elseif($request->status == 5)
-                                        <a href="{{ route('invitation.create', $request->id) }}" class="btn btn-primary">Invitation of Bid</a>
+                                        <a href="{{ route('pdf.boq', $request->id) }}" class="btn btn-primary"><i class="fas fa-file-pdf"></i></a>
+                                        <a href="{{ route('invitation.create', $request->id) }}" class="btn btn-info">Invitation of Bid</a>
                                         <a href="{{ route('purchase-request.cancel', $request->id) }}" class="btn btn-danger" onclick="confirmCancel(event)" >Cancel</a>
                                         @elseif($request->status == 6)
                                         <a href="{{ route('abstract-bid.create', $request->id) }}" class="btn btn-primary">Abstract of Bid</a>

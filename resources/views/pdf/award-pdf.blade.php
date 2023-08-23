@@ -53,23 +53,22 @@
             flex: 1;
         }
         .header-logo{
-            width: 90px;
-            height:90px;
+            width: 120px;
+            height:120px;
             float: left;
-            margin-left: 4em;
-        }
-
+            margin-left: 2em;
+    }
         </style>
 
 
         <div class="text-center">
         <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
-            <label style="margin-right: 13em;" for="">Republic of the Philippines</label> <br>
-            <label style="margin-right: 13em;" for="">Province of Laguna</label><br>
-            <label style="margin-right: 13em;" for="">Municipality of Sta Cruz</label> <br>
-            <label style="margin-right: 13em;" for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+            <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+            <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+            <label style="margin-right: 11em;" for="">Municipality of Sta Cruz</label> <br>
+            <label style="margin-right: 11em;" for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
         </div>
-
+        <br>
         <div class="" style="margin-top: 5%;">
             <p>
                 <label for="" style="font-weight: 600">Supplier:</label> {{ $awards->requestDetail->abstractCanvass->winners->name }} <br>
@@ -80,10 +79,10 @@
         <div class="text-center">
             <h3>NOTICE OF AWARD</h3>
         </div>
-
+        <br>
         <div class="">
             <p>
-                <label for="" style="margin-left: 2em">This</label> is to inform you that your quoted price for furnishing and delivering this <label for="" style="font-weight: 600; text-transform: uppercase"> {{ $awards->requestDetail->bacRes->item_details }} </label>  in this municipality in the amount of 
+                <label for="" style="margin-left: 2em">This</label> is to inform you that your quoted price for furnishing and delivering this <label for="" style="font-weight: 600; text-transform: uppercase"> {{ $awards->requestDetail->bacRes->item_details }} </label>  in this municipality in the amount of
                 <label for="" style="font-weight: 600">{{ $awards->requestDetail->bacRes->amount_in_words }}</label>
                 Only was the lowest price obtained as per canvass <label for="" style="font-weight: 600">{{ $awards->requestDetail->abstractCanvass->created_at->format('F j, Y') }}
                 </label> Purchase Order <label for="" style="font-weight: 600">{{ $awards->po_no }}</label> In this connection

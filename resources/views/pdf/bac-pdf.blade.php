@@ -11,7 +11,7 @@
 <style>
 * {
     font-family: 'Poppins', sans-serif;
- 
+
 }
 
 .text-center {
@@ -117,19 +117,19 @@ footer {
 
 <div class="outer-container" style="margin-top: 6%">
         <p class="text-center">
-            <label for="" style="font-size: 13px; font-weight: 600" >ENGR. MARIA LOURDES P. SAN MIGUEL</label> <br> Municipal General Services Officer
+            <label for="" style="font-size: 13px; font-weight: 600" >MELVIN O. BONZA</label> <br> Municipal Administrator
         </p>
         <p class="text-center">
-            <label for="" style="font-size: 13px; font-weight: 600" >MELVIN O. BONZA</label> <br> Municipal Administrator
+            <label for="" style="font-size: 13px; font-weight: 600" >ATTY. RONALDO C. MARIANO</label> <br> Municipal Legal Officer
         </p>
 </div>
 
 <div class="outer-container" style="margin-top: 6%">
     <p class="text-center">
-        <label for="" style="font-size: 13px; font-weight: 600" >ATTY. RONALDO C. MARIANO</label> <br> Municipal Legal Officer
+        <label for="" style="font-size: 13px; font-weight: 600" >ENGR. PABLO M. MAGPILY JR.</label> <br> Municipal Engineer
     </p>
     <p class="text-center">
-        <label for="" style="font-size: 13px; font-weight: 600" >ENGR. PABLO M. MAGPILY JR.</label> <br> Municipal Engineer
+        <label for="" style="font-size: 13px; font-weight: 600" >EnP. JOSHUA FEDERICK J. VITALIZ, DLUP</label> <br> MGDH I-LDRRMO
     </p>
     <p class="text-center">
         <label for="" style="font-size: 13px; font-weight: 600" >EILEEN S. TALABIS</label> <br> Municipal Budget Officer

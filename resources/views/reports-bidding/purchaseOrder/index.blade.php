@@ -9,7 +9,7 @@
             <h5>Purchase Orders</h5>
         </div>
         <div class="card-body table-responsive">
-            <table class="table table-bordered" id="dataTable">
+            <table class="table table-bordered" id="dataTable" style="margin-bottom: 220px">
                 <thead>
                     <tr>
                         <th>P.O No.</th>
@@ -26,20 +26,27 @@
                         <td>{{ $po->requestDetail->pr_no }}</td>
                         <td>{{ $po->requestDetail->department->name }}</td>
                         <td>{{ $po->delivery_date }}</td>
-                        <td>
-                            <a href="{{ route('pdf.biddingPo', ['id' => $po->id]) }}" class="btn btn-primary">Print P.O</a>
-                            <a href="{{ route('pdf.noa', ['id' => $po->id]) }}" class="btn btn-success">Print Awards</a>
-                            <a href="{{ route('pdf.eligibility', ['id' => $po->id]) }}" class="btn btn-warning">Print Eligibility</a>
-                            <a href="{{ route('pdf.quoted', ['id' => $po->requestDetail->id]) }}" class="btn btn-transparent" style="background: #ADD8E6">Computation of Awards</a>
-                            <a href="{{ route('pdf.ntp', ['id' => $po->request_detail_id]) }}" class="btn btn-transparent" style="background: #CBC3E3">Notice to Proceed</a>
-                            <a href="{{ route('pdf.pqer', $po->request_detail_id) }}" class="btn btn-transparent" style="background: lightgray">Post Qualification Evalution Report</a>
-                            <a href="{{ route('pdf.nopq', $po->request_detail_id) }}" class="btn btn-transparent border shadow">Notice of Post Qualification</a>
+                        <td class="d-flex">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle me-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <i class="fas fa-file-pdf"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                  <li class="border border-1 p-1"><a href="{{ route('pdf.biddingPo', ['id' => $po->id]) }}" class="">Print P.O</a></li>
+                                  <li class="border border-1 p-1"><a href="{{ route('pdf.noa', ['id' => $po->id]) }}" class="p-2">Print Awards</a></li>
+                                  <li class="border border-1 p-1"><a href="{{ route('pdf.eligibility', ['id' => $po->id]) }}" class="p-2">Print Eligibility</a></li>
+                                  <li class="border border-1 p-1"><a href="{{ route('pdf.quoted', ['id' => $po->requestDetail->id]) }}" class="p-2" >Computation of Awards</a></li>
+                                  <li class="border border-1 p-1"><a href="{{ route('pdf.ntp', ['id' => $po->request_detail_id]) }}" class="p-2" >Notice to Proceed</a></li>
+                                  <li class="border border-1 p-1"><a href="{{ route('pdf.pqer', $po->request_detail_id) }}" class="p-2" >Post Qualification Evalution Report</a></li>
+                                  <li class="border border-1 p-1"><a href="{{ route('pdf.nopq', $po->request_detail_id) }}" class="p-2">Notice of Post Qualification</a></li>
+                                </ul>
+                              </div>
                             @if($po->requestDetail->status == 10)
                             <a href="{{ route('po-bid.edit', ['id' => $po->requestDetail->id]) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                             <a href="{{ route('po-bid.delete', ['rid' => $po->requestDetail->id, 'id' => $po->id]) }}" onclick="confirmDelete(event)" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                             @else
+                            <a href="" class="btn btn-info disabled me-2" onclick="return false"><i class="fas fa-edit"></i></a>
                             <a href="" class="btn btn-secondary disabled" onclick="return false"><i class="fas fa-trash"></i></a>
-                            <a href="" class="btn btn-info disabled" onclick="return false"><i class="fas fa-edit"></i></a>
                             @endif
                         </td>
                     </tr>

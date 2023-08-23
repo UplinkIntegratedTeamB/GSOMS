@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreICSRequest;
 use App\Models\InventoryCustodian;
 use App\Models\RequestDetail;
+use App\Models\RequestIssue;
 use Illuminate\Http\Request;
 
 class ICSController extends Controller
@@ -20,7 +21,7 @@ class ICSController extends Controller
     public function index()
     {
 
-        $requests = RequestDetail::with('purchaseRequest', 'department', 'acceptanceInspection')->has('acceptanceInspection')->where('status', 10)->get();
+        $requests = RequestDetail::with('purchaseRequest', 'department', 'acceptanceInspection')->has('acceptanceInspection')->where('status', 10)->where('procurement_mode_id', 2)->get();
 
         return view('reports.ics.index', compact('requests'));
     }
@@ -40,10 +41,12 @@ class ICSController extends Controller
     public function show()
     {
 
-        $requests = RequestDetail::with('inventoryCustodian', 'department')
-            ->where('procurement_mode_id', 2)
-            ->whereHas('inventoryCustodian') // Add this line to filter based on InventoryCustodian
-            ->get();
+        // $requests = RequestDetail::with('inventoryCustodian', 'department')
+        //     ->where('procurement_mode_id', 2)
+        //     ->whereHas('inventoryCustodian') // Add this line to filter based on InventoryCustodian
+        //     ->get();
+
+        $requests = RequestIssue::with('requestDetail.department')->get();
 
         return view('reports.ics.show', compact('requests'));
     }

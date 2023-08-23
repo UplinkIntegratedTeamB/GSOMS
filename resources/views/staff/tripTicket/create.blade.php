@@ -48,7 +48,7 @@
                 <select name="month_id" id="" class="form-select select2">
                     <option value="" selected disabled>Select Month</option>
                     @foreach ($months as $month)
-                    <option value="{{ $month->id }}">{{ $month->name }}</option>
+                    <option value="{{ $month->id }}" @selected( old('month_id') == $month->id ) >{{ $month->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -75,14 +75,14 @@
                     </div>
                     <div class="form-group mt-2">
                         <label for="">Supplier</label>
-                        <select name="supplier_id" id="" class="form-select select2">
+                        <select name="gas_station_id" id="" class="form-select select2">
                             <option value="" selected disabled>Select Supplier</option>
                             @foreach ($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}" {{ old('supplier_id') == $supplier->id ? 'selected' : '' }} >{{ $supplier->name }}</option>
+                                <option value="{{ $supplier->id }}" {{ old('gas_station_id') == $supplier->id ? 'selected' : '' }} >{{ $supplier->name }}</option>
                             @endforeach
                         </select>
                     </div>
-                    @error('supplier_id')
+                    @error('gas_station_id')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                     <div class="form-group mt-2">
@@ -113,14 +113,14 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="">Vehicle</label>
-                        <select name="item_id" id="" class="form-select select2">
+                        <select name="vehicle_registration_id" id="" class="form-select select2">
                             <option value="" selected disabled>Select Vehicle</option>
                             @foreach ($items as $item)
-                                <option value="{{ $item->id }}" {{ old('item_id') == $item->id ? 'selected' : '' }} >{{ $item->description }}</option>
+                                <option value="{{ $item->id }}" {{ old('vehicle_registration_id') == $item->id ? 'selected' : '' }} >{{ $item->description }}</option>
                             @endforeach
                         </select>
                     </div>
-                    @error('item_id')
+                    @error('vehicle_registration_id')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                             <div class="form-group mt-2">

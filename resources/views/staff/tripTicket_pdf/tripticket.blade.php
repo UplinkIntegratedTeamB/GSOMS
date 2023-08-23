@@ -66,7 +66,7 @@
 </div>
 
 <div class="" style="margin-top: 10%">
-    <label for="">Supplier: Caballero Shell Service Station</label>
+    <label for="">Supplier: {{ $months->first()->gasStation->name }}</label>
     <table style="border-collapse: collapse; margin: 0 auto">
         <thead>
             <tr>

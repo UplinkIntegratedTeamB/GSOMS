@@ -121,7 +121,7 @@
                             <select name="" disabled id="procurement_user" class="select2 form-control" readonly>
                                 <option disabled selected>Select Procurement Mode</option>
                             </select>
-                            <input type="number" class="form-control" name="procurement_mode_id" id="procurement_value">
+                            <input type="number" class="form-control" name="procurement_mode_id" id="procurement_value" value="{{ $requestDetail->procurement_mode_id }}">
                             @error('procurement_mode_id')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -226,7 +226,7 @@
                                 <td style="text-align: end">
                                     <input type="text" value="{{ $request->unit_price }}" class="form-control unit-price-input" name="items[{{ $loop->index }}][unit_price]">
                                 </td>
-                                <td style="text-align: end"><input type="text" value="{{ number_format($request->estimated_cost, 2) }}" name="items[{{ $loop->index }}][estimated_cost]" readonly class="form-control estimated-cost-input"></td>
+                                <td style="text-align: end"><input type="text" value="{{ $request->estimated_cost }}" name="items[{{ $loop->index }}][estimated_cost]" readonly class="form-control estimated-cost-input"></td>
                                 <td>
                                     <a href="{{ route('purchaseRequest.remove', ['id' => $request->id, 'grand' => $id ]) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                 </td>
@@ -240,7 +240,11 @@
                                 <td></td>
                                 <td></td>
                                 <td style="text-align: end">Grand Total:</td>
-                                <td><input type="text" class="border-0" readonly id="grandTotal" style="outline: 0; text-align: end;" name="grand_total" value="{{ number_format($requestDetail->grand_total, 2) }}"></td>
+                                <td><input type="text" class="border-0" readonly id="grandTotal" style="outline: 0; text-align: end;" name="grand_total" value="{{ $requestDetail->grand_total }}">
+                                    @error('grand_total')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </td>
                             </tr>
                         </tbody>
                     </table>

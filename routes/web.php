@@ -315,6 +315,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/pdf/air-bidding/{id}', [PdfController::class, 'downloadbiddingAir'])->name('pdf.biddingAir');
     Route::get('/pdf/ris-bidding/{id}', [PdfController::class, 'downloadbiddingRis'])->name('pdf.biddingRis');
     Route::get('/pdf/abstract-bidding/{id}', [PdfController::class, 'downloadBiddingAbstract'])->name('pdf.biddingAbstract');
-    Route::get('/pdf/trip-ticket/{id}', [PdfController::class, 'downloadTripTicket'])->name('pdf.tripTicket');
+    Route::get('/pdf/trip-ticket/{id}/{gas}', [PdfController::class, 'downloadTripTicket'])->name('pdf.tripTicket');
+    Route::get('/pdf/driver/{id}', [PdfController::class, 'downloadTripTicketDriver'])->name('pdf.driver');
+    Route::get('/pdf/bill/{id}', [PdfController::class, 'downloadBoq'])->name('pdf.boq');
 
 });

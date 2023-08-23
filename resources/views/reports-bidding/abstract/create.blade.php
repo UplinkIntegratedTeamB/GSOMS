@@ -134,7 +134,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="">Bank</label>
-                                <input type="text" name="bank" placeholder="Bank" class="form-control">
+                                <input type="text" name="bank" placeholder="Bank" required class="form-control" required>
                             </div>
                             <table class="table table-bordered" id="modalTable">
                                 <thead>

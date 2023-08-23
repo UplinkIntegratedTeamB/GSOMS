@@ -13,8 +13,8 @@ class TripTicket extends Model
         'month_id',
         'department_id',
         'division_id',
-        'item_id',
-        'supplier_id',
+        'vehicle_registration_id',
+        'gas_station_id',
         'driver',
         'passenger',
         'gas_type',
@@ -44,9 +44,9 @@ class TripTicket extends Model
         return $this->belongsTo(Month::class);
     }
 
-    public function supplier() : BelongsTo
+    public function gasStation() : BelongsTo
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(GasStation::class);
     }
 
 }

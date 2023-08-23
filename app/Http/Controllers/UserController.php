@@ -71,7 +71,12 @@ class UserController extends Controller
 
         $user = User::find($id);
 
-        $user->update($request->except('role_id'));
+        $user->update([
+            'department_id' => $request->department_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
+        ]);
 
         $roles = Role::whereIn('name', [$request->role_id])->pluck('id');
         $user->syncRoles($roles);

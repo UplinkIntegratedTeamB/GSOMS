@@ -37,7 +37,13 @@
                     @foreach ($vehicles as $vehicle)
                         <tr>
                             <td>{{ $vehicle->plate_no }}</td>
-                            <td>{{ $vehicle->type }}</td>
+                            <td>
+                                @if($vehicle->type == 0)
+                                    4 Wheeled Plus
+                                    @else
+                                    Motor
+                                @endif
+                            </td>
                             <td>{{ $vehicle->description }}</td>
                             <td>{{ date('F, j', strtotime($vehicle->lto) ) }} {{ date('F, j, Y', strtotime($vehicle->lto_until)) }} </td>
                             <td>{{ $vehicle->gsis }}</td>

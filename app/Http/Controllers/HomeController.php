@@ -38,6 +38,6 @@ class HomeController extends Controller
         $prs = RequestDetail::with('department', 'division', 'section')->where('status', 14)->where('user_id', auth()->id())->get();
         $prsStaff = RequestDetail::with('department', 'division', 'section')->where('status', 14)->get();
 
-        return view('home', compact('pr', 'pr_complete', 'requests', 'requestComplete', 'prs'));
+        return view('home', compact('pr', 'pr_complete', 'requests', 'requestComplete', 'prs', 'prsStaff'));
     }
 }
