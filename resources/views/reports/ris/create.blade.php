@@ -44,12 +44,6 @@
                             <input type="text" class="form-control" readonly value="{{ $date }}">
                         </div>
                     </div>
-                    <div class="col form-group">
-                        <label for="">RIS Date</label>
-                        <div class="input-group">
-                            <input type="date" name="date" value="{{ date('Y-m-d') }}" class="form-control">
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col form-group">

@@ -36,6 +36,7 @@
                             </td>
                             <td>
                                 @if($request->procurement_mode_id == 2)
+
                                 @if( $request->status === 1 )
                                 <label for="" style="color: rgb(41, 194, 41);">Approved by Staff <br> ({{ $request->approvedByUser->name }}) </label>
 
@@ -64,15 +65,21 @@
                                 <label for="" style="color: rgb(41, 194, 41);">For Creation of Documents <br> (AIR)</label>
 
                                 @elseif($request->status == 10)
-                                <label for="" style="color: rgb(41, 194, 41)">Please go to reports for the documents</label>
+                                <label for="" style="color: rgb(41, 194, 41)">Few more documents and your PR is complete</label>
 
                                 @elseif($request->status == 11)
                                 <label for="" style="color: rgb(41, 194, 41)">Your PR is almost complete</label>
                                 @else
-                                <label class="mt-1" for="" style="color: rgb(0, 180, 24);">Pending</label>
+                                <label class="mt-1" for="" style="color: rgb(0, 180, 24);">Waiting for MGSO approval</label>
                                 @endif
                                 @else
-                                <label class="mt-1" for="" style="color: rgb(0, 180, 24);">Pending</label>
+                                @if($request->status == 5)
+                                <label class="mt-1" for="" style="color: rgb(0, 180, 24);"> Invitation of Bid </label>
+                                @elseif($request->status == 6)
+                                <label class="mt-1" for="" style="color: rgb(0, 180, 24);">  </label>
+                                @else
+                                <label class="mt-1" for="" style="color: rgb(0, 180, 24);">Waiting for MGSO approval </label>
+                                @endif
                                 @endif
                             </td>
                             <td>
@@ -81,7 +88,7 @@
 
                                         @user
                                         @if($request->status === 0)
-                                        <a class="col btn btn-primary" href="{{ route('purchaseRequest.editPr', $request->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
+                                        <a class="col btn btn-primary" href="{{ route('purchaseRequest.edit', $request->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
                                         <a class="col btn btn-danger" href="{{ route('purchaseRequest.removePr', ['id' => $request->id]) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
                                         <a class="col btn btn-info" href="{{ route('pdf.download', ['id' => $request->id]) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="PDF"><i class="fas fa-file-pdf"></i></a>
                                         @else
@@ -122,13 +129,13 @@
                                         @if($request->PurchaseRequest[0]->item->itemType->id == 14)
                                         <a href="{{ route('purchaseRequest.complete', $request->id) }}" type="button" onclick="complete(event)" class="col btn btn-primary">Complete</a>
                                         @else
-                                        <a href="{{ route('ris.index') }}" class="col btn btn-primary">RIS</a>
+                                        <a href="{{ route('ris.create', $request->id) }}" class="col btn btn-primary">RIS</a>
                                         @endif
                                         @elseif($request->purchaseRequest[0]->item->itemType->category_id != 1)
                                         @if($request->grand_total >= 50000)
-                                        <a href="{{ route('par.index') }}" class="col btn" style="background: rgb(163, 163, 255)">PAR</a>
+                                        <a href="{{ route('par.create', $request->id) }}" class="col btn" style="background: rgb(163, 163, 255)">PAR</a>
                                         @else
-                                        <a href="{{ route('ics.index') }}" class="col btn btn-info">ICS</a>
+                                        <a href="{{ route('ics.create', $request->id) }}" class="col btn btn-info">ICS</a>
                                         @endif
                                         @endif
 

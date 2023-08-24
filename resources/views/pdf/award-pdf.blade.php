@@ -100,7 +100,7 @@
             </p>
 
             <p style="margin-top: 5%">
-                <label for="" style="font-weight: 600">MELVIN O. BONZA</label> <br> MBAC Vice Chairman
+                <label for="" style="font-weight: 600">MELVIN O. BONZA</label> <br> MBAC Chairman
             </p>
 
             <p style="margin-top: 10%">

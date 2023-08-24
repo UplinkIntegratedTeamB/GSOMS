@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>NOTICE OF POST QUALIFICATION</title>
 </head>
 <body>
 
@@ -52,17 +52,28 @@
             -webkit-flex: 1;
             flex: 1;
         }
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+        }
 
 
         </style>
 
 
         <div class="text-center">
-            <label for="">Republic of the Philippines</label> <br>
-            <label for="">Province of Laguna</label><br>
-            <label for="">Municipality of Sta Cruz</label> <br>
-            <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+            <label style="margin-right: 11em; text-transform: uppercase;" for="">Republic of the Philippines</label> <br>
+            <label style="margin-right: 11em; text-transform: uppercase;" for="">Province of Laguna</label><br>
+            <label style="margin-right: 11em; text-transform: uppercase;" for="">Municipality of Sta Cruz</label> <br>
+            <!-- <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label> -->
+            <label style="margin-right: 11em;" for="">2/F Municipal Hall, Cailes Street</label><br>
+            <label style="margin-right: 11em;" for="">Brgy. III. Santa Cruz, Laguna</label><br>
+            <label style="margin-right: 11em;" for="">Telephone Number - (049) 501-0250</label>
         </div>
+        <br>
         <div class="text-center">
             <h3>NOTICE OF POST QUALIFICATION</h3>
         </div>

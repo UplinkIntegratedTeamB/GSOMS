@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>NOTICE TO PROCEED</title>
 </head>
 <body>
 
@@ -52,16 +52,26 @@
             -webkit-flex: 1;
             flex: 1;
         }
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+        }
 
 
         </style>
 
 
         <div class="text-center">
-            <label for="">Republic of the Philippines</label> <br>
-            <label for="">Province of Laguna</label><br>
-            <label for="">Municipality of Sta Cruz</label> <br>
-            <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+            <label style="margin-right: 11em; text-transform: uppercase;" for="">Republic of the Philippines</label> <br>
+            <label style="margin-right: 11em; text-transform: uppercase;" for="">Province of Laguna</label><br>
+            <label style="margin-right: 11em; text-transform: uppercase;" for="">Municipality of Sta Cruz</label> <br>
+            <!-- <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label> -->
+            <label style="margin-right: 11em;" for="">2/F Municipal Hall, Cailes Street</label><br>
+            <label style="margin-right: 11em;" for="">Brgy. III. Santa Cruz, Laguna</label><br>
+            <label style="margin-right: 11em;" for="">Telephone Number - (049) 808-1008</label>
         </div>
 
         <div class="text-center">
@@ -82,7 +92,7 @@
         <div class="" style="margin-top: 2%">
             <p>
                 <label for="" style="margin-left: 2em">The</label> Attached Contract Agreement having been approved, notice is hereby given <label for="" style="font-weight: 600; text-transform: uppercase"> {{ $ntp->biddingAbstract->winners->name }} </label>  that may work commence on the Project
-                 <label for="" style="font-weight: 600">STC-GOOD-NO. {{ $ntp->biddingAbstract->good }}</label> <label for="" style="font-weight: 600">{{ $ntp->biddingAbstract->purpose }}</label> Effective <label for="" style="font-weight: 600">{{ $ntp->biddingPurchaseOrder->delivery_date }}</label>/ <label for="">{{ $ntp->biddingPurchaseOrder->no_of_days }}</label>
+                 <label for="" style="font-weight: 600">STC-GOOD-NO. {{ $ntp->biddingAbstract->good }}</label> <label for="" style="font-weight: 600">{{ $ntp->biddingAbstract->purpose }}</label> Effective <label for="" style="font-weight: 600">{{ $ntp->biddingPurchaseOrder->delivery_date }}</label> <label style="font-weight:600;">Date</label> / <label for="">{{ $ntp->biddingPurchaseOrder->no_of_days }}</label>
                  after the receipt of this notice
             </p>
             <p>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>NOTICE TO AWARD</title>
 </head>
 <body>
 
@@ -52,19 +52,27 @@
             -webkit-flex: 1;
             flex: 1;
         }
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+        }
 
 
         </style>
 
 
         <div class="text-center">
-            <label for="">Republic of the Philippines</label> <br>
-            <label for="">Province of Laguna</label><br>
-            <label for="">Municipality of Sta Cruz</label> <br>
-            <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+            <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+            <label style="margin-right: 11em;" for="">PROVINCE OF LAGUNA</label><br>
+            <label style="margin-right: 11em;" for="">MUNICIPALITY OF STA. CRUZ</label> <br>
+            <label style="margin-right: 11em; font-size: 13px;" for="">Municipal Hall, Cailes Street, Brgy. III. Santa Cruz, Laguna</label> <br>
+            <label style="margin-right: 11em; font-size: 13px;" for="">Telephone Number - (049) 808-1008/ Telefax - (049 501-0250)</label>
         </div>
         <div class="text-center">
-            <h3>NOTICE TO AWARD</h3>
+            <h3 style="margin-right: 11em;">NOTICE OF AWARD</h3>
         </div>
 
         <div class="" style="margin-top: 5%;">
@@ -82,7 +90,7 @@
                 use Carbon\Carbon;
             @endphp
             <p>
-                We are happy to notify that your Bid dated <label for="" style="font-weight: 600; text-decoration: underline">{{ Carbon::parse($awards->confirm_date)->format('F j, Y') }}</label> in the execution of the Project Reference No.
+            <label style="margin-left: 3em;"> We are happy to notify that your Bid dated </label> <label for="" style="font-weight: 600; text-decoration: underline">{{ Carbon::parse($awards->confirm_date)->format('F j, Y') }}</label> in the execution of the Project Reference No.
                 <label for="" style="font-weight: 600;">STC-GOOD NO. {{ $awards->requestDetail->biddingAbstract->good }}</label> <label for="" style="text-decoration: underline; font-weight: 600">{{ $awards->requestDetail->biddingAbstract->purpose }}</label> for the Contract Price of equivalent to
                 <label for="" style="font-weight: 600; text-decoration: underline">{{ $awards->requestDetail->biddingResolution->amount_in_word }}</label> <label for="" style="font-weight: 600; text-decoration: underline"> P{{ number_format($awards->requestDetail->biddingAbstract->winner_total, 2) }}</label> as corrected and modified in accorance with Instruction to bidders is hereby accepted.
             </p>
@@ -105,5 +113,9 @@
 
         </div>
 
+<footer class="outer-container" style="margin-top: 20%;" >
+    <img  style="margin: 0 0 0 0em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
+    <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
+</footer>
 </body>
 </html>

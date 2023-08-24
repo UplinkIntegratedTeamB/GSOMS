@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>ABSTRACT OF BID AS CALCULATED</title>
 </head>
 <body>
 
@@ -57,15 +57,26 @@
             -webkit-flex: 1;
             flex: 1;
         }
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+        }
 
     </style>
 
     <div class="text-center">
-        <label for="">Republic of the Philippines</label> <br>
-        <label for="">Province of Laguna</label><br>
-        <label for="">Municipality of Sta Cruz</label> <br>
-        <label style="font-weight: 600">ABSTRACT OF BID AS CALCULATED</label>
+    <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+        <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 11em;" for="">Municipality of Sta Cruz</label>
+        <br>
+        <br>
+        <label style="margin-right: 11em; font-weight: 600;" style="font-weight: 600">ABSTRACT OF BID AS CALCULATED</label>
     </div>
+    <br>
+    <br>
 
     <p style="text-transform: uppercase; font-weight: 600">
         {{ $abstracts->requestDetail->purpose }}
@@ -239,6 +250,10 @@
             <label for="" style="font-size: 13px; font-weight: 600"> EDGAR S. SAN LUIS </label> <br> <label for="" style="font-size: 12px">Municipal Mayor</label>
         </p>
     </div>
+<footer class="outer-container" style="margin-top: 20%;" >
+    <img  style="margin: 0 0 0 2em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
+    <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
+</footer>
 
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>REQUISITION AND ISSUE SLIP</title>
 </head>
 <body>
     <style>
@@ -51,16 +51,23 @@
             -webkit-flex: 1;
             flex: 1;
         }
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+        }
 
     </style>
 
 
     <div class="text-center">
-        <label for="">Republic of the Philippines</label> <br>
-        <label for="">Province of Laguna</label><br>
-        <label for="">Municipality of Sta Cruz</label> <br>
-        <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
-        <h4> REQUISITION AND ISSUE SLIP </h4>
+    <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+        <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 11em;" for="">Municipality of Sta Cruz</label> <br>
+        <label style="margin-right: 11em;" for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <h4 style="margin-right: 11em;"> REQUISITION AND ISSUE SLIP </h4>
     </div>
 
     <div class="">
@@ -133,6 +140,9 @@
             </div>
         </div>
     </div>
-
+<footer class="outer-container" style="margin-top: 20%;" >
+    <img  style="margin: 0 0 0 0em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
+    <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
+</footer>
 </body>
 </html>

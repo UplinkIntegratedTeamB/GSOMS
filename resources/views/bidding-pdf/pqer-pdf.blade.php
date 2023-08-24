@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>POST QUALIFICATION EVALUATION REPORT</title>
 </head>
 <style>
     * {
@@ -49,18 +49,26 @@
         -webkit-flex: 1;
         flex: 1;
     }
+    .header-logo{
+        width: 120px;
+        height:120px;
+        float: left;
+        margin-left: 2em;
+    }
 
 </style>
 
 <body>
 
     <div class="text-center">
-        <label for="">Republic of the Philippines</label> <br>
-        <label for="">Province of Laguna</label><br>
-        <label for="">Municipality of Sta Cruz</label> <br>
-        <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+    <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+        <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 11em;" for="">MUNICIPALITY OF SANTA CRUZ</label> <br>
+        <label style="margin-right: 11em;" for="">2/F Municipal Hall, Cailes Street, Brgy. III. Santa Cruz, Laguna</label><br>
+        <label style="margin-right: 11em;" for="">Telephone Number - (049) 808-1108/ Telefax - (049) 501-0250</label>
     </div>
-
+    <br>
     <div class="" style="margin-top: 4%">
         <label for="" style="font-weight: 600">Project reference Number:</label> <label for="" style="text-decoration: underline">STC-GOOD NO. {{ $res->bidInvitation->good }}</label> <br> <br>
         <label for="" style="font-weight: 600">Name of the Project:</label> <label for="" style="text-decoration: underline">{{ $res->purpose }}</label> <br> <br>

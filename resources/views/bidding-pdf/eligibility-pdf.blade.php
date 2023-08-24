@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>NOTICE OF ELIGIBILITY
+</title>
 </head>
 <body>
 
@@ -52,19 +53,29 @@
             -webkit-flex: 1;
             flex: 1;
         }
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+        }
 
 
         </style>
 
 
         <div class="text-center">
-            <label for="">Republic of the Philippines</label> <br>
-            <label for="">Province of Laguna</label><br>
-            <label for="">Municipality of Sta Cruz</label> <br>
-            <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+            <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+            <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+            <label style="margin-right: 11em; text-transform: uppercase; font-weight: 600;" for="">Municipality of Sta Cruz</label> <br>
+            <label style="margin-right: 11em;" for="">2/F Municipal Hall, Cailes Street</label><br>
+            <label style="margin-right: 11em;" for="">Brgy. III. Santa Cruz, Laguna</label><br>
+            <label style="margin-right: 11em;" for="">Telephone Number - (049) 501-0250</label>
         </div>
+        <br>
         <div class="text-center">
-            <h3>NOTICE OF ELIGIBILITY</h3>
+            <h3 >NOTICE OF ELIGIBILITY</h3>
         </div>
 
         <div class="" style="margin-top: 5%;">
@@ -73,13 +84,12 @@
                 <label for="" style="font-weight: 600">Address:</label> {{ $res->requestDetail->biddingAbstract->winners->address }}
             </p>
         </div>
-
-
-
+        <br>
         <div class="">
             <p style="margin-top: 20px">
                 <label for="" style="text-decoration: underline">Dear Sir / Madame:</label>
             </p>
+            <br>
             <p>
                 This is to inform you that you have been declared eligible to Bid for Project Reference No. <label for="" style="font-weight: 600; "><i style="text-decoration: underline">STC-GOOD-NO. {{ $res->requestDetail->biddingAbstract->good }}</i> {{ $res->requestDetail->biddingAbstract->purpose }}</label>
             </p>
@@ -96,6 +106,5 @@
             </p>
 
         </div>
-
 </body>
 </html>

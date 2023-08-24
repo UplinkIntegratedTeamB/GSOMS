@@ -26,12 +26,12 @@ class RISController extends Controller
         return view('reports.ris.index', compact('requests', ));
     }
 
-    public function store(StoreRisRequest $request, $id) {
+    public function store($id) {
 
 
         $year = date('Y');
 
-        $ris = RequestIssue::create($request->validated() + ['request_detail_id' => $id]);
+        $ris = RequestIssue::create(['request_detail_id' => $id]);
         $formated_count = sprintf("%04d", $ris->id);
         $ris->c_number = "RIS-{$year}-{$formated_count}";
         $ris->save();

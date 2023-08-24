@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>PURCHASE ORDER</title>
 </head>
 <body>
     <style>
@@ -57,15 +57,22 @@
             display: -webkit-flex;
             display: flex;
         }
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+        }
 
     </style>
 
     <div class="text-center">
-        <label for="">Republic of the Philippines</label> <br>
-        <label for="">Province of Laguna</label><br>
-        <label for="">Municipality of Sta Cruz</label> <br>
-        <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
-        <h4>PURCHASE ORDER</h4>
+    <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+        <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 11em;" for="">Municipality of Sta Cruz</label> <br>
+        <label style="margin-right: 11em;" for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <h4 style="margin-right: 11em;">PURCHASE ORDER</h4>
     </div>
 
     <div class="container">
@@ -82,21 +89,21 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Supplier</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $pos->requestDetail->biddingAbstract->winners->name }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">P.O. No.</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $pos->po_no }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">Supplier</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">{{ $pos->requestDetail->biddingAbstract->winners->name }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">P.O. No.</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">{{ $pos->po_no }}</td>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Address</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $pos->requestDetail->biddingAbstract->winners->address }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start ">Date:</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">Address</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">{{ $pos->requestDetail->biddingAbstract->winners->address }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start ">Date:</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start"></td>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start"></td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start"></td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">
                         @if($pos->requestDetail->procurement_mode_id == 2)
                         Shopping / Canvass
                         @else
@@ -105,38 +112,38 @@
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="8" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"><i>Gentlemen: Please furnish this office the following articles subject to the term and conditions contained herein:</i></th>
+                    <th colspan="8" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start"><i>Gentlemen: Please furnish this office the following articles subject to the term and conditions contained herein:</i></th>
                 </tr>
                 <tr>
-                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Place of Delivery: </td>
-                    <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $pos->requestDetail->endUserOffice->name }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Delivery Term:</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $pos->requestDetail->biddingResolution->delivery_term }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">Place of Delivery: </td>
+                    <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">{{ $pos->requestDetail->endUserOffice->name }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">Delivery Term:</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">{{ $pos->requestDetail->biddingResolution->delivery_term }}</td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Date of Delivery: </td>
-                    <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $pos->delivery_date }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Payment Term:</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"> {{ $pos->payment_term }} </td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">Date of Delivery: </td>
+                    <td colspan="4" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">{{ $pos->delivery_date }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">Payment Term:</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start"> {{ $pos->payment_term }} </td>
                 </tr>
                 <tr>
-                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Item No. </td>
-                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Quantity </td>
-                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; "> Unit of Voucher </td>
-                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Description</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; ">Unit Cost</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; "> Amount </td>
+                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 5px; ">Item No. </td>
+                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 5px; ">Quantity </td>
+                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 5px; "> Unit of Voucher </td>
+                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 5px; ">Description</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; ">Unit Cost</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; "> Amount </td>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($items as $po)
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->id }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->quantity }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->itemType->type }}</td>
-                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item_description }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ number_format($po->offer_price, 2) }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ number_format($po->total_amt, 2) }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: center">{{ $loop->index + 1 }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: center">{{ $po->quantity }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: center">{{ $po->item->itemType->type }}</td>
+                    <td colspan="3" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">{{ $po->item_description }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: end">{{ number_format($po->offer_price, 2) }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: end">{{ number_format($po->total_amt, 2) }}</td>
                 </tr>
                 @endforeach
                 <tr>

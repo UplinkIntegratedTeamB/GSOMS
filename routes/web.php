@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function () {
     // Purchase Request
     Route::get('purchase-request/json/{id}', [PurchaseRequestController::class, 'pr'])->name('purchaseRequest.pr');
     Route::get('purchase-request/view/{id}', [PurchaseRequestController::class, 'preview'])->name('purchaseRequest.preview');
-    Route::get('purchase-request/edit/{id}', [PurchaseRequestController::class, 'edit']);
+    Route::get('purchase-request/edit/{id}', [PurchaseRequestController::class, 'edit'])->name('purchaseRequest.edit');
     Route::get('purchase-request/editPr/{id}', [PurchaseRequestController::class, 'editPr'])->name('purchaseRequest.editPr');
     Route::get('purchase-request/remove/{id}', [PurchaseRequestController::class, 'removePr'])->name('purchaseRequest.removePr');
     Route::get('purchase-request/delete/{id}/{grand}', [PurchaseRequestController::class, 'removeItem'])->name('purchaseRequest.remove');

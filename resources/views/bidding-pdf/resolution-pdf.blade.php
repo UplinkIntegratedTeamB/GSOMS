@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RESOLUTION</title>
 </head>
 <style>
     * {
@@ -51,6 +51,7 @@
         -webkit-flex: 1;
         flex: 1;
     }
+
 
 </style>
 
@@ -125,17 +126,17 @@
                 </tr>
                 <tr>
                     <td colspan="4" style="border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; font-size: 12px; padding: 0px; margin: 0">
-                        <p class="text-center" style="font-size: 12px;">
+                        <p class="text-center" style="font-size: 16px;">
                             <b>Name of Bidder</b> <br>
                         </p>
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
-                        <p class="text-center" style="font-size: 12px;">
+                        <p class="text-center" style="font-size: 16px;">
                             <b>Bid Amount (As Read)</b>
                         </p>
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
-                        <p class="text-center" style="font-size: 12px;">
+                        <p class="text-center" style="font-size: 16px;">
                             <b>Bid Security Amount</b>
                         </p>
                     </td>
@@ -145,18 +146,18 @@
             <tbody>
                 @foreach ($offers->biddingOffereds as $request)
                 <tr>
-                    <td colspan="4" style="border: 1px solid black;  padding: 0px; margin: 0">
-                        <p style="text-align: start; font-size: 12px;">
+                    <td colspan="4" style="border: 1px solid black;">
+                        <p style="text-align: start; font-size: 16px;">
                             {{ $request->supplier->name }}
                         </p>
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
-                        <p style="text-align: end; font-size: 12px;">
+                        <p style="text-align: end; font-size: 16px;">
                             {{ $request->grand_total }}
                         </p>
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
-                        <p style="text-align: end; font-size: 12px;">
+                        <p style="text-align: end; font-size: 16px;">
                             {{ number_format($offers->cash_bond, 2) }}
                         </p>
                     </td>
@@ -171,7 +172,7 @@
             </p>
         </div>
         <div class="">
-            <table style="border-collapse: collapse; margin: 0 auto ">
+            <table style="border-collapse: collapse; margin: 0 auto;">
                 <thead>
                     <tr>
                         <td></td>
@@ -188,17 +189,17 @@
                     </tr>
                     <tr>
                         <td colspan="4" style="border-top: 1px solid black; border-left: 1px solid black; border-bottom: 1px solid black; font-size: 12px; padding: 0px; margin: 0">
-                            <p class="text-center" style="font-size: 12px;">
+                            <p class="text-center" style="font-size: 16px;">
                                 <b>Name of Bidder</b> <br>
                             </p>
                         </td>
                         <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
-                            <p class="text-center" style="font-size: 12px;">
+                            <p class="text-center" style="font-size: 16px;">
                                 <b>Bid Amount (As Read)</b>
                             </p>
                         </td>
                         <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
-                            <p class="text-center" style="font-size: 12px;">
+                            <p class="text-center" style="font-size: 16px;">
                                 <b>Bid Security Amount</b>
                             </p>
                         </td>
@@ -209,17 +210,17 @@
                     @foreach ($offers->biddingOffereds as $request)
                 <tr>
                     <td colspan="4" style="border: 1px solid black;  padding: 0px; margin: 0">
-                        <p style="text-align: start; font-size: 12px;">
+                        <p style="text-align: start; font-size: 16px;">
                             {{ $request->supplier->name }}
                         </p>
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
-                        <p style="text-align: end; font-size: 12px;">
+                        <p style="text-align: end; font-size: 16px;">
                             {{ $request->grand_total }}
                         </p>
                     </td>
                     <td colspan="3" style="border: 1px solid black;  padding: 0px; margin: 0">
-                        <p style="text-align: end; font-size: 12px;">
+                        <p style="text-align: end; font-size: 16px;">
                             {{ number_format($offers->cash_bond, 2) }}
                         </p>
                     </td>

@@ -182,14 +182,18 @@
 
                         <div class="row form-group mt-2">
                             <label for="">End User Office <span for="" class="text-danger">*</span></label>
-                            <select name="euo" id="euo" class="select2 form-control">
+                            <div class="input-group">
+                                <input type="text" name="euo" hidden value="{{ $requestDetail->endUserOffice->id }}" class="form-control">
+                                <input type="text"  value="{{ $requestDetail->endUserOffice->name }}" readonly class="form-control">
+                            </div>
+                            {{-- <select name="euo" id="euo" class="select2 form-control">
                                 <option value="" selected disabled>Select End User Office</option>
                                 @foreach ($departments as $department)
-                                <option value="{{ $department->id }}" {{ old('euo', $requestDetail->department->id) == $department->id ? 'selected' : '' }}>
+                                <option value="{{ $department->id }}" @selected($requestDetail->euo == $department->id)>
                                     {{ $department->name }}
                                 </option>
                                 @endforeach
-                            </select>
+                            </select> --}}
 
                             @error('euo')
                             <div class="text-danger">End User Office is required</div>

@@ -89,35 +89,35 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Supplier</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $air->requestDetail->abstractCanvass->winners->name }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start" colspan="2">AIR No.: {{ $air->c_number }} </td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">Supplier</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">{{ $air->requestDetail->abstractCanvass->winners->name }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start" colspan="2">AIR No.: {{ $air->c_number }} </td>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">PO No.</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $air->requestDetail->purchaseOrder->po_no }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start ">Date:</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">PO No.</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">{{ $air->requestDetail->purchaseOrder->po_no }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start ">Date:</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start"></td>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Department</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $air->requestDetail->department->name }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Invoice No. {{ $air->invoice_no }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">Department</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">{{ $air->requestDetail->department->name }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">Invoice No. {{ $air->invoice_no }}</td>
                 </tr>
                 <tr>
-                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Item No. </td>
-                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; "> Unit</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Description</td>
-                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Quantity </td>
+                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 7px; ">Item No. </td>
+                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 7px; "> Unit</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 7px; ">Description</td>
+                    <td colspan="1" style="border: 1px solid black; font-size: 12px; padding: 7px; ">Quantity </td>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($air->requestDetail->purchaseRequest as $po)
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->id }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->unit->description }}</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->description }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->quantity }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">{{ $loop->index + 1 }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">{{ $po->item->unit->description }}</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">{{ $po->description }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 7px; text-align: start">{{ $po->quantity }}</td>
                 </tr>
                 @endforeach
                 <tr>
@@ -125,7 +125,7 @@
                 </tr>
             </tbody>
         </table>
-        <div class="" style="border: 1px solid black; padding: 10px">
+        <div class="" style="border: 1px solid black; padding: 7px">
             <div class="outer-container">
                 <p>
                   Date Received: <br> ( ) Partial ( pls. specify quantity ) <br> (X) Complete
@@ -137,10 +137,10 @@
                 </p>
             </div>
         </div>
-        <div style="border: 1px solid black; padding: 10px" class="text-center">
+        <div style="border: 1px solid black; padding: 7px" class="text-center">
                 <strong style="font-size: 12px">INSPECTION</strong>
         </div>
-        <div class="" style="border: 1px solid black; padding: 10px">
+        <div class="" style="border: 1px solid black; padding: 7px">
             <div>
                 <p>
                     Date Inspected : <br>

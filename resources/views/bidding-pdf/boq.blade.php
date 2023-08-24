@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>BILL OF QUANTITIES</title>
 </head>
 <body>
     <style>
@@ -57,12 +57,22 @@
             display: -webkit-flex;
             display: flex;
         }
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+        }
 
     </style>
 
 
     <div class="text-center">
-        <h4>BILL OF QUANTITIES</h4>
+    <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+        <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 11em;" for="">Municipality of Sta. Cruz</label>
+        <h4 style="margin-right: 11em;">BILL OF QUANTITIES</h4>
     </div>
 
     <table style="border-collapse: collapse; margin-top: 5%; width: 100%">

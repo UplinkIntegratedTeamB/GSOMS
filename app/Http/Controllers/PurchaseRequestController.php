@@ -114,7 +114,6 @@ class PurchaseRequestController extends Controller
 
     public function update(StorePurchaseRequest $request, $id)
     {
-
         $request_detail = RequestDetail::find($id);
         $request_detail->update($request->except('items', '_token', 'example_length'));
 

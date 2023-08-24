@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Invitation Of Bid</title>
+    <title>INVITATION TO BID</title>
 </head>
 <body>
     <style>
@@ -15,7 +15,6 @@
         .text-center {
             text-align: center;
         }
-
         table th,
         table td {
             width: 120px;
@@ -57,17 +56,24 @@
             display: -webkit-flex;
             display: flex;
         }
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+         }
 
     </style>
 
 
     <div class="text-center">
-        <label for="">Republic of the Philippines</label> <br>
-        <label for="">Province of Laguna</label><br>
-        <label for="">Municipality of Sta Cruz</label> <br>
-        <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+        <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 11em;" for="">Municipality of Sta Cruz</label> <br>
+        <label style="margin-right: 11em;" for="">MUNICIPAL GOVERNMENT OF SANTA CRUZ, LAGUNA</label>
     </div>
-<br>
+<br><br><br>
     <div class="">
         <label for="">Project Reference Number:</label> <span style="margin-left: 3em">STC -GOOD- NO. {{ $bids->bidInvitation->good }}</span> <br> <br>
         <label for="">Location of the Project:</label> <span style="margin-left: 3em"> {{ $bids->department->name }} </span> <br>
@@ -88,14 +94,14 @@
     </div>
 
     <div class="outer-container">
-        <p>Approved Budget for the Contract:</p>
-        <p>STC-GOOD-NO. {{ $bids->bidInvitation->good }}</p>
-        <p>( P {{ number_format($bids->grand_total, 2) }} )</p>
+        <p> Approved Budget for the Contract:</p>
+        <p style="margin-right: 6em;">STC-GOOD-NO. {{ $bids->bidInvitation->good }}</p>
+        <p style="margin-right: 6em;">( P {{ number_format($bids->grand_total, 2) }} )</p>
     </div>
 
     <div class="outer-container">
         <p>Brief Description:</p>
-        <p>STC-GOOD-NO. {{ $bids->bidInvitation->good }}</p>
+        <p style="margin-left: 1.5em;">STC-GOOD-NO. {{ $bids->bidInvitation->good }}</p>
         <p>{{ $bids->purpose }}</p>
     </div>
 
@@ -123,7 +129,7 @@
     </div>
 
     <div class="container" style="margin-top: 2rem">
-        <table style="border-collapse: collapse; margin: 0 auto ">
+        <table style="border-collapse: collapse; margin: 0 auto; padding: 5px; ">
             <thead>
                 <tr>
                     <th></th>
@@ -136,60 +142,60 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <th colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">ACTIVITIES</th>
-                    <th colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">SCHEDULE</th>
-                    <th colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">TIME</th>
-                    <th colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">VENUE</th>
+                    <th colspan="2" style="border: 1px solid black; font-size: 12px; padding: 3px; text-align: center">ACTIVITIES</th>
+                    <th colspan="2" style="border: 1px solid black; font-size: 12px; padding: 3px; text-align: center">SCHEDULE</th>
+                    <th colspan="2" style="border: 1px solid black; font-size: 12px; padding: 3px; text-align: center">TIME</th>
+                    <th colspan="2" style="border: 1px solid black; font-size: 12px; padding: 3px; text-align: center">VENUE</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">Bidding Pre-Procurement Conference</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">{{ $bids->bidInvitation->pre_procurement }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">2:00 PM</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">OFFICE OF THE MGSO ESCOLAPIA <br> BUILDING, STA CRUZ LAGUNA </td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">Bidding Pre-Procurement Conference</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">{{ $bids->bidInvitation->pre_procurement }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">2:00 PM</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">OFFICE OF THE MGSO ESCOLAPIA <br> BUILDING, STA CRUZ LAGUNA </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">Issuance of Bid Documents</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->start)) }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">8:00 PM <br> 5:00 PM</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">OFFICE OF THE MGSO ESCOLAPIA <br> BUILDING, STA CRUZ LAGUNA </td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">Issuance of Bid Documents</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->start)) }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">8:00 PM <br> 5:00 PM</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">OFFICE OF THE MGSO ESCOLAPIA <br> BUILDING, STA CRUZ LAGUNA </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">Pre-Bid Conference</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">{{ $bids->bidInvitation->pre_bid }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start"></td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">OFFICE OF THE MGSO ESCOLAPIA <br> BUILDING, STA CRUZ LAGUNA </td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">Pre-Bid Conference</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">{{ $bids->bidInvitation->pre_bid }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start"></td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">OFFICE OF THE MGSO ESCOLAPIA <br> BUILDING, STA CRUZ LAGUNA </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">Deadline of Receipt of Bids</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->until)) }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">11:00 AM</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">OFFICE OF THE MGSO ESCOLAPIA <br> BUILDING, STA CRUZ LAGUNA </td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">Deadline of Receipt of Bids</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->until)) }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">11:00 AM</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">OFFICE OF THE MGSO ESCOLAPIA <br> BUILDING, STA CRUZ LAGUNA </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">Opening of Bids</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->opening_of_bids)) }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">2:00 PM</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">OFFICE OF THE MGSO ESCOLAPIA <br> BUILDING, STA CRUZ LAGUNA </td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">Opening of Bids</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->opening_of_bids)) }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">2:00 PM</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">OFFICE OF THE MGSO ESCOLAPIA <br> BUILDING, STA CRUZ LAGUNA </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">Bid Evaluation</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->bid_evaluation)) }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start"></td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start"></td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">Bid Evaluation</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->bid_evaluation)) }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start"></td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">Post Qualification</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->post_qualification)) }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start"></td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start"></td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">Post Qualification</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->post_qualification)) }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start"></td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">Notice Of Awards</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->notice_of_award)) }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start"></td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 10px; padding: 10px; text-align: start"></td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">Notice Of Awards</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start">{{ date('F, j, Y', strtotime($bids->bidInvitation->notice_of_award)) }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start"></td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 2.5px; text-align: start"></td>
                 </tr>
             </tbody>
         </table>

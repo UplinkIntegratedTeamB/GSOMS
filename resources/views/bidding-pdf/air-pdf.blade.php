@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>ACCEPTANCE AND INSPECTION REPORT</title>
 </head>
 <body>
     <style>
@@ -57,16 +57,23 @@
             display: -webkit-flex;
             display: flex;
         }
+        .header-logo{
+            width: 120px;
+            height:120px;
+            float: left;
+            margin-left: 2em;
+        }
 
     </style>
 
 
     <div class="text-center">
-        <label for="">Republic of the Philippines</label> <br>
-        <label for="">Province of Laguna</label><br>
-        <label for="">Municipality of Sta Cruz</label> <br>
-        <label for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
-        <h4>ACCEPTANCE AND INSPECTION REPORT</h4>
+    <img class="header-logo" src="{{ asset('images/brand/bgstacruz.png') }}" />
+        <label style="margin-right: 11em;" for="">Republic of the Philippines</label> <br>
+        <label style="margin-right: 11em;" for="">Province of Laguna</label><br>
+        <label style="margin-right: 11em;" for="">Municipality of Sta Cruz</label> <br>
+        <label style="margin-right: 11em;" for="">OFFICE OF THE MUNICIPAL GENERAL SERVICES</label>
+        <h4 style="margin-right: 11em;">ACCEPTANCE AND INSPECTION REPORT</h4>
     </div>
 
     <div class="container">
@@ -83,40 +90,40 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Supplier</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $air->requestDetail->biddingAbstract->winners->name }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start" colspan="2">AIR No.: {{ $air->c_number }} </td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">Supplier</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">{{ $air->requestDetail->biddingAbstract->winners->name }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start" colspan="2">AIR No.: {{ $air->c_number }} </td>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">PO No.</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $air->requestDetail->biddingPurchaseOrder->po_no }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start ">Date:</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">PO No.</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">{{ $air->requestDetail->biddingPurchaseOrder->po_no }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start ">Date:</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start"></td>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">PO Date</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start"></td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Invoice No.</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">PO Date</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start"></td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">Invoice No.</td>
                 </tr>
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Department</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $air->requestDetail->department->name }}</td>
-                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">Date</td>
+                    <td style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">Department</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">{{ $air->requestDetail->department->name }}</td>
+                    <td colspan="2" style="border: 1px solid black; font-size: 12px; padding: 5px; text-align: start">Date</td>
                 </tr>
                 <tr>
-                    <th colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Item No. </th>
-                    <th colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; "> Unit</th>
-                    <th colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Description</th>
-                    <th colspan="1" style="border: 1px solid black; font-size: 12px; padding: 10px; ">Quantity </th>
+                    <th colspan="1" style="border: 1px solid black; font-size: 12px; padding: 5px; ">Item No. </th>
+                    <th colspan="1" style="border: 1px solid black; font-size: 12px; padding: 5px; "> Unit</th>
+                    <th colspan="5" style="border: 1px solid black; font-size: 12px; padding: 5px; ">Description</th>
+                    <th colspan="1" style="border: 1px solid black; font-size: 12px; padding: 5px; ">Quantity </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($air->requestDetail->purchaseRequest as $po)
                 <tr>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->id }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->item->itemType->type }}</td>
-                    <td colspan="5" style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->description }}</td>
-                    <td style="border: 1px solid black; font-size: 12px; padding: 10px; text-align: start">{{ $po->quantity }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; text-align: center">{{ $loop->index + 1 }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; text-align: center">{{ $po->item->itemType->type }}</td>
+                    <td colspan="5" style="border: 1px solid black; font-size: 12px; text-align: start">{{ $po->description }}</td>
+                    <td style="border: 1px solid black; font-size: 12px; text-align: center">{{ $po->quantity }}</td>
                 </tr>
                 @endforeach
                 <tr>
@@ -136,7 +143,7 @@
                 </p>
             </div>
         </div>
-        <div style="border: 1px solid black; padding: 10px" class="text-center">
+        <div style="border: 1px solid black; padding: 5px" class="text-center">
                 <strong style="font-size: 12px">INSPECTION</strong>
         </div>
         <div class="" style="border: 1px solid black; padding: 10px">
@@ -159,6 +166,9 @@
             </div>
         </div>
     </div>
-
+<footer class="outer-container" style="margin-top: 20%;" >
+    <img  style="margin: 0 0 0 2em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
+    <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
+</footer>
 </body>
 </html>

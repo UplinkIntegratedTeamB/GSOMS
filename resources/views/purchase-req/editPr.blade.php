@@ -39,16 +39,20 @@
     }
 
     #example th:nth-child(2) {
-    min-width: 300px; /* Adjust this value to your desired width */
-}
+        min-width: 300px;
+        /* Adjust this value to your desired width */
+    }
+
     #example th:nth-child(4) {
-    min-width: 150px; /* Adjust this value to your desired width */
-}
+        min-width: 150px;
+        /* Adjust this value to your desired width */
+    }
 
 </style>
-
 <div class="container-fluid">
-
+    @if($errors->any())
+    {{ implode('', $errors->all('<div>:message</div>')) }}
+    @endif
     <div class="card">
         <div class="card-header">
             <div class="row">
@@ -123,7 +127,7 @@
                             <select name="" disabled id="procurement_user" class="select2 form-control" readonly>
                                 <option disabled selected>Select Procurement Mode</option>
                             </select>
-                            <input type="number" hidden class="form-control" name="procurement_mode_id" id="procurement_value">
+                            <input type="number" hidden class="form-control" name="procurement_mode_id" id="procurement_value" value="{{ $requestDetail->procurement_mode_id }}">
                             @error('procurement_mode_id')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -356,8 +360,9 @@
 
     let selectedRows = [];
     let disabledRows = [];
-    let gtotal = parseFloat({{ $requestDetail->grand_total }});
+    let gtotal = parseFloat({{$requestDetail->grand_total}});
     let reqId = {{ $id }}
+
     $.ajax({
         url: '/purchase-request/json/' + reqId, // Replace with your actual controller URL and ID
         type: 'GET'
@@ -377,13 +382,13 @@
     $(document).ready(function() {
 
         $('#example').on('input', '.quantity-input', function() {
-        calculateEstimatedCost($(this));
+            calculateEstimatedCost($(this));
         });
 
         function calculateEstimatedCost(quantityInput) {
             const row = quantityInput.closest('tr');
             const quantity = parseFloat(row.find('.quantity-input').val());
-            const unitPriceInput = row.find('.unit-price-input');  // Added this line
+            const unitPriceInput = row.find('.unit-price-input'); // Added this line
             const unitPrice = parseFloat(unitPriceInput.val().replace(/[^0-9.-]/g, ''));
             const estimatedCost = (quantity * unitPrice).toFixed(2);
 
@@ -409,41 +414,41 @@
         }
 
         $(document).ready(function() {
-    const tableY = $('#example').DataTable({
-        drawCallback: function(settings) {
-            $('.unit-price-input, .quantity-input').on('input', function() {
-                calculateEstimatedCost($(this));
-            });
+            const tableY = $('#example').DataTable({
+                drawCallback: function(settings) {
+                    $('.unit-price-input, .quantity-input').on('input', function() {
+                        calculateEstimatedCost($(this));
+                    });
 
-            function calculateEstimatedCost(inputElement) {
-                const row = inputElement.closest('tr');
-                const quantity = parseFloat(row.find('.quantity-input').val());
-                const unitPrice = parseFloat(row.find('.unit-price-input').val().replace(/[^0-9.-]/g, ''));
-                const estimatedCost = (quantity * unitPrice).toFixed(2);
+                    function calculateEstimatedCost(inputElement) {
+                        const row = inputElement.closest('tr');
+                        const quantity = parseFloat(row.find('.quantity-input').val());
+                        const unitPrice = parseFloat(row.find('.unit-price-input').val().replace(/[^0-9.-]/g, ''));
+                        const estimatedCost = (quantity * unitPrice).toFixed(2);
 
-                row.find('.estimated-cost-input').val(estimatedCost);
+                        row.find('.estimated-cost-input').val(estimatedCost);
 
-                let grandTotal = 0;
-                $('.estimated-cost-input').each(function() {
-                    const cost = parseFloat($(this).val().replace(/[^0-9.-]/g, ''));
-                    if (!isNaN(cost)) {
-                        grandTotal += cost;
+                        let grandTotal = 0;
+                        $('.estimated-cost-input').each(function() {
+                            const cost = parseFloat($(this).val().replace(/[^0-9.-]/g, ''));
+                            if (!isNaN(cost)) {
+                                grandTotal += cost;
+                            }
+                        });
+
+                        const procurement = $('#procurement_value');
+                        if (grandTotal > 200000.00) {
+                            procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
+                        } else {
+                            procurement.val(2); // Otherwise, set procurement value to 2
+                        }
+
+                        // Update the grand_total input field with the new value
+                        $('#grandTotal').val(grandTotal.toFixed(2));
                     }
-                });
-
-                const procurement = $('#procurement_value');
-                if (grandTotal > 200000.00) {
-                    procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
-                } else {
-                    procurement.val(2); // Otherwise, set procurement value to 2
                 }
-
-                // Update the grand_total input field with the new value
-                $('#grandTotal').val(grandTotal.toFixed(2));
-            }
-        }
-    });
-});
+            });
+        });
 
 
         const tableY = $('.data-table').DataTable({
@@ -462,7 +467,8 @@
 
                 $('.inventory_item').click(function(e) {
                     const checkbox = $(this).find('.clickable');
-                    const baseUrl = '{{ url('') }}';
+                    const baseUrl = '{{ url('
+                    ') }}';
                     const rowDataId = $(this).data('id');
                     $(this).toggleClass('selected_tr');
                     checkbox.prop('checked', !checkbox.prop('checked'));
@@ -507,21 +513,21 @@
                                 }
 
                                 function updateGrandTotal() {
-                                let totalCost = gtotal;
-                                $('#example tbody tr.appended-row').each(function() {
-                                    let estimatedCost = parseFloat($(this).find('input[name*=estimated_cost]').val()) || 0;
-                                    totalCost += estimatedCost;
-                                });
-                                $('#grandTotal').val(totalCost.toFixed(2));
+                                    let totalCost = gtotal;
+                                    $('#example tbody tr.appended-row').each(function() {
+                                        let estimatedCost = parseFloat($(this).find('input[name*=estimated_cost]').val()) || 0;
+                                        totalCost += estimatedCost;
+                                    });
+                                    $('#grandTotal').val(totalCost.toFixed(2));
 
-                                const grandTotalVal = parseFloat($('#grandTotal').val());
-                                const procurement = $('#procurement_value');
-                                if (grandTotalVal > 200000.00) {
-                                    procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
-                                } else {
-                                    procurement.val(2); // Otherwise, set procurement value to 2
+                                    const grandTotalVal = parseFloat($('#grandTotal').val());
+                                    const procurement = $('#procurement_value');
+                                    if (grandTotalVal > 200000.00) {
+                                        procurement.val(1); // Set procurement value to 1 if grandTotal is greater than 200000.00
+                                    } else {
+                                        procurement.val(2); // Otherwise, set procurement value to 2
+                                    }
                                 }
-                            }
 
                                 const tableLength = $('#example tbody tr.appended-row').length;
 

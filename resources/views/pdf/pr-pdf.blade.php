@@ -61,46 +61,46 @@ table th, table td {
                 <th colspan="1"></th>
             </tr>
             <tr >
-                <th style="border: 1px solid black;" colspan="2" ><label for="" style="font-size: 15px;">Department</label></th>
-                <th style="border: 1px solid black;"><label for="" style="font-size: 15px;"></label></th>
-                <th style="border-top: 1px solid black; width: 300px;" colspan="7"><label for="" style="font-size: 15px;"> {{ $requestDetail->department->name }} </label></th>
+                <th style="border: 1px solid black; text-align: start" colspan="2" ><label for="" style="font-size: 13px;">Department</label></th>
+                <th style="border: 1px solid black; text-align: start"><label for="" style="font-size: 15px;"></label></th>
+                <th style="border-top: 1px solid black; width: 300px; text-align: start" colspan="7"><label for="" style="font-size: 13px;"> {{ $requestDetail->department->name }} </label></th>
                 <th style="border: 1px solid black;" colspan="1"><label for="" style="font-size: 11px;">PR. No.</label></th>
                 <th style="border: 1px solid black;" colspan="1"><label for="" style="font-size: 11px;">{{ $requestDetail->pr_no }}</label></th>
-                <th style="border: 1px solid black;" colspan="1"><label for="" style="font-size: 15px;">1/31/2023</label></th>
+                <th style="border: 1px solid black;" colspan="1"><label for="" style="font-size: 11px;">{{ date('F j, Y', strtotime($requestDetail->date1)) }}</label></th>
             </tr>
-            <tr >
-                <th style="border: 1px solid black;" colspan="2" ><label for="" style="font-size: 15px;">Section</label></th>
-                <th style="border: 1px solid black;"><label for="" style="font-size: 15px;">  </label></th>
-                <th style="border: 1px solid black;" colspan="7"><label for="" style="font-size: 15px;"> {{ $requestDetail->division?->name }} </label></th>
-                <th style="border: 1px solid black;" colspan="2"><label for="" style="font-size: 15px;">Resolution No.</label></th>
-                <th style="border: 1px solid black;"><label for="" style="font-size: 15px;"></label></th>
+            <tr style="">
+                <th style="border: 1px solid black; text-align: start" colspan="2" ><label for="" style="font-size: 13px;">Section</label></th>
+                <th style="border: 1px solid black; text-align: start"><label for="" style="font-size: 15px;">  </label></th>
+                <th style="border: 1px solid black; text-align: start" colspan="7"><label for="" style="font-size: 13x;"> {{ $requestDetail->division?->name }} </label></th>
+                <th style="border: 1px solid black; text-align: start" colspan="2"><label for="" style="font-size: 13px;">Resolution No.</label></th>
+                <th style="border: 1px solid black; text-align: start"><label for="" style="font-size: 15px;"></label></th>
             </tr>
             <tr >
                 <th style="border: 1px solid black;" colspan="1" ><label for="" style="font-size: 15px;"></label></th>
                 <th style="border: 1px solid black;" colspan="1" ><label for="" style="font-size: 15px;"></label></th>
                 <th style="border: 1px solid black;"><label for="" style="font-size: 15px;"></label></th>
                 <th style="border: 1px solid black;" colspan="7"><label for="" style="font-size: 15px;"></label></th>
-                <th style="border: 1px solid black;" colspan="2"><label for="" style="font-size: 15px;">Quotation No.</label></th>
+                <th style="border: 1px solid black; text-align: start" colspan="2"><label for="" style="font-size: 15px;">Quotation No.</label></th>
                 <th style="border: 1px solid black;"><label for="" style="font-size: 15px;"></label></th>
             </tr>
             <tr style="text-align: center">
-                <th style="border: 1px solid black;"><label for="" style="font-size: 15px;">Item. <br> No</label></th>
-                <th style="border: 1px solid black;"><label for="" style="font-size: 15px;">Quantity</label></th>
-                <th style="border: 1px solid black;"><label for="" style="font-size: 15px;">Unit of <br> Issue</label></th>
-                <th style="border: 1px solid black;" colspan="8"><label for="" style="font-size: 15px;">Item Description</label></th>
-                <th style="border: 1px solid black;" colspan="" ><label for="" style="font-size: 15px;">Estimated Unit <br> Cost</label></th>
-                <th style="border: 1px solid black;"><label for="" style="font-size: 15px;">Estimated Total <br> Cost</label></th>
+                <th style="border: 1px solid black;"><label for="" style="font-size: 13px;">Item. No</label></th>
+                <th style="border: 1px solid black;"><label for="" style="font-size: 13px;">Quantity</label></th>
+                <th style="border: 1px solid black;"><label for="" style="font-size: 13px;">Unit of Issue</label></th>
+                <th style="border: 1px solid black;" colspan="8"><label for="" style="font-size: 13px;">Item Description</label></th>
+                <th style="border: 1px solid black;" colspan="" ><label for="" style="font-size: 13px;">Unit Cost</label></th>
+                <th style="border: 1px solid black;"><label for="" style="font-size: 13px;">Total Cost</label></th>
             </tr>
         </thead>
         <tbody>
             @foreach ($requestDetail->purchaseRequest as $purchaseRequest)
             <tr style="text-align: center">
-                <td style="border: 1px solid black;">{{ $loop->index + 1 }}</td>
-                <td style="border: 1px solid black;">{{ $purchaseRequest->quantity }}</td>
-                <td style="border: 1px solid black;">{{ $purchaseRequest->item->unit->description }}</td>
-                <td style="border: 1px solid black;" colspan="8"> {{ $purchaseRequest->description  }} </td>
-                <td style="border: 1px solid black;" colspan="1">{{ number_format($purchaseRequest->unit_price, 2) }}</td>
-                <td style="border: 1px solid black;">{{ number_format($purchaseRequest->estimated_cost, 2) }}</td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: start">{{ $loop->index + 1 }}</td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: start">{{ $purchaseRequest->quantity }}</td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: start">{{ $purchaseRequest->item->unit->description }}</td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: start" colspan="8"> {{ $purchaseRequest->description  }} </td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: end" colspan="1">{{ number_format($purchaseRequest->unit_price, 2) }}</td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: end">{{ number_format($purchaseRequest->estimated_cost, 2) }}</td>
             </tr>
             @endforeach
             <tr style="text-align: center">
@@ -108,28 +108,24 @@ table th, table td {
                 <td style="border: 1px solid black;"></td>
                 <td style="border: 1px solid black;"></td>
                 <td style="border: 1px solid black;" colspan="8"></td>
-                <th style="border: 1px solid black;" colspan="1">Total</th>
-                <th style="border: 1px solid black;">{{ number_format($requestDetail->grand_total, 2) }}</th>
+                <th style="border: 1px solid black; font-size: 13px" colspan="1">Total</th>
+                <th style="border: 1px solid black; font-size: 13px; text-align: end">{{ number_format($requestDetail->grand_total, 2) }}</th>
             </tr>
         </tbody>
         <tfoot>
             <tr style="">
                 <td style="border-bottom: 1px solid black; border-left: 1px solid black">Purpose:</td>
-                <td style="border-bottom: 1px solid black;" colspan="8">{{ $requestDetail->purpose }}</td>
-                <td style="border-bottom: 1px solid black;"></td>
-                <td style="border-bottom: 1px solid black;"></td>
-                <th style="border-bottom: 1px solid black;" colspan="1"></th>
-                <th style="border-bottom: 1px solid black; border-right: 1px solid black"></th>
+                <td style="border-bottom: 1px solid black; border-right: 1px solid black; text-align: start" colspan="12">{{ $requestDetail->purpose }}</td>
             </tr>
             <tr style="border-top: 1px solid black; border-left: 1px solid black; border-right: 1px solid black;">
                 <td colspan="2"><br> <br> Requested By:</td>
                 <td></td>
                 <td></td>
                 <th></th>
-                <td colspan="8" rowspan=""> <br> Certified as to cash Availability <br> Amount : {{ number_format($requestDetail->grand_total, 2) }}</td>
+                <td colspan="8" rowspan=""> <br> Certified as to cash Availability <br> Amount : <strong>{{ number_format($requestDetail->grand_total, 2) }}</strong></td>
             </tr>
             <tr style="border-left: 1px solid black; border-right: 1px solid black;">
-                <td colspan="4"> <br> <br> <label for="" style="font-weight: 600; text-transform: uppercase;">{{ $requestDetail->requested_by }}</label> <br> Municipal General Services Officer </td>
+                <td colspan="4"> <br> <br> <label for="" style="font-weight: 600; text-transform: uppercase;">{{ $requestDetail->requested_by }}</label> <br> {{ $requestDetail->department->name }} Representative </td>
                 <th></th>
                 <td colspan="8" rowspan=""> <br> <label for="" style="font-weight: 600; text-transform: uppercase;" >Ronaldo O. Valles</label> <br> Municipal Treasuser </td>
             </tr>
@@ -146,5 +142,10 @@ table th, table td {
         </tfoot>
     </table>
 </div>
+
+<footer class="outer-container" style="margin-top: 20%;" >
+    <img  style="margin: 0 0 0 2em;" src="{{ asset('images/brand/sckn.png') }}" height="30" width="150" alt="">
+    <p style="font-size: 11px; margin: 0 0 0 6em;"> <label for="" style="font-weight: 600">Cailles Street Poblacion III. Santa Cruz, Laguna <br> Telephone No. (049) 501-0250</label></p>
+</footer>
 </body>
 </html>

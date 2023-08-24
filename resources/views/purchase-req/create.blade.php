@@ -263,7 +263,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content" style="">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Inventory List</h1>
@@ -484,7 +484,7 @@
                                         <td><input type='number' class='form-control' value='' id='unit_price' name='items[${tableLength}][unit_price]' /></td>
                                         @endstaff
                                         @user
-                                        <td><input class='form-control' value='${response.unit_price}' id='unit_price' name='items[${tableLength}][unit_price]' /></td>
+                                        <td><input class='form-control' value='' id='unit_price' name='items[${tableLength}][unit_price]' /></td>
                                         @enduser
                                         <td><input class='form-control bg-transparent border-0' id="estimatedCost" readonly value='' name='items[${tableLength}][estimated_cost]' /></td>
                                     </tr>`;
