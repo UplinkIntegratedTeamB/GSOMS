@@ -88,7 +88,7 @@
 
                                         @user
                                         @if($request->status === 0)
-                                        <a class="col btn btn-primary" href="{{ route('purchaseRequest.edit', $request->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
+                                        <a class="col btn btn-primary" href="{{ route('purchaseRequest.editPr', $request->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
                                         <a class="col btn btn-danger" href="{{ route('purchaseRequest.removePr', ['id' => $request->id]) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
                                         <a class="col btn btn-info" href="{{ route('pdf.download', ['id' => $request->id]) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="PDF"><i class="fas fa-file-pdf"></i></a>
                                         @else

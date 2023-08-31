@@ -57,4 +57,9 @@ class Item extends Model
         return $this->hasOne(TripTicket::class);
     }
 
+    public function bidWinners() : HasMany
+    {
+        return $this->hasMany(BidWinner::class);
+    }
+
 }

@@ -72,7 +72,7 @@
                     @enderror
 
                     <div class="form-group mt-2">
-                        <label for="res_title">Amount in Words</label>
+                        <label for="res_title">Amount in Words <span style="font-weight: 700">(P {{ number_format($request->grand_total, 2) }})</span> </label>
                         <div class="input-group">
                             <textarea type="text" name="amount_in_words" placeholder="Amount in Words" class="form-control" autofocus required>{{ old("amount_in_words") }}</textarea>
                         </div>

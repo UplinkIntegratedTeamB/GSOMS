@@ -32,9 +32,8 @@ class AbstractCanvass extends Model
         return $this->hasMany(SupplierOffered::class);
     }
 
-    public function winners() : BelongsTo
+    public function bidWinners() : HasMany
     {
-        return $this->belongsTo(Supplier::class, 'winner', 'id', 'name');
+        return $this->hasMany(BidWinner::class);
     }
-
 }

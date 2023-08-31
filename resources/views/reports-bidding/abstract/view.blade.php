@@ -167,7 +167,7 @@
                                     <option value="" selected disabled>Select Supplier</option>
                                     @foreach ($suppliers as $supplier)
                                     @php
-                                        $isDisabled = in_array($supplier->id, $abstracts->biddingOffereds->pluck('id')->toArray());
+                                        $isDisabled = in_array($supplier->id, $abstracts->biddingOffereds->pluck('supplier_id')->toArray());
                                     @endphp
                                     <option value="{{ $supplier->id }}" {{ $isDisabled ? 'disabled' : '' }} >{{ $supplier->name }}</option>
                                     @endforeach

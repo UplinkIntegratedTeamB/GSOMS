@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('abstract_canvasses', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('winner')->nullable();
-            $table->foreign('winner')->references('id')->on('suppliers')->cascadeOnDelete();
+            // $table->foreign('winner')->references('id')->on('suppliers')->cascadeOnDelete();
             $table->foreignId('request_detail_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

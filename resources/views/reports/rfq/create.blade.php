@@ -75,7 +75,7 @@
                             @foreach ($request->purchaseRequest as $pr)
                             <tr>
                                 <td>{{ $pr->item_id }}</td>
-                                <td>{{ $pr->item->description }}</td>
+                                <td>{{ $pr->description }}</td>
                                 <td>{{ $pr->quantity }}</td>
                                 <td>{{ $pr->item->itemType->type }}</td>
                                 <td>{{ $pr->unit_price }}</td>

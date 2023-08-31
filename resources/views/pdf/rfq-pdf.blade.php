@@ -160,7 +160,7 @@
             <tbody>
                 @foreach ($rfq->requestDetail->purchaseRequest as $pr)
                 <tr>
-                    <td style="font-size: 12px; border: 1px solid black; padding: 10px">{{ $loop->index + 1 }}</td>
+                    <td style="font-size: 12px; border: 1px solid black; padding: 4px">{{ $loop->index + 1 }}</td>
                     <td colspan="6" style="font-size: 12px; border: 1px solid black">- {{ $pr->description }}</td>
                     <td style="font-size: 12px; border: 1px solid black">{{ $pr->quantity }}</td>
                     <td style="font-size: 12px; border: 1px solid black">{{ $pr->item->unit->description }}</td>
@@ -173,7 +173,15 @@
                     <td colspan="6" style="font-size: 12px; border: 1px solid black"></td>
                     <td style="font-size: 12px; border: 1px solid black"></td>
                     <td style="font-size: 12px; border: 1px solid black"></td>
-                    <td colspan="2" style="font-size: 12px; border: 1px solid black;  padding: 10px">TOTAL</td>
+                    <td colspan="2" style="font-size: 12px; border: 1px solid black;  padding: 10px"></td>
+                    <td colspan="2" style="font-size: 12px; border: 1px solid black"></td>
+                </tr>
+                <tr >
+                    <td style="font-size: 12px; border: 1px solid black;"></td>
+                    <td colspan="6" style="font-size: 12px; border: 1px solid black"></td>
+                    <td style="font-size: 12px; border: 1px solid black"></td>
+                    <td style="font-size: 12px; border: 1px solid black"></td>
+                    <td colspan="2" style="font-size: 12px; border: 1px solid black;  padding: 4px">TOTAL</td>
                     <td colspan="2" style="font-size: 12px; border: 1px solid black"></td>
                 </tr>
             </tbody>

@@ -92,12 +92,13 @@ class PurchaseRequestController extends Controller
         $categories = Category::all();
         $inventories = Item::with('itemType')->paginate();
         $procurementModes = ProcurementMode::all();
+        $unitType = ItemType::all();
         $divisions = $department->divisions;
         foreach($divisions as $division) {
             $section = $division->sections;
         }
 
-        return view('purchase-req.editPr', compact('requestDetail', 'inventories', 'procurementModes', 'id', 'departments', 'categories', 'divisions'));
+        return view('purchase-req.editPr', compact('requestDetail', 'inventories', 'procurementModes', 'id', 'unitType', 'departments', 'categories', 'divisions'));
     }
 
     public function preview($id)

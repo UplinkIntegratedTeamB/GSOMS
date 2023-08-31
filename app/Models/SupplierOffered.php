@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SupplierOffered extends Model
 {
+    use HasFactory;
 
     protected $fillable = [
         'abstract_canvass_id',
@@ -15,7 +16,6 @@ class SupplierOffered extends Model
         'grand_total'
     ];
 
-    use HasFactory;
 
     public function supplierOfferedItems()
     {

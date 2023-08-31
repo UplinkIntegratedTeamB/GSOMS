@@ -29,11 +29,6 @@
         opacity: 0.5;
     }
 
-    #selected_tr {
-        background: gray;
-        opacity: 0.5;
-    }
-
     textarea.is-invalid {
         border-color: red !important;
     }
@@ -43,12 +38,8 @@
         /* Adjust this value to your desired width */
     }
 
-    #example th:nth-child(4) {
-        min-width: 150px;
-        /* Adjust this value to your desired width */
-    }
-
 </style>
+
 <div class="container-fluid">
     @if($errors->any())
     {{ implode('', $errors->all('<div>:message</div>')) }}
@@ -263,21 +254,30 @@
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content" style="">
             <div class="modal-header">
-                <h1 class="modal-title- fs-5" id="staticBackdropLabel">Inventory List</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Inventory List</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalBody">
-                <div class="container-fluid" id="inventoryTable">
-                    <table id="category-table" class="data-table table table-bordered table-responsive" style="width: 100%">
+                <div class="form-group" id="unitTypeVal">
+                    <label for="">Unit Type</label>
+                    <select name="" id="unitType" class="form-control select2">
+                        <option value="" selected disabled>Select Unit Type</option>
+                        @foreach ($unitType as $type)
+                        <option value="{{ $type->type }}">{{ $type->type }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="container-fluid mt-5" id="inventoryTable" hidden>
+                    <table class="data-table table table-bordered" style="width: 100%">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th></th>
                                 <th>
-                                    <select name="category" id="category_id" class="filter select2 form-control">
+                                    <select hidden name="category" id="category_id" class="filter select2 form-control">
                                         <option value="" selected>Category</option>
                                         @foreach($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -286,9 +286,7 @@
                                 </th>
                                 <th></th>
                                 <th>
-                                    @foreach ($requestDetail->purchaseRequest as $request->first)
-                                    <input type="text" hidden class="form-control " value="{{ $request->item->itemType->type }}" id="unit">
-                                    @endforeach
+                                    <input type="text" hidden class="form-control " id="unit">
                                 </th>
                                 <th></th>
                             </tr>
@@ -358,6 +356,7 @@
     });
 
 
+
     let selectedRows = [];
     let disabledRows = [];
     let gtotal = parseFloat({{$requestDetail->grand_total}});
@@ -414,7 +413,7 @@
         }
 
         $(document).ready(function() {
-            const tableY = $('#example').DataTable({
+            const table = $('#example').DataTable({
                 drawCallback: function(settings) {
                     $('.unit-price-input, .quantity-input').on('input', function() {
                         calculateEstimatedCost($(this));
@@ -450,7 +449,6 @@
             });
         });
 
-
         const tableY = $('.data-table').DataTable({
             processing: true
             , serverSide: true
@@ -467,8 +465,7 @@
 
                 $('.inventory_item').click(function(e) {
                     const checkbox = $(this).find('.clickable');
-                    const baseUrl = '{{ url('
-                    ') }}';
+                    const baseUrl = '{{ url('') }}';
                     const rowDataId = $(this).data('id');
                     $(this).toggleClass('selected_tr');
                     checkbox.prop('checked', !checkbox.prop('checked'));
@@ -572,9 +569,10 @@
             , ajax: {
                 url: "{{ route('inventory.index') }}"
                 , data: function(d) {
-                    d.category_id = $('#category_id').val()
-                        , d.search = $('input[aria-controls="DataTables_Table_0"]:first').val()
-                        , d.unit = $('#unit').val();
+                    d.category_id = $('#category_id').val();
+                    d.search = $('input[aria-controls="DataTables_Table_0"]:first').val();
+                    d.unit = $('#unit').val();
+                    console.log(d.unit);
                 }
             }
             , columns: [{
@@ -593,6 +591,11 @@
                 , {
                     data: 'description'
                     , name: 'description'
+                    , render: function(data, type, row) {
+                        // Limit description to 5 words
+                        var words = data.split(' ').slice(0, 9).join(' ');
+                        return words + (data.split(' ').length > 9 ? '...' : '');
+                    }
                 }
                 , {
                     data: 'item_type_id'

@@ -104,6 +104,14 @@ table th, table td {
             </tr>
             @endforeach
             <tr style="text-align: center">
+                <td style="border: 1px solid black; font-size: 13px; text-align: start"></td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: start"></td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: start"></td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: start" colspan="8"></td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: end" colspan="1"></td>
+                <td style="border: 1px solid black; font-size: 13px; text-align: end"></td>
+            </tr>
+            <tr style="text-align: center">
                 <td style="border: 1px solid black;"></td>
                 <td style="border: 1px solid black;"></td>
                 <td style="border: 1px solid black;"></td>

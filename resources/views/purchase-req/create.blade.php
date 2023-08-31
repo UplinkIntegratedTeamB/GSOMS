@@ -271,9 +271,9 @@
             </div>
             <div class="modal-body" id="modalBody">
                 <div class="form-group" id="unitTypeVal">
-                    <label for="">Unit Type</label>
+                    <label for="">Category Type</label>
                     <select name="" id="unitType" class="form-control select2">
-                        <option value="" selected disabled>Select Unit Type</option>
+                        <option value="" selected disabled>Select Category Type</option>
                         @foreach ($unitType as $type)
                         <option value="{{ $type->type }}">{{ $type->type }}</option>
                         @endforeach

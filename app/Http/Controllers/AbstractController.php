@@ -95,7 +95,7 @@ class AbstractController extends Controller
     public function show($id)
     {
 
-        $abstracts = AbstractCanvass::with('requestDetail.department', 'requestDetail.purchaseRequest', 'supplierOffereds.supplierOfferedItems')->find($id);
+        $abstracts = AbstractCanvass::with('requestDetail.department', 'requestDetail.purchaseRequest', 'supplierOffereds.supplierOfferedItems', 'supplierOffereds.supplier')->find($id);
         $suppliers = Supplier::all();
 
         return view('reports.abstract.view', compact('abstracts', 'id', 'suppliers'));
@@ -123,23 +123,64 @@ class AbstractController extends Controller
 
     public function compute($id)
     {
-        $abstractsSupplier = AbstractCanvass::with('supplierOffereds')->find($id);
-        $lowest = null;
-        $lowestId = null;
+        $abstractCanvas = AbstractCanvass::with('supplierOffereds.supplierOfferedItems')->find($id);
+        $bidWinners = [];
 
-        foreach ($abstractsSupplier->supplierOffereds as $abstract) {
-            $grandTotal = $abstract->grand_total;
-            $abstractId = $abstract->supplier_id;
-
-            if ($lowest === null || $grandTotal < $lowest) {
-                $lowest = $grandTotal;
-                $lowestId = $abstractId;
+        // Populate the bidWinners
+        foreach ($abstractCanvas->supplierOffereds as $supplierOffered) {
+            foreach ($supplierOffered->supplierOfferedItems as $item) {
+                $abstractId = $supplierOffered->supplier_id;
+                if (!array_key_exists($abstractId, $bidWinners)) {
+                    $bidWinners[$abstractId] = [];
+                }
+                $bidWinners[$abstractId][$item->item_id] = $item;
             }
         }
 
-        $canvass = AbstractCanvass::find($id);
-        $canvass->update(['winner' => $lowestId]);
 
+        // Identify the lowest bids for each item
+        $lowestBids = [];
+
+        foreach ($bidWinners as $supplierId => $bids) {
+            foreach ($bids as $itemId => $bid) {
+                if ($bid->offer_price == 0) {
+                    continue; // Skip items with bid value 0
+                }
+
+
+                if (!isset($lowestBids[$itemId]) || $bid->offer_price < $lowestBids[$itemId]['price']) {
+                    $lowestBids[$itemId] = [
+                        'price' => $bid->offer_price,
+                        'supplierId' => $supplierId,
+                        'itemId' => $itemId,
+                        'totalAmt' => $bid->total_amt
+                    ];
+                }
+            }
+        }
+
+        // Construct a new winners list based on the lowest bids
+        $newBidWinners = [];
+        foreach ($lowestBids as $itemId => $details) {
+            $supplierId = $details['supplierId'];
+            $newBidWinners[$supplierId][$itemId] = $bidWinners[$supplierId][$itemId];
+        }
+
+        $bidWinners = $newBidWinners; // Reassign the refined list
+
+        foreach ($bidWinners as $key => $items) {
+            foreach ($items as $itemId => $bid) {
+                $abstractCanvas->bidWinners()->create([
+                    'supplier_id' => $key,
+                    'item_id' => $itemId,
+                    'total_amt' => $bid->total_amt,
+                ]);
+            }
+
+        }
+
+
+        $canvass = AbstractCanvass::find($id);
 
         RequestDetail::find($canvass->request_detail_id)->update(['status' => 8]);
 

@@ -120,7 +120,7 @@
                     <tbody>
                         @foreach ($abstracts->supplierOffereds as $request)
                         <tr>
-                            <td>{{ $request->id }}</td>
+                            <td>{{ $request->supplier->id }}</td>
                             <td>{{ $request->supplier->name }}</td>
                             <td>{{ $request->grand_total }}</td>
                             <td>
@@ -133,6 +133,7 @@
                 </table>
             </div>
         </div>
+
 
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <form action="{{ route('abstract.addSupplier', $id) }}" method="POST">
@@ -150,7 +151,7 @@
                                     <option value="" selected disabled>Select Supplier</option>
                                     @foreach ($suppliers as $supplier)
                                     @php
-                                    $isDisabled = in_array($supplier->id, $abstracts->supplierOffereds->pluck('id')->toArray());
+                                        $isDisabled = in_array($supplier->id, $abstracts->supplierOffereds->pluck('supplier_id')->toArray());
                                     @endphp
                                     <option value="{{ $supplier->id }}" {{ $isDisabled ? 'disabled' : '' }} >{{ $supplier->name }}</option>
                                     @endforeach
@@ -180,7 +181,7 @@
                                             <input type="text" class="form-control unitPrice" name="inventory[{{ $loop->index }}][offer_price]" value="" id="offer_price{{ $loop->index }}" required>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control totalAmt text-end bg-transparent border-0" name="inventory[{{ $loop->index }}][total_amt]" value="" id="totalAmt{{ $loop->index }}" readonly>
+                                            <input type="text" class="form-control totalAmt text-end border-0" name="inventory[{{ $loop->index }}][total_amt]" value="" id="totalAmt{{ $loop->index }}" readonly>
                                         </td>
                                     </tr>
                                     @endforeach

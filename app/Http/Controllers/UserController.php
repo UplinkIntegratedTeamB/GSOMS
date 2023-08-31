@@ -36,7 +36,7 @@ class UserController extends Controller
     }
 
     public function create() {
-        $departments = Department::paginate();
+        $departments = Department::where('department_code', null)->get();
 
         return view('admin.account.create', compact('departments'));
     }

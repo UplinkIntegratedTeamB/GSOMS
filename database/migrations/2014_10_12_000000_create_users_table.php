@@ -73,6 +73,26 @@ return new class extends Migration
             $bmo->assignRole($roleBmo);
         }
 
+        $staffs = [
+            ['name' => 'Staff', 'email' => 'staff@gmail.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'department_id' => 12 ]
+        ];
+        $roleStaff = Role::findByName('staff');
+
+        foreach($staffs as $staff) {
+            $staf = User::create($staff);
+            $staf->assignRole($roleStaff);
+        }
+
+        $Hstaffs = [
+            ['name' => 'Engr. Maria Lourdes P. San Miguel', 'email' => 'headstaff@gmail.com', 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'department_id' => 12 ]
+        ];
+        $roleHStaff = Role::findByName('headstaff');
+
+        foreach($Hstaffs as $Hstaff) {
+            $staf = User::create($Hstaff);
+            $staf->assignRole($roleHStaff);
+        }
+
     }
 
     /**
